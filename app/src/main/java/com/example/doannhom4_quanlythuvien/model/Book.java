@@ -4,38 +4,10 @@ import java.io.Serializable;
 
 public class Book implements Serializable {
     private String id, title, author, coverPhotoURL, link;
+    String type;
     private float rating;
 
     public Book() {
-    }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id='" + id + '\'' +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", coverPhotoURL='" + coverPhotoURL + '\'' +
-                ", link='" + link + '\'' +
-                ", rating=" + rating +
-                '}';
-    }
-
-    public Book(String id, String title, String author, float rating, String coverPhotoURL, String link) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.rating = rating;
-        this.coverPhotoURL = coverPhotoURL;
-        this.link = link;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
     }
 
     public String getId() {
@@ -62,6 +34,30 @@ public class Book implements Serializable {
         this.author = author;
     }
 
+    public String getCoverPhotoURL() {
+        return coverPhotoURL;
+    }
+
+    public void setCoverPhotoURL(String coverPhotoURL) {
+        this.coverPhotoURL = coverPhotoURL;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public float getRating() {
         return rating;
     }
@@ -70,11 +66,26 @@ public class Book implements Serializable {
         this.rating = rating;
     }
 
-    public String getCoverPhotoURL() {
-        return coverPhotoURL;
+    public Book(String id, String title, String author, String coverPhotoURL, String link, String type, float rating) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.coverPhotoURL = coverPhotoURL;
+        this.link = link;
+        this.type = type;
+        this.rating = rating;
     }
 
-    public void setCoverPhotoURL(String coverPhotoURL) {
-        this.coverPhotoURL = coverPhotoURL;
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", coverPhotoURL='" + coverPhotoURL + '\'' +
+                ", link='" + link + '\'' +
+                ", type='" + type + '\'' +
+                ", rating=" + rating +
+                '}';
     }
 }

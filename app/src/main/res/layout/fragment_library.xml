@@ -45,7 +45,8 @@
     </LinearLayout>
 
     <GridView
-        android:id="@+id/list"
+        tools:listitem="@layout/items_library"
+        android:id="@+id/book_gallery"
         android:numColumns="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

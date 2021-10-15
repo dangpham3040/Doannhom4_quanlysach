@@ -110,7 +110,7 @@ public class Home_Fragment extends Fragment {
         khoitao();
         adapter = new book_Adapter(getContext(), R.layout.item_book, data);
         gridView.setAdapter(adapter);
-        gridView.setNumColumns(3);
+
 
         spinner = view.findViewById(R.id.book_type);
         ArrayList<String> arrayList = new ArrayList<>();
@@ -135,10 +135,10 @@ public class Home_Fragment extends Fragment {
 
     private void khoitao() {
         for (int i = 0; i < 10; i++) {
-            Book book = new Book(i + "", "sach" + i, "tac gia" + i, 4, StaticConfig.Default_avatar, StaticConfig.Default_avatar);
+            Book book = new Book(i + "", "sach" + i, "tac gia" + i, StaticConfig.Default_avatar, StaticConfig.Default_avatar, "Biographies", 4);
             data.add(book);
         }
-        Book book = new Book(11 + "", "tieng viet", "dang", 4, StaticConfig.Default_avatar, StaticConfig.Default_avatar);
+        Book book = new Book(11 + "", "tieng viet", "dang", StaticConfig.Default_avatar, StaticConfig.Default_avatar, "Business", 3);
         data.add(book);
     }
 
@@ -167,28 +167,48 @@ public class Home_Fragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                //sai
-                adapter.filter(etsearch.getText().toString());
-//                String text = etsearch.getText().toString().toLowerCase();
-//                if (dataResults.size() == 0) {
-//                    dataResults = data;
-//                }
-//                for (Book b : data) {
-//                    data.clear();
-//                    if (b.getAuthor().contains(text)) {
-//                        data.add(b);
-//                    } else {
-//                        data = dataResults;
-//                    }
-//                }
-//                adapter.notifyDataSetChanged();
+                ArrayList<Book> result = new ArrayList<>();
+                String tempchr = etsearch.getText().toString();
+
+
+                for (int i = 0; i < data.size(); i++) {
+                    Book temp = data.get(i);
+                    if (temp.getTitle().contains(tempchr) || temp.getAuthor().contains(tempchr) || temp.getType().contains(tempchr)) {
+                        result.add(temp);
+                        Log.d("so sach", result.size() + "");
+                    }
+
+                    if (tempchr.isEmpty()) {
+                        result = data;
+                        break;
+                    }
+                }
+                adapter = new book_Adapter(getContext(), R.layout.item_book, result);
+                gridView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
         });
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 theloai = spinner.getSelectedItem().toString();
-//                Toast.makeText(getContext(), theloai, Toast.LENGTH_SHORT).show();
+                ArrayList<Book> result = new ArrayList<>();
+                for (int i = 0; i < data.size(); i++) {
+                    Book temp = data.get(i);
+                    if (temp.getType().equals(theloai)) {
+                        result.add(temp);
+                        Log.d("so sach", result.size() + "");
+                    }
+                    if (theloai.equals("All")) {
+                        result = data;
+                    }
+                }
+                if (result.size() == 0) {
+                    Toast.makeText(getContext(), "khong co", Toast.LENGTH_SHORT).show();
+                }
+                adapter = new book_Adapter(getContext(), R.layout.item_book, result);
+                gridView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
 
             @Override

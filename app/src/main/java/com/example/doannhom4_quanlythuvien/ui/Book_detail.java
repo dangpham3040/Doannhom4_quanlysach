@@ -61,6 +61,7 @@ public class Book_detail extends AppCompatActivity {
                 .fit()
 //                                .transform(transformation)
                 .into(cover);
+        type.setText(chitiet.getType());
 
     }
 }

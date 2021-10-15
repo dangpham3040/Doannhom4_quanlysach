@@ -5,9 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.media.Image;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -31,6 +35,8 @@ public class Management extends AppCompatActivity {
     private ArrayList<Book> data = new ArrayList<>();
     private GridView gridView;
     private book_Adapter adapter;
+    private String theloai;
+    private EditText etsearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +51,12 @@ public class Management extends AppCompatActivity {
         title = findViewById(R.id.title);
         goback = findViewById(R.id.goback);
         gridView = findViewById(R.id.book_gallery);
+        etsearch=findViewById(R.id.search);
 
         khoitao();
         adapter = new book_Adapter(getApplicationContext(), R.layout.items_library, data);
         gridView.setAdapter(adapter);
-        gridView.setNumColumns(1);
+
 
         //gán tựa đề
         title.setText("Management");
@@ -75,14 +82,48 @@ public class Management extends AppCompatActivity {
 
     private void khoitao() {
         for (int i = 0; i < 10; i++) {
-            Book book = new Book(i + "", "sach" + i, "tac gia" + i, 4, StaticConfig.Default_avatar, StaticConfig.Default_avatar);
+            Book book = new Book(i + "", "sach" + i, "tac gia" + i, StaticConfig.Default_avatar, StaticConfig.Default_avatar,"Biographies",4);
             data.add(book);
         }
-        Book book = new Book(11 + "", "tieng viet", "dang", 4, StaticConfig.Default_avatar, StaticConfig.Default_avatar);
+        Book book = new Book(11 + "", "tieng viet", "dang",  StaticConfig.Default_avatar, StaticConfig.Default_avatar,"Business",3);
         data.add(book);
     }
 
     private void setEvent() {
+        etsearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                ArrayList<Book> result = new ArrayList<>();
+                String tempchr = etsearch.getText().toString();
+
+
+                for (int i = 0; i < data.size(); i++) {
+                    Book temp = data.get(i);
+                    if (temp.getTitle().contains(tempchr) || temp.getAuthor().contains(tempchr) || temp.getType().contains(tempchr)) {
+                        result.add(temp);
+                        Log.d("so sach", result.size() + "");
+                    }
+
+                    if (tempchr.isEmpty()) {
+                        result = data;
+                        break;
+                    }
+                }
+                adapter = new book_Adapter(getApplicationContext(), R.layout.item_book, result);
+                gridView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+        });
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +133,25 @@ public class Management extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //Toast.makeText(getApplicationContext(), spinner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                theloai = spinner.getSelectedItem().toString();
+                ArrayList<Book> result = new ArrayList<>();
+
+                for (int i = 0; i < data.size(); i++) {
+                    Book temp = data.get(i);
+                    if (temp.getType().equals(theloai)) {
+                        result.add(temp);
+                        Log.d("so sach", result.size() + "");
+                    }
+                    if (theloai.equals("All")) {
+                        result = data;
+                    }
+                }
+                if(result.size()==0){
+                    Toast.makeText(getApplicationContext(), "khong co", Toast.LENGTH_SHORT).show();
+                }
+                adapter = new book_Adapter(getApplicationContext(), R.layout.items_library, result);
+                gridView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
