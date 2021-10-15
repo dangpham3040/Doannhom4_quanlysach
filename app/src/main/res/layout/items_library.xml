@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_marginLeft="50dp"
-    android:layout_marginRight="50dp">
+    android:layout_marginRight="50dp"
+    >
 
     <ImageView
         android:id="@+id/cover"

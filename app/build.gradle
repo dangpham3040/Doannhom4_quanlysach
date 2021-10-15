@@ -28,6 +28,12 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+allprojects {
+    repositories {
+    
+        maven { url "https://jitpack.io" }
+    }
+}
 
 dependencies {
 
@@ -61,4 +67,5 @@ dependencies {
     implementation 'com.mikhaellopez:circularimageview:4.2.0'
     compile 'com.github.markushi:circlebutton:1.1'
 
+    compile 'com.github.jd-alexander:LikeButton:0.2.3'
 }

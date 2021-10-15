@@ -71,17 +71,35 @@
             android:text="about this book"
             android:textStyle="bold" />
 
-        <TextView
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/text" />
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <Button
+            <Button
+                android:id="@+id/readnow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Read now" />
 
-            android:id="@+id/readnow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Read now" />
+            <ImageView
+
+                android:id="@+id/heart"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/heart_off" />
+
+
+        </LinearLayout>
+
     </LinearLayout>
 
 

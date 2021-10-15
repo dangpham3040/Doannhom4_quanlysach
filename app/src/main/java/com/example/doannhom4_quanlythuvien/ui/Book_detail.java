@@ -21,6 +21,7 @@ public class Book_detail extends AppCompatActivity {
     private TextView book_title, author, type;
     private ImageView cover;
     private RatingBar ratingBar;
+    private ImageView heart;
 
 
     @Override
@@ -32,6 +33,13 @@ public class Book_detail extends AppCompatActivity {
     }
 
     private void setEvnet() {
+        heart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                heart.setImageResource(R.drawable.heart_on);
+            }
+        });
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +59,7 @@ public class Book_detail extends AppCompatActivity {
         type = findViewById(R.id.type);
         cover = findViewById(R.id.cover);
         ratingBar = findViewById(R.id.rating);
+        heart = findViewById(R.id.heart);
 
         //gan du lieu
         book_title.setText(chitiet.getTitle());
