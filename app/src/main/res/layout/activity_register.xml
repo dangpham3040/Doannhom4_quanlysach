@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#8dc6ca"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.Register">
+
+    <TextView
+        android:id="@+id/dangky"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/register"
+        android:textColor="#BA1111"
+        android:textSize="45dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView style="@style/img_style" />
+
+            <TextView
+                style="@style/tieude_style"
+                android:text="User" />
+        </LinearLayout>
+
+
+        <EditText
+            android:inputType="textPersonName"
+            android:id="@+id/etHoten"
+            style="@style/edtextdangky_style"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView style="@style/img_style" />
+
+            <TextView
+                style="@style/tieude_style"
+                android:text="Phone" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/etphone"
+            style="@style/edtextdangky_style"
+            android:layout_weight="1"
+            android:inputType="phone|number" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageView style="@style/img_style" />
+
+                <TextView
+                    android:inputType="textEmailAddress"
+                    style="@style/tieude_style"
+                    android:gravity="center"
+                    android:text="Email" />
+
+            </LinearLayout>
+
+            <EditText
+                android:layout_gravity="center"
+                android:inputType="textEmailAddress"
+                android:layout_marginRight="25dp"
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/ic_square" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView style="@style/img_style" />
+
+        <TextView
+            style="@style/tieude_style"
+            android:text="Sex" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/nam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="@string/male"
+                android:textColor="@color/white" />
+
+            <RadioButton
+                android:id="@+id/nu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/female"
+                android:textColor="@color/white" />
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/edtextdangky_style"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingRight="45dp"
+            android:text="@string/pas"
+            android:textColor="@color/white"></TextView>
+
+        <EditText
+            android:inputType="textPassword"
+            android:id="@+id/pass"
+            style="@style/etkhung_style"
+            android:layout_weight="1">
+
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/edtextdangky_style"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingRight="45dp"
+            android:text="confrim"
+            android:textColor="@color/white"></TextView>
+
+        <EditText
+            android:inputType="textPassword"
+            android:id="@+id/cpass"
+            style="@style/etkhung_style"
+            android:layout_weight="1"></EditText>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:enabled="false"
+        android:text="@string/registration" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_login" />
+
+        <TextView
+            android:id="@+id/link_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:inputType="textUri"
+            android:text="@string/link_login"
+            android:textColorLink="#0C8FF8" />
+    </LinearLayout>
+
+
+</LinearLayout>

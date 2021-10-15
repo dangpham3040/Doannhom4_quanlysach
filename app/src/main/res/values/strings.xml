@@ -1,0 +1,94 @@
+<resources>
+    <string name="app_name">Quan ly thu vien</string>
+    //tác giả
+    <string name="tachgia">Phạm Hải Đăng</string>
+    //nút
+    <string name="add">Thêm</string>
+    <string name="del">Xoá</string>
+    <string name="Upadte">Sửa</string>
+    <string name="show">Hiển thị</string>
+    <string name="AddFriend">Add Friend</string>
+    <string name="remove">Remove</string>
+
+    //place_hoder
+    <string name="fist">Fistname: </string>
+    <string name="last">LastName: </string>
+    <string name="email">Email: </string>
+    <string name="pas">Password: </string>
+    <string name="_pas">nhập lại Password: </string>
+    //tiêu đề
+    <string name="registration">registration</string>
+    <string name="fist_">FistName:</string>
+    <string name="last_">LastName:</string>
+    <string name="email_">Email:</string>
+    <string name="pass">Password:</string>
+    <string name="_pass">confirm Password:</string>
+    <string name="sex">sex:</string>
+    <string name="full">Fullname: </string>
+    <string name="register">register</string>
+    <string name="logout">Logout</string>
+    <string name="login">Login</string>
+    <string name="forgot">forgot password?!</string>
+    <string name="title">Title</string>
+    //text link
+    <string name="text_register">"Don't have an account yet?"</string>
+    <string name="text_login">Already have an account?</string>
+    //link
+    <string name="link_login"><font color='blue'> sign in!</font></string>
+    <string name="link_register"><font color='blue'> sign up!</font></string>
+    //chat bar
+    <string name="type">Type something...</string>
+    <string name="username">Username</string>
+    <string name="status">offline </string>
+    //profile bar
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    //check box
+    <string name="male">Nam</string>
+    <string name="female">Nữ</string>
+
+    //spiner
+    <array name="sex">\
+        <item>Nam</item>
+        <item>Nữ</item>
+    </array>
+    <array name="book_type">\
+        <item>Arts and Music</item>
+        <item>Biographies</item>
+        <item>Business</item>
+        <item>Comics</item>
+    </array>
+    //menu
+    <string name="setting">Setting</string>
+    <string name="shop">Shop</string>
+    <string name="friends">Friends</string>
+    <string name="Contact">Contact</string>
+    <string name="Home">Home</string>
+    <string name="Setting">Setting</string>
+    <string name="Library">Library</string>
+    <string name="profile">Profile</string>
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="matkhau">Pass</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    //text mau
+    <string name="text">Những người sáng lập ban đầu giới hạn tư cách thành viên của Facebook cho sinh viên Harvard và sau đó là sinh viên Columbia, Stanford và Yale. Tư cách thành viên cuối cùng đã được mở rộng sang các trường Ivy League, MIT và các tổ chức giáo dục đại học còn lại trong khu vực Boston, sau đó là các trường đại học khác và cuối cùng là học sinh trung học. Kể từ năm 2006, bất cứ ai tuyên bố ít nhất 13 tuổi đã được phép đăng ký tài khoản Facebook, mặc dù điều này có thể khác nhau tùy thuộc vào luật pháp địa phương. Tên đến từ các thư mục face book thường được trao cho sinh viên đại học Mỹ. Facebook đã tổ chức đợt chào bán công khai lần đầu (IPO) vào tháng 2 năm 2012, định giá công ty ở mức 104 tỷ USD, mức định giá lớn nhất cho đến nay đối với một công ty đại chúng mới niêm yết. Facebook kiếm phần lớn doanh thu từ các quảng cáo xuất hiện trên màn hình và trong News Feed của người dùng.Dịch vụ Facebook có thể được truy cập từ các thiết bị có kết nối Internet, như máy tính cá nhân, máy tính bảng và điện thoại thông minh. Sau khi đăng ký, người dùng có thể tạo một hồ sơ tùy chỉnh tiết lộ thông tin về bản thân. Họ có thể đăng văn bản, ảnh và đa phương tiện được chia sẻ với bất kỳ người dùng nào khác đã đồng ý làm
+     của họ. Người dùng cũng có thể sử dụng các ứng dụng nhúng khác nhau, tham gia các nhóm sở thích chung và nhận thông báo về các hoạt động của bạn bè. Facebook tuyên bố rằng có hơn 2,3 tỷ người dùng hoạt động hàng tháng tính đến tháng 12 năm 2018.[9] Tuy nhiên, nó phải đối mặt với một vấn đề lớn với hàng loạt tài khoản giả mạo. Facebook đã bắt được 3 tỷ tài khoản giả, nhưng những tài khoản mà nó bỏ lỡ mới là vấn đề thực sự.[10] Nhiều nhà phê bình đặt câu hỏi liệu Facebook có biết có bao nhiêu người dùng thật hay không.[10][11][12] Facebook là một trong những công ty có giá trị nhất thế giới.
+    </string>
+
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/android 2/Doannhom4_quanlythuvien/app/src/main/res/layout/activity_book_detail.xml" value="0.13854166666666667" />
+        <entry key="..\:/android 2/Doannhom4_quanlythuvien/app/src/main/res/layout/activity_login.xml" value="0.13125" />
+        <entry key="..\:/android 2/Doannhom4_quanlythuvien/app/src/main/res/layout/activity_management.xml" value="0.15489130434782608" />
+        <entry key="..\:/android 2/Doannhom4_quanlythuvien/app/src/main/res/layout/fragment_home.xml" value="0.2542991141219385" />
+        <entry key="..\:/android 2/Doannhom4_quanlythuvien/app/src/main/res/layout/fragment_library.xml" value="0.15896739130434784" />
+        <entry key="..\:/android 2/Doannhom4_quanlythuvien/app/src/main/res/layout/fragment_profile.xml" value="0.13125" />
+        <entry key="..\:/android 2/Doannhom4_quanlythuvien/app/src/main/res/layout/items_library.xml" value="0.4992700729927007" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

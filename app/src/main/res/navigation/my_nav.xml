@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/home_Fragment">
+
+    <fragment
+        android:id="@+id/home_Fragment"
+        android:name="com.example.doannhom4_quanlythuvien.fragment.Home_Fragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.doannhom4_quanlythuvien.fragment.SettingsFragment"
+        android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/profile_Fragment"
+        android:name="com.example.doannhom4_quanlythuvien.fragment.Profile_Fragment"
+        android:label="fragment_profile_"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/contact_Fragment"
+        android:name="com.example.doannhom4_quanlythuvien.fragment.Contact_Fragment"
+        android:label="fragment_contact"
+        tools:layout="@layout/fragment_contact" />
+    <fragment
+        android:id="@+id/library_Fragment"
+        android:name="com.example.doannhom4_quanlythuvien.fragment.Library_Fragment"
+        android:label="fragment_library"
+        tools:layout="@layout/fragment_library" />
+</navigation>

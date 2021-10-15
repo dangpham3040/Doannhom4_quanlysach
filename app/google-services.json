@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "524405422244",
+    "project_id": "quan-ly-thu-vien-eac1a",
+    "storage_bucket": "quan-ly-thu-vien-eac1a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:524405422244:android:2b56d2e6f23f7c3a7ece31",
+        "android_client_info": {
+          "package_name": "com.example.doannhom4_quanlythuvien"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "524405422244-b88skh26btsdkgcnckhura1e2ckl3mbm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBA1x9zT83M16S43VC0_tOJXJaQluBm1Ro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "524405422244-b88skh26btsdkgcnckhura1e2ckl3mbm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
