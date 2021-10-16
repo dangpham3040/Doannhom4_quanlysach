@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Book implements Serializable {
     private String id, title, author, coverPhotoURL, link;
-    String type;
+    private String type;
     private float rating;
 
     public Book() {

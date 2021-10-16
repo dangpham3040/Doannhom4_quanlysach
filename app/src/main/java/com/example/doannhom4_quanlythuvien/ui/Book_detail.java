@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.doannhom4_quanlythuvien.R;
 import com.example.doannhom4_quanlythuvien.model.Book;
@@ -36,7 +37,6 @@ public class Book_detail extends AppCompatActivity {
         heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 heart.setImageResource(R.drawable.heart_on);
             }
         });

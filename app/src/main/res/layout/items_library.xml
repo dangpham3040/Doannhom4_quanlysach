@@ -13,7 +13,7 @@
         android:layout_height="150dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_baseline_library_books_24" />
+        android:src="@drawable/no_image" />
 
     <LinearLayout
         android:layout_width="match_parent"

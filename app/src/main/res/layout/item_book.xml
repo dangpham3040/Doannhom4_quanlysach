@@ -15,7 +15,7 @@
 
             <ImageView
                 android:id="@+id/cover"
-                android:src="@drawable/ic_baseline_library_books_24"
+                android:src="@drawable/no_image"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:layout_width="180dp"

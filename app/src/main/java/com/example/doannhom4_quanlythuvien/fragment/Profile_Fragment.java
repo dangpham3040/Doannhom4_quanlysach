@@ -118,6 +118,7 @@ public class Profile_Fragment extends Fragment {
                         url_avatar = ds.child("pic").getValue(String.class);
                         Picasso.get()
                                 .load(url_avatar)
+                                .placeholder(R.drawable.no_image)
                                 .fit()
 //                                .transform(transformation)
                                 .into(avatar);

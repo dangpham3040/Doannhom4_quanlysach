@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Doannhom4_quanlythuvien">
-        <activity android:name=".ui.Book_detail"></activity>
+        <activity
+            android:name=".ui.Add_book"
+            android:exported="false" />
+        <activity android:name=".ui.Book_detail" />
         <activity android:name=".ui.Edit_profile" />
         <activity android:name=".ui.Management" />
         <activity android:name=".ui.Starup" />

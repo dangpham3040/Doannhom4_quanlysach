@@ -135,10 +135,10 @@ public class Home_Fragment extends Fragment {
 
     private void khoitao() {
         for (int i = 0; i < 10; i++) {
-            Book book = new Book(i + "", "sach" + i, "tac gia" + i, StaticConfig.Default_avatar, StaticConfig.Default_avatar, "Biographies", 4);
+            Book book = new Book(i + "", "sach" + i, "tac gia" + i, StaticConfig.Default_avatar, StaticConfig.Default_avatar, "Biographies", 4.5f);
             data.add(book);
         }
-        Book book = new Book(11 + "", "tieng viet", "dang", StaticConfig.Default_avatar, StaticConfig.Default_avatar, "Business", 3);
+        Book book = new Book(11 + "", "tieng viet", "dang", StaticConfig.Default_avatar, StaticConfig.Default_avatar, "Business", 3.5f);
         data.add(book);
     }
 

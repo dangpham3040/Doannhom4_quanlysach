@@ -3,6 +3,7 @@ package com.example.doannhom4_quanlythuvien.ui;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -22,6 +24,7 @@ import com.example.doannhom4_quanlythuvien.R;
 import com.example.doannhom4_quanlythuvien.adapter.book_Adapter;
 import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
 import com.example.doannhom4_quanlythuvien.model.Book;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -37,6 +40,7 @@ public class Management extends AppCompatActivity {
     private book_Adapter adapter;
     private String theloai;
     private EditText etsearch;
+    private Button btnadd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +55,13 @@ public class Management extends AppCompatActivity {
         title = findViewById(R.id.title);
         goback = findViewById(R.id.goback);
         gridView = findViewById(R.id.book_gallery);
-        etsearch=findViewById(R.id.search);
+        etsearch = findViewById(R.id.search);
+        btnadd = findViewById(R.id.btnadd);
+
 
         khoitao();
         adapter = new book_Adapter(getApplicationContext(), R.layout.items_library, data);
         gridView.setAdapter(adapter);
-
 
         //gán tựa đề
         title.setText("Management");
@@ -82,14 +87,27 @@ public class Management extends AppCompatActivity {
 
     private void khoitao() {
         for (int i = 0; i < 10; i++) {
-            Book book = new Book(i + "", "sach" + i, "tac gia" + i, StaticConfig.Default_avatar, StaticConfig.Default_avatar,"Biographies",4);
+            Book book = new Book(i + "", "sach" + i, "tac gia" + i, StaticConfig.Default_avatar, StaticConfig.Default_avatar, "Biographies", 4);
             data.add(book);
         }
-        Book book = new Book(11 + "", "tieng viet", "dang",  StaticConfig.Default_avatar, StaticConfig.Default_avatar,"Business",3);
+        Book book = new Book(11 + "", "tieng viet", "dang", StaticConfig.Default_avatar, StaticConfig.Default_avatar, "Business", 3);
         data.add(book);
     }
 
     private void setEvent() {
+        btnadd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Add_book.class));
+            }
+        });
+
+        goback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         etsearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -106,7 +124,6 @@ public class Management extends AppCompatActivity {
                 ArrayList<Book> result = new ArrayList<>();
                 String tempchr = etsearch.getText().toString();
 
-
                 for (int i = 0; i < data.size(); i++) {
                     Book temp = data.get(i);
                     if (temp.getTitle().contains(tempchr) || temp.getAuthor().contains(tempchr) || temp.getType().contains(tempchr)) {
@@ -119,15 +136,9 @@ public class Management extends AppCompatActivity {
                         break;
                     }
                 }
-                adapter = new book_Adapter(getApplicationContext(), R.layout.item_book, result);
+                adapter = new book_Adapter(getApplicationContext(), R.layout.items_library, result);
                 gridView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
-            }
-        });
-        goback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
             }
         });
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -146,7 +157,7 @@ public class Management extends AppCompatActivity {
                         result = data;
                     }
                 }
-                if(result.size()==0){
+                if (result.size() == 0) {
                     Toast.makeText(getApplicationContext(), "khong co", Toast.LENGTH_SHORT).show();
                 }
                 adapter = new book_Adapter(getApplicationContext(), R.layout.items_library, result);

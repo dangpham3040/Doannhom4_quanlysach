@@ -11,12 +11,12 @@
     <include layout="@layout/app_bar"></include>
 
     <de.hdodenhof.circleimageview.CircleImageView
-
         android:id="@+id/avatar"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
+        android:src="@drawable/no_image"
         app:civ_border_color="#3F51B5"
         app:civ_border_width="5dp"></de.hdodenhof.circleimageview.CircleImageView>
 
@@ -62,12 +62,13 @@
             android:layout_marginRight="25dp"
             android:gravity="center"
             android:text="@string/sex" />
+
         <RadioGroup
             android:id="@+id/radioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
+
             <RadioButton
                 android:id="@+id/male"
                 android:layout_width="wrap_content"

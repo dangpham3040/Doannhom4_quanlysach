@@ -165,7 +165,7 @@ public class Library_Fragment extends Fragment {
                         break;
                     }
                 }
-                adapter = new book_Adapter(getContext(), R.layout.item_book, result);
+                adapter = new book_Adapter(getContext(), R.layout.items_library, result);
                 gridView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
