@@ -55,6 +55,7 @@ public class book_Adapter extends ArrayAdapter implements Filterable {
         Picasso.get()
                 .load(sach.getCoverPhotoURL())
                 .fit()
+                .placeholder(R.drawable.no_image)
                 .into(cover);
         name.setText(sach.getTitle());
         author.setText(sach.getAuthor());

@@ -55,7 +55,7 @@ public class Register extends AppCompatActivity {
         hoTen.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus&&!hoTen.getText().toString().isEmpty()) {
+                if (!hasFocus && !hoTen.getText().toString().isEmpty()) {
                     String name = hoTen.getText().toString();
                     //ký tự dầu hoa còn lại thường
                     name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
@@ -184,7 +184,8 @@ public class Register extends AppCompatActivity {
                 if (!passWord.getText().toString().equals(cPassword.getText().toString())) {
                     btnRegister.setEnabled(false);
                     cPassword.setError("cần phỉa giống với mật khẩu");
-                } validcheck();
+                }
+                validcheck();
             }
         });
         link_login.setOnClickListener(new View.OnClickListener() {
@@ -206,7 +207,7 @@ public class Register extends AppCompatActivity {
 
     private Boolean kiemtra() {
         if (hoTen.getText().toString().isEmpty() || Phonenumber.getText().toString().isEmpty() || Email.getText().toString().isEmpty() ||
-                passWord.getText().toString().isEmpty()||cPassword.getText().toString().isEmpty()) {
+                passWord.getText().toString().isEmpty() || cPassword.getText().toString().isEmpty()) {
             btnRegister.setEnabled(false);
             return false;
         }
@@ -218,10 +219,9 @@ public class Register extends AppCompatActivity {
             btnRegister.setEnabled(false);
             return false;
         }
-        if(!cPassword.getText().toString().equals(passWord.getText().toString())){
+        if (!cPassword.getText().toString().equals(passWord.getText().toString())) {
             return false;
-        }
-            else {
+        } else {
             return true;
         }
     }
@@ -250,10 +250,10 @@ public class Register extends AppCompatActivity {
             gioitinh = "Nam";
         }
         //Lấy id user làm key
-        String keyid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        user = new User(keyid, hoTen.getText().toString(), Phonenumber.getText().toString(),
+
+        user = new User(hoTen.getText().toString(), Phonenumber.getText().toString(),
                 Email.getText().toString(), gioitinh, StaticConfig.Default_avatar);
-        StaticConfig.mUser.child(keyid).setValue(user);
+        StaticConfig.mUser.child(StaticConfig.currentuser).setValue(user);
         Intent intent = new Intent(getApplicationContext(), Login.class);
         startActivity(intent);
     }

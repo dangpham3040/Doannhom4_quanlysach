@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -60,6 +61,7 @@ public class Book_detail extends AppCompatActivity {
         cover = findViewById(R.id.cover);
         ratingBar = findViewById(R.id.rating);
         heart = findViewById(R.id.heart);
+
 
         //gan du lieu
         book_title.setText(chitiet.getTitle());

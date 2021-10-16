@@ -54,6 +54,10 @@ public class Library_Fragment extends Fragment {
     private book_Adapter adapter;
     private String theloai;
     private EditText etsearch;
+    private ArrayList<Book> result = new ArrayList<>();
+
+    private Book book;
+    private Book temp;
 
     public Library_Fragment() {
         // Required empty public constructor
@@ -97,7 +101,7 @@ public class Library_Fragment extends Fragment {
     }
 
     private void setControl() {
-        etsearch=view.findViewById(R.id.search);
+        etsearch = view.findViewById(R.id.search);
         gridView = view.findViewById(R.id.book_gallery);
         spinner = view.findViewById(R.id.book_type);
         khoitao();
@@ -126,12 +130,23 @@ public class Library_Fragment extends Fragment {
     }
 
     private void khoitao() {
-        for (int i = 0; i < 10; i++) {
-            Book book = new Book(i + "", "sach" + i, "tac gia" + i, StaticConfig.Default_avatar, StaticConfig.Default_avatar, "Biographies", 4);
-            data.add(book);
-        }
-        Book book = new Book(11 + "", "tieng viet", "dang", StaticConfig.Default_avatar, StaticConfig.Default_avatar, "Business", 3);
-        data.add(book);
+        StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //xoá list book
+                data.removeAll(data);
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    book = ds.getValue(Book.class);
+                    data.add(book);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
     }
 
 
@@ -149,49 +164,67 @@ public class Library_Fragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                ArrayList<Book> result = new ArrayList<>();
-                String tempchr = etsearch.getText().toString();
+                StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        //xoá list book
+                        result.removeAll(result);
+                        String tempchr = etsearch.getText().toString().toLowerCase();
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            temp = ds.getValue(Book.class);
+                            if (temp.getTitle().toLowerCase().contains(tempchr) || temp.getAuthor().toLowerCase().contains(tempchr) || temp.getType().toLowerCase().contains(tempchr)) {
+                                result.add(temp);
+                            }
 
-
-                for (int i = 0; i < data.size(); i++) {
-                    Book temp = data.get(i);
-                    if (temp.getTitle().contains(tempchr) || temp.getAuthor().contains(tempchr) || temp.getType().contains(tempchr)){
-                        result.add(temp);
-                        Log.d("so sach", result.size() + "");
+                            if (tempchr.isEmpty()) {
+                                khoitao();
+                                break;
+                            }
+                        }
+                        adapter = new book_Adapter(getContext(), R.layout.items_library, result);
+                        gridView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
                     }
 
-                    if (tempchr.isEmpty()) {
-                        result = data;
-                        break;
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        throw error.toException();
                     }
-                }
-                adapter = new book_Adapter(getContext(), R.layout.items_library, result);
-                gridView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+                });
             }
         });
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 theloai = spinner.getSelectedItem().toString();
-                ArrayList<Book> result = new ArrayList<>();
+                StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        //xoá list book
+                        result.removeAll(result);
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            temp = ds.getValue(Book.class);
 
-                for (int i = 0; i < data.size(); i++) {
-                    Book temp = data.get(i);
-                    if (temp.getType().equals(theloai)) {
-                        result.add(temp);
-                        Log.d("so sach", result.size() + "");
+                            if (temp.getType().contains(theloai)) {
+                                result.add(temp);
+                            } else if (theloai.equals("All")) {
+                                result = data;
+                            }
+                        }
+                        adapter = new book_Adapter(getContext(), R.layout.items_library, result);
+                        gridView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                        if (theloai.equals("All")) {
+                            khoitao();
+                        }
                     }
-                    if (theloai.equals("All")) {
-                        result = data;
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        throw error.toException();
                     }
-                }
-                if(result.size()==0){
-                    Toast.makeText(getContext(), "khong co", Toast.LENGTH_SHORT).show();
-                }
-                adapter = new book_Adapter(getContext(), R.layout.items_library, result);
-                gridView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+                });
+
             }
 
             @Override

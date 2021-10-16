@@ -1,5 +1,8 @@
 package com.example.doannhom4_quanlythuvien.model;
 
+import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class User {
     String id;
     String name;
@@ -9,13 +12,16 @@ public class User {
     String pic;
 
 
-    public User(String id, String name, String phone, String email, String sex, String pic) {
-        this.id = id;
+    public User(String name, String phone, String email, String sex, String pic) {
+        String keyid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        this.id = keyid;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.sex = sex;
         this.pic = pic;
+        StaticConfig.currentuser = keyid;
+
     }
 
 
@@ -29,7 +35,6 @@ public class User {
     public void setId(String id) {
         this.id = id;
     }
-
 
 
     public String getPic() {

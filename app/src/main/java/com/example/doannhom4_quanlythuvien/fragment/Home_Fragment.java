@@ -24,6 +24,7 @@ import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
 import com.example.doannhom4_quanlythuvien.model.*;
 import com.example.doannhom4_quanlythuvien.adapter.*;
 import com.example.doannhom4_quanlythuvien.ui.Book_detail;
+import com.example.doannhom4_quanlythuvien.ui.Starup;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -51,9 +52,12 @@ public class Home_Fragment extends Fragment {
     private String theloai = "";
     private GridView gridView;
     private ArrayList<Book> data = new ArrayList<>();
-    private ArrayList<Book> dataResults = new ArrayList<>();
+    private ArrayList<Book> result = new ArrayList<>();
     private book_Adapter adapter;
     private EditText etsearch;
+    private Book book;
+    private Book temp;
+    private int solan = 0;
 
 
     public Home_Fragment() {
@@ -107,11 +111,10 @@ public class Home_Fragment extends Fragment {
         //lấy thể loại sách từ firebase gắn cho spinner
         etsearch = view.findViewById(R.id.search);
         gridView = view.findViewById(R.id.book_gallery);
-        khoitao();
+
         adapter = new book_Adapter(getContext(), R.layout.item_book, data);
         gridView.setAdapter(adapter);
-
-
+        khoitao();
         spinner = view.findViewById(R.id.book_type);
         ArrayList<String> arrayList = new ArrayList<>();
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, arrayList);
@@ -131,15 +134,29 @@ public class Home_Fragment extends Fragment {
             }
         });
         spinner.setAdapter(arrayAdapter);
+
     }
 
     private void khoitao() {
-        for (int i = 0; i < 10; i++) {
-            Book book = new Book(i + "", "sach" + i, "tac gia" + i, StaticConfig.Default_avatar, StaticConfig.Default_avatar, "Biographies", 4.5f);
-            data.add(book);
-        }
-        Book book = new Book(11 + "", "tieng viet", "dang", StaticConfig.Default_avatar, StaticConfig.Default_avatar, "Business", 3.5f);
-        data.add(book);
+
+        StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //xoá list book
+                data.removeAll(data);
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    book = ds.getValue(Book.class);
+                    data.add(book);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+
     }
 
     private void setEnvet() {
@@ -167,49 +184,70 @@ public class Home_Fragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                ArrayList<Book> result = new ArrayList<>();
-                String tempchr = etsearch.getText().toString();
+                StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        //xoá list book
+                        result.removeAll(result);
+                        String tempchr = etsearch.getText().toString().toLowerCase();
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            temp = ds.getValue(Book.class);
+                            if (temp.getTitle().toLowerCase().contains(tempchr) || temp.getAuthor().toLowerCase().contains(tempchr) || temp.getType().toLowerCase().contains(tempchr)) {
+                                result.add(temp);
+                            }
 
-
-                for (int i = 0; i < data.size(); i++) {
-                    Book temp = data.get(i);
-                    if (temp.getTitle().contains(tempchr) || temp.getAuthor().contains(tempchr) || temp.getType().contains(tempchr)) {
-                        result.add(temp);
-                        Log.d("so sach", result.size() + "");
+                            if (tempchr.isEmpty()) {
+                                khoitao();
+                                break;
+                            }
+                        }
+                        adapter = new book_Adapter(getContext(), R.layout.item_book, result);
+                        gridView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
                     }
 
-                    if (tempchr.isEmpty()) {
-                        result = data;
-                        break;
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        throw error.toException();
                     }
-                }
-                adapter = new book_Adapter(getContext(), R.layout.item_book, result);
-                gridView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+                });
             }
         });
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 theloai = spinner.getSelectedItem().toString();
-                ArrayList<Book> result = new ArrayList<>();
-                for (int i = 0; i < data.size(); i++) {
-                    Book temp = data.get(i);
-                    if (temp.getType().equals(theloai)) {
-                        result.add(temp);
-                        Log.d("so sach", result.size() + "");
+                StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        //xoá list book
+                        result.removeAll(result);
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            temp = ds.getValue(Book.class);
+
+                            if (temp.getType().contains(theloai)) {
+                                result.add(temp);
+                            } else if (theloai.equals("All")) {
+                                result = data;
+                            }
+                        }
+                        adapter = new book_Adapter(getContext(), R.layout.item_book, result);
+                        gridView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                        if (theloai.equals("All")) {
+                            khoitao();
+                        }
                     }
-                    if (theloai.equals("All")) {
-                        result = data;
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        throw error.toException();
                     }
-                }
-                if (result.size() == 0) {
-                    Toast.makeText(getContext(), "khong co", Toast.LENGTH_SHORT).show();
-                }
-                adapter = new book_Adapter(getContext(), R.layout.item_book, result);
-                gridView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+                });
+
             }
+
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {

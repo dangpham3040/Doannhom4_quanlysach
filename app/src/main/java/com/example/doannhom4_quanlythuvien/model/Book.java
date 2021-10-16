@@ -1,13 +1,24 @@
 package com.example.doannhom4_quanlythuvien.model;
 
+import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
+
 import java.io.Serializable;
 
 public class Book implements Serializable {
     private String id, title, author, coverPhotoURL, link;
     private String type;
     private float rating;
+    private String timestamp;
 
     public Book() {
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getId() {
@@ -66,15 +77,18 @@ public class Book implements Serializable {
         this.rating = rating;
     }
 
-    public Book(String id, String title, String author, String coverPhotoURL, String link, String type, float rating) {
-        this.id = id;
+    public Book(String title, String author, String coverPhotoURL, String link, String type, float rating) {
+        this.id = StaticConfig.mBook.push().getKey();;
         this.title = title;
         this.author = author;
         this.coverPhotoURL = coverPhotoURL;
         this.link = link;
         this.type = type;
         this.rating = rating;
+        this.timestamp = StaticConfig.timestamp;
     }
+
+
 
     @Override
     public String toString() {
