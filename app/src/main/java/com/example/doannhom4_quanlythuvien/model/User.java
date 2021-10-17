@@ -21,7 +21,6 @@ public class User {
         this.sex = sex;
         this.pic = pic;
         StaticConfig.currentuser = keyid;
-
     }
 
 

@@ -77,8 +77,8 @@ public class Book implements Serializable {
         this.rating = rating;
     }
 
-    public Book(String title, String author, String coverPhotoURL, String link, String type, float rating) {
-        this.id = StaticConfig.mBook.push().getKey();
+    public Book(String id,String title, String author, String coverPhotoURL, String link, String type, float rating) {
+        this.id = id;
         this.title = title;
         this.author = author;
         this.coverPhotoURL = coverPhotoURL;
@@ -87,9 +87,6 @@ public class Book implements Serializable {
         this.rating = rating;
         this.timestamp = StaticConfig.timestamp;
     }
-
-
-
     @Override
     public String toString() {
         return "Book{" +

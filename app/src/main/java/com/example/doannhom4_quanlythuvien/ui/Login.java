@@ -139,6 +139,5 @@ public class Login extends AppCompatActivity {
         etEmail = findViewById(R.id.lemail);
         etPass = findViewById(R.id.lpass);
         progressBar = findViewById(R.id.progressBar);
-
     }
 }

@@ -24,7 +24,9 @@ import com.example.doannhom4_quanlythuvien.R;
 import com.example.doannhom4_quanlythuvien.adapter.book_Adapter;
 import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
 import com.example.doannhom4_quanlythuvien.model.Book;
+import com.example.doannhom4_quanlythuvien.model.Library;
 import com.example.doannhom4_quanlythuvien.ui.Book_detail;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -55,9 +57,12 @@ public class Library_Fragment extends Fragment {
     private String theloai;
     private EditText etsearch;
     private ArrayList<Book> result = new ArrayList<>();
+    private ArrayList<Library> yeuthich = new ArrayList<>();
+
 
     private Book book;
     private Book temp;
+    private Library library;
 
     public Library_Fragment() {
         // Required empty public constructor
@@ -107,8 +112,6 @@ public class Library_Fragment extends Fragment {
         khoitao();
         adapter = new book_Adapter(getContext(), R.layout.items_library, data);
         gridView.setAdapter(adapter);
-
-
         ArrayList<String> arrayList = new ArrayList<>();
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, arrayList);
         StaticConfig.mCategory.addValueEventListener(new ValueEventListener() {
@@ -127,9 +130,34 @@ public class Library_Fragment extends Fragment {
             }
         });
         spinner.setAdapter(arrayAdapter);
+
+
     }
 
     private void khoitao() {
+        StaticConfig.mLibrary.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //xoá list book
+                yeuthich.removeAll(yeuthich);
+                int i = 0;
+                for (DataSnapshot ds : snapshot.getChildren()) {
+
+                    library = ds.getValue(Library.class);
+                    yeuthich.add(library);
+                    Log.d("so lam", yeuthich.get(i).getBook_id());
+                    i++;
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+
         StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -137,8 +165,12 @@ public class Library_Fragment extends Fragment {
                 data.removeAll(data);
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     book = ds.getValue(Book.class);
-                    data.add(book);
-                    adapter.notifyDataSetChanged();
+                    for (int i = 0; i < yeuthich.size(); i++) {
+                        if (book.getId().equals(yeuthich.get(i).getBook_id()) && yeuthich.get(i).getIs_heart() == true) {
+                            data.add(book);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
                 }
             }
 
@@ -147,6 +179,7 @@ public class Library_Fragment extends Fragment {
                 throw error.toException();
             }
         });
+
     }
 
 
@@ -167,19 +200,25 @@ public class Library_Fragment extends Fragment {
                 StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        int i = 0;
                         //xoá list book
                         result.removeAll(result);
                         String tempchr = etsearch.getText().toString().toLowerCase();
                         for (DataSnapshot ds : snapshot.getChildren()) {
                             temp = ds.getValue(Book.class);
-                            if (temp.getTitle().toLowerCase().contains(tempchr) || temp.getAuthor().toLowerCase().contains(tempchr) || temp.getType().toLowerCase().contains(tempchr)) {
-                                result.add(temp);
-                            }
+                            if (temp.getTitle().toLowerCase().contains(tempchr) || temp.getAuthor().toLowerCase().contains(tempchr)
+                                    || temp.getType().toLowerCase().contains(tempchr)) {
+                                if (temp.getId().equals(yeuthich.get(i).getBook_id())) {
+                                    if (yeuthich.get(i).getIs_heart().equals(true))
+                                        result.add(temp);
+                                }
 
+                            }
                             if (tempchr.isEmpty()) {
                                 khoitao();
                                 break;
                             }
+                            i++;
                         }
                         adapter = new book_Adapter(getContext(), R.layout.items_library, result);
                         gridView.setAdapter(adapter);
@@ -200,23 +239,30 @@ public class Library_Fragment extends Fragment {
                 StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        int i = 0;
                         //xoá list book
                         result.removeAll(result);
                         for (DataSnapshot ds : snapshot.getChildren()) {
                             temp = ds.getValue(Book.class);
 
                             if (temp.getType().contains(theloai)) {
-                                result.add(temp);
+                                if (temp.getId().equals(yeuthich.get(i).getBook_id())) {
+                                    if (yeuthich.get(i).getIs_heart().equals(true))
+                                        result.add(temp);
+                                }
+
                             } else if (theloai.equals("All")) {
                                 result = data;
                             }
+                            i++;
+                        }
+                        if (theloai.equals("All")) {
+                            result = data;
                         }
                         adapter = new book_Adapter(getContext(), R.layout.items_library, result);
                         gridView.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
-                        if (theloai.equals("All")) {
-                            khoitao();
-                        }
+
                     }
 
                     @Override

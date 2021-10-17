@@ -1,17 +1,27 @@
 package com.example.doannhom4_quanlythuvien.model;
 
-public class Library {
+import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
 
-    String User_id;
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Library implements Serializable {
+
     String Book_id;
+    String User_id;
     Boolean is_heart;
 
-    public Library(String user_id, String book_id, Boolean is_heart) {
+    public Library(String book_id, String user_id, Boolean is_heart) {
 
-        User_id = user_id;
         Book_id = book_id;
+        User_id = user_id;
         this.is_heart = is_heart;
     }
+
+    public Library() {
+    }
+
+
 
     public Boolean getIs_heart() {
         return is_heart;

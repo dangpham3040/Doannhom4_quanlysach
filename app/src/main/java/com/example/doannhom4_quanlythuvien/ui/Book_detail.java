@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -47,16 +48,16 @@ public class Book_detail extends AppCompatActivity {
         heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //heart.setImageResource(R.drawable.heart_on);
+
                 if (isheart == true) {
-                   Boolean is_heart = false;
-                    Library library = new Library(StaticConfig.currentuser, book_id, is_heart);
+                    Boolean is_heart = false;
+                    Library library = new Library(book_id, StaticConfig.currentuser, is_heart);
                     StaticConfig.mLibrary.child(book_id).setValue(library);
                     heart.setImageResource(R.drawable.heart_off);
                 }
                 if (isheart == false) {
                     Boolean is_heart = true;
-                    Library library = new Library(StaticConfig.currentuser, book_id, is_heart);
+                    Library library = new Library(book_id, StaticConfig.currentuser, is_heart);
                     StaticConfig.mLibrary.child(book_id).setValue(library);
                     heart.setImageResource(R.drawable.heart_on);
                 }
@@ -66,7 +67,7 @@ public class Book_detail extends AppCompatActivity {
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                startActivity(new Intent(getApplicationContext(),Starup.class));
             }
         });
     }
@@ -95,12 +96,12 @@ public class Book_detail extends AppCompatActivity {
 //                                .transform(transformation)
                 .into(cover);
         type.setText(chitiet.getType());
-        StaticConfig.mLibrary = StaticConfig.Database.getReference("Library/" + book_id);
+
         StaticConfig.mLibrary.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    if(ds.child("user_id").getValue(String.class).equals(StaticConfig.currentuser)){
+                    if (ds.child("user_id").getValue(String.class).equals(StaticConfig.currentuser) && ds.child("book_id").getValue(String.class).equals(book_id)) {
                         if (ds.child("is_heart").getValue(Boolean.class).equals(true)) {
                             heart.setImageResource(R.drawable.heart_on);
                             isheart = true;
@@ -111,8 +112,8 @@ public class Book_detail extends AppCompatActivity {
                         }
                     }
 
-
                 }
+
             }
 
             @Override
