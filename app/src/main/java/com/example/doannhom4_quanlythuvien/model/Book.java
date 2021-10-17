@@ -78,7 +78,7 @@ public class Book implements Serializable {
     }
 
     public Book(String title, String author, String coverPhotoURL, String link, String type, float rating) {
-        this.id = StaticConfig.mBook.push().getKey();;
+        this.id = StaticConfig.mBook.push().getKey();
         this.title = title;
         this.author = author;
         this.coverPhotoURL = coverPhotoURL;
