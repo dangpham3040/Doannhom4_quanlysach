@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
 //        progressBar.setBackgroundColor(Color.BLUE);
         setControl();
     }
-
     private void setControl() {
         //màn hình loading....
         Handler handler = new Handler();

@@ -189,15 +189,21 @@ public class Home_Fragment extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         //xoá list book
                         result.removeAll(result);
+                        theloai = spinner.getSelectedItem().toString();
                         String tempchr = etsearch.getText().toString().toLowerCase();
                         for (DataSnapshot ds : snapshot.getChildren()) {
                             temp = ds.getValue(Book.class);
                             if (temp.getTitle().toLowerCase().contains(tempchr) || temp.getAuthor().toLowerCase().contains(tempchr)
                                     || temp.getType().toLowerCase().contains(tempchr)) {
-                                result.add(temp);
+                                if (theloai.equals("All")) {
+                                    result.add(temp);
+                                }
+                                if (theloai.equals(temp.getType())) {
+                                    result.add(temp);
+                                }
                             }
 
-                            if (tempchr.isEmpty()) {
+                            if (tempchr.isEmpty() && theloai.equals("All")) {
                                 khoitao();
                                 break;
                             }
@@ -205,6 +211,7 @@ public class Home_Fragment extends Fragment {
                         adapter = new book_Adapter(getContext(), R.layout.item_book, result);
                         gridView.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
+
                     }
 
                     @Override
@@ -218,6 +225,7 @@ public class Home_Fragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 theloai = spinner.getSelectedItem().toString();
+                String tempchr = etsearch.getText().toString().toLowerCase();
                 StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -226,17 +234,25 @@ public class Home_Fragment extends Fragment {
                         result.removeAll(result);
                         for (DataSnapshot ds : snapshot.getChildren()) {
                             temp = ds.getValue(Book.class);
-
-                            if (temp.getType().contains(theloai)) {
+                            if (temp.getType().contains(theloai) && tempchr.isEmpty()) {
                                 result.add(temp);
-                            } else if (theloai.equals("All")) {
+                            }
+                            if(theloai.equals(temp.getType())||theloai.equals("All")){
+                                if (temp.getTitle().toLowerCase().contains(tempchr) || temp.getAuthor().toLowerCase().contains(tempchr)
+                                        || temp.getType().toLowerCase().contains(tempchr)  ) {
+                                    result.add(temp);
+                                }
+
+                            }
+
+                            if (theloai.equals("All") && tempchr.isEmpty()) {
                                 result = data;
                             }
                         }
                         adapter = new book_Adapter(getContext(), R.layout.item_book, result);
                         gridView.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
-                        if (theloai.equals("All")) {
+                        if (theloai.equals("All") && tempchr.isEmpty()) {
                             khoitao();
                         }
                     }

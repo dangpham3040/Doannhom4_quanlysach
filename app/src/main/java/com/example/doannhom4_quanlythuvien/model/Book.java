@@ -8,16 +8,16 @@ public class Book implements Serializable {
     private String id, title, author, coverPhotoURL, link;
     private String type;
     private float rating;
-    private String timestamp;
+    private float timestamp;
 
     public Book() {
     }
 
-    public String getTimestamp() {
+    public float getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(float timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -77,7 +77,7 @@ public class Book implements Serializable {
         this.rating = rating;
     }
 
-    public Book(String id,String title, String author, String coverPhotoURL, String link, String type, float rating) {
+    public Book(String id, String title, String author, String coverPhotoURL, String link, String type, float rating) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -87,6 +87,7 @@ public class Book implements Serializable {
         this.rating = rating;
         this.timestamp = StaticConfig.timestamp;
     }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -99,4 +100,5 @@ public class Book implements Serializable {
                 ", rating=" + rating +
                 '}';
     }
+
 }

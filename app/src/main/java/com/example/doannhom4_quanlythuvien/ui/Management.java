@@ -1,11 +1,14 @@
 package com.example.doannhom4_quanlythuvien.ui;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 
 import android.content.Intent;
 import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -34,6 +37,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 public class Management extends AppCompatActivity {
     private Spinner spinner;
@@ -66,8 +71,8 @@ public class Management extends AppCompatActivity {
         etsearch = findViewById(R.id.search);
         btnadd = findViewById(R.id.btnadd);
 
-
         khoitao();
+
         adapter = new book_Adapter(getApplicationContext(), R.layout.items_library, data);
         gridView.setAdapter(adapter);
 
@@ -93,8 +98,8 @@ public class Management extends AppCompatActivity {
         spinner.setAdapter(arrayAdapter);
     }
 
-    private void khoitao() {
 
+    private void khoitao() {
         Query querybook = StaticConfig.mBook.orderByChild("timestamp");
         querybook.addValueEventListener(new ValueEventListener() {
             @Override
@@ -138,7 +143,7 @@ public class Management extends AppCompatActivity {
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              startActivity(new Intent(getApplicationContext(), Starup.class));
+                startActivity(new Intent(getApplicationContext(), Starup.class));
             }
         });
         etsearch.addTextChangedListener(new TextWatcher() {
@@ -174,7 +179,6 @@ public class Management extends AppCompatActivity {
                         adapter = new book_Adapter(getApplicationContext(), R.layout.items_library, result);
                         gridView.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
-
                     }
 
                     @Override

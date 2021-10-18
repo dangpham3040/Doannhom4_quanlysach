@@ -24,6 +24,6 @@ public class StaticConfig {
     public static String Default_avatar = "https://firebasestorage.googleapis.com/v0/b/quan-ly-thu-vien-eac1a.appspot.com/o/Default%20avatar%2Fuser.jpg?alt=media&token=22760e3b-7970-4cc5-b4a8-cb0331569f5a";
     public static String Test_link = "https://firebasestorage.googleapis.com/v0/b/quan-ly-thu-vien-eac1a.appspot.com/o/SDS_DoAnQuanLyKhachSan_Nhom7.docx?alt=media&token=e2857ec8-7a70-495b-8673-97602e83b3d5";
     //timestamp
-    public static Long tsLong = System.currentTimeMillis() / 1000;
-    public static String timestamp = tsLong.toString();
+    public static float timestamp = System.currentTimeMillis() / 1000;
+
 }

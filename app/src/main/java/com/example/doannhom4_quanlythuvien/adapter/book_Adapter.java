@@ -21,6 +21,7 @@ import com.squareup.picasso.Picasso;
 
 import java.nio.file.DirectoryStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Locale;
 
 public class book_Adapter extends ArrayAdapter implements Filterable {
@@ -40,6 +41,12 @@ public class book_Adapter extends ArrayAdapter implements Filterable {
         this.resource = resource;
         this.data = data;
         this.dataResults = data;
+    }
+
+    @Nullable
+    @Override
+    public Object getItem(int position) {
+        return this.data.get(data.size() - 1 - position);
     }
 
     @NonNull

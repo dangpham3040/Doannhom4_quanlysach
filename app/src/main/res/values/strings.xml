@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Quan ly thu vien</string>
+    <string name="app_name">Book</string>
     //tác giả
     <string name="tachgia">Phạm Hải Đăng</string>
     //nút

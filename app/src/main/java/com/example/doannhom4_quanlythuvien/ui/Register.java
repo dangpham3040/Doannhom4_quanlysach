@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.SignInMethodQueryResult;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -227,20 +228,34 @@ public class Register extends AppCompatActivity {
     }
 
     private void register(String Email, String Pass) {
-        StaticConfig.fAuth.createUserWithEmailAndPassword(Email, Pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isComplete()) {
-                    //cập nhật dữ lieu
-                    UpdateUI();
+        //kiểm tra email đã tồn tại chưa
+        StaticConfig.fAuth.fetchSignInMethodsForEmail(Email)
+                .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                        boolean isNewUser = task.getResult().getSignInMethods().isEmpty();
+                        if (isNewUser) {
+                            //Đăng ký
+                            StaticConfig.fAuth.createUserWithEmailAndPassword(Email, Pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isComplete()) {
+                                        UpdateUI();
+                                        Toast.makeText(getApplicationContext(), "dang nhap thanh cong", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Error:" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
 
-                } else {
-                    Toast.makeText(getApplicationContext(), "Error:" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+                        } else {
+                            Toast.makeText(getApplicationContext(), "email da ton tai", Toast.LENGTH_SHORT).show();
+                        }
 
+                    }
+                });
     }
+
 
     private void UpdateUI() {
         if (rbfemale.isChecked()) {
