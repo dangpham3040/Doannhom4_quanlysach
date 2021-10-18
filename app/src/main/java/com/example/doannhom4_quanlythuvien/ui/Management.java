@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.doannhom4_quanlythuvien.MainActivity;
 import com.example.doannhom4_quanlythuvien.R;
 import com.example.doannhom4_quanlythuvien.adapter.book_Adapter;
 import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
@@ -116,6 +117,17 @@ public class Management extends AppCompatActivity {
     }
 
     private void setEvent() {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Book book = data.get(position);
+                Intent intent = new Intent(getApplicationContext(), Edit_book.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("chitiet", book);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
         btnadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,7 +138,7 @@ public class Management extends AppCompatActivity {
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+              startActivity(new Intent(getApplicationContext(), Starup.class));
             }
         });
         etsearch.addTextChangedListener(new TextWatcher() {
@@ -208,7 +220,6 @@ public class Management extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
     }

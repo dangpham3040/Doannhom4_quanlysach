@@ -192,7 +192,8 @@ public class Home_Fragment extends Fragment {
                         String tempchr = etsearch.getText().toString().toLowerCase();
                         for (DataSnapshot ds : snapshot.getChildren()) {
                             temp = ds.getValue(Book.class);
-                            if (temp.getTitle().toLowerCase().contains(tempchr) || temp.getAuthor().toLowerCase().contains(tempchr) || temp.getType().toLowerCase().contains(tempchr)) {
+                            if (temp.getTitle().toLowerCase().contains(tempchr) || temp.getAuthor().toLowerCase().contains(tempchr)
+                                    || temp.getType().toLowerCase().contains(tempchr)) {
                                 result.add(temp);
                             }
 

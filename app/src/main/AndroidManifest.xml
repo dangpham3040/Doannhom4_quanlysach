@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Doannhom4_quanlythuvien">
         <activity
+            android:name=".ui.Edit_book"
+            android:exported="false" />
+        <activity
             android:name=".ui.Add_book"
             android:exported="false" />
         <activity android:name=".ui.Book_detail" />
