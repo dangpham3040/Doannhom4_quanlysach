@@ -91,8 +91,8 @@ public class Book_detail extends AppCompatActivity {
 
         //gan du lieu
         book_id = chitiet.getId();
-        book_title.setText(chitiet.getTitle());
-        author.setText(chitiet.getAuthor());
+        book_title.setText("Title: "+chitiet.getTitle());
+        author.setText("Author: "+chitiet.getAuthor());
         ratingBar.setRating(chitiet.getRating());
         Picasso.get()
                 .load(chitiet.getCoverPhotoURL())
@@ -100,11 +100,11 @@ public class Book_detail extends AppCompatActivity {
                 .placeholder(R.drawable.no_image)
 //                                .transform(transformation)
                 .into(cover);
-        type.setText(chitiet.getType());
+        type.setText("Category: "+chitiet.getType());
 
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
         String dateStr = sdf.format(chitiet.getTimestamp());
-        date.setText(dateStr);
+        date.setText("Date: "+dateStr);
         StaticConfig.mLibrary.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
