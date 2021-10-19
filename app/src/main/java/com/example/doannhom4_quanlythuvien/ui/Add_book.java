@@ -59,7 +59,7 @@ public class Add_book extends AppCompatActivity {
     private String ten, tacgia, loai, link, mieuta, cover_link;
     private float sosao;
     private Uri filePath;
-    private MaterialButton btnsave;
+    private Button btnsave;
     private Button choose_file;
     private String file_type;
 

@@ -24,11 +24,15 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class Book_detail extends AppCompatActivity {
 
     private TextView title;
     private ImageView goback;
-    private TextView book_title, author, type;
+    private TextView book_title, author, type,date;
     private ImageView cover;
     private RatingBar ratingBar;
     private ImageView heart;
@@ -83,6 +87,7 @@ public class Book_detail extends AppCompatActivity {
         cover = findViewById(R.id.cover);
         ratingBar = findViewById(R.id.rating);
         heart = findViewById(R.id.heart);
+        date=findViewById(R.id.date);
 
         //gan du lieu
         book_id = chitiet.getId();
@@ -97,6 +102,9 @@ public class Book_detail extends AppCompatActivity {
                 .into(cover);
         type.setText(chitiet.getType());
 
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+        String dateStr = sdf.format(chitiet.getTimestamp());
+        date.setText(dateStr);
         StaticConfig.mLibrary.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -121,7 +129,6 @@ public class Book_detail extends AppCompatActivity {
                 throw error.toException();
             }
         });
-
 
     }
 }
