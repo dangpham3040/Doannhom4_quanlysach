@@ -24,6 +24,7 @@
        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:background="@color/white"
         android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="60dp"

@@ -24,10 +24,10 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:src="@drawable/no_image"
                 android:id="@+id/cover"
                 android:layout_width="170dp"
-                android:layout_height="170dp" />
+                android:layout_height="170dp"
+                android:src="@drawable/no_image" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -72,24 +72,25 @@
             android:text="about this book"
             android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/book_describe"
-                    android:layout_width="match_parent"
-                    android:layout_height="400dp"
-                    android:text="@string/text" />
+        <TextView
+            android:id="@+id/book_describe"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:text="@string/text" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal">
-
             <Button
                 android:id="@+id/readnow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="Read now" />
+                android:backgroundTint="#419a46"
+                android:text="Read now"
+                android:textColor="@color/white" />
 
             <ImageView
                 android:id="@+id/heart"

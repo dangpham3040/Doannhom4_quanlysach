@@ -1,5 +1,6 @@
 package com.example.doannhom4_quanlythuvien.helpers;
 
+import com.example.doannhom4_quanlythuvien.model.Book;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -7,6 +8,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
 
 public class StaticConfig {
     public static FirebaseDatabase Database = FirebaseDatabase.getInstance();
@@ -25,5 +28,6 @@ public class StaticConfig {
     public static String Test_link = "https://firebasestorage.googleapis.com/v0/b/quan-ly-thu-vien-eac1a.appspot.com/o/SDS_DoAnQuanLyKhachSan_Nhom7.docx?alt=media&token=e2857ec8-7a70-495b-8673-97602e83b3d5";
     //timestamp
     public static float timestamp = System.currentTimeMillis() / 1000;
-
+    //arralist check
+    public static ArrayList<Book> ArrayCheck = new ArrayList<>();
 }

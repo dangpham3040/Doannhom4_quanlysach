@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -16,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.doannhom4_quanlythuvien.R;
+import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
 import com.example.doannhom4_quanlythuvien.model.*;
 import com.squareup.picasso.Picasso;
 
@@ -67,6 +70,20 @@ public class book_Adapter extends ArrayAdapter implements Filterable {
         name.setText(sach.getTitle());
         author.setText(sach.getAuthor());
         ratingBar.setRating(sach.getRating());
+        CheckBox checkBox = convertView.findViewById(R.id.checkbox);
+        //lay danh sach da chon
+       if(checkBox!=null){
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (checkBox.isChecked()) {
+                        StaticConfig.ArrayCheck.add(sach);
+                    } else {
+                        StaticConfig.ArrayCheck.remove(sach);
+                    }
+                }
+            });
+        }
         return convertView;
     }
 

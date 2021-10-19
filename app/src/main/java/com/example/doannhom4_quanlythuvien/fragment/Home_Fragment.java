@@ -193,8 +193,9 @@ public class Home_Fragment extends Fragment {
                         String tempchr = etsearch.getText().toString().toLowerCase();
                         for (DataSnapshot ds : snapshot.getChildren()) {
                             temp = ds.getValue(Book.class);
-                            if (temp.getTitle().toLowerCase().contains(tempchr) || temp.getAuthor().toLowerCase().contains(tempchr)
-                                    || temp.getType().toLowerCase().contains(tempchr)) {
+                            if (temp.getTitle().toLowerCase().contains(tempchr) ||
+                                    temp.getAuthor().toLowerCase().contains(tempchr)
+                            ) {
                                 if (theloai.equals("All")) {
                                     result.add(temp);
                                 }
@@ -229,7 +230,6 @@ public class Home_Fragment extends Fragment {
                 StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                         //xoá list book
                         result.removeAll(result);
                         for (DataSnapshot ds : snapshot.getChildren()) {
@@ -237,10 +237,12 @@ public class Home_Fragment extends Fragment {
                             if (temp.getType().contains(theloai) && tempchr.isEmpty()) {
                                 result.add(temp);
                             }
-                            if(theloai.equals(temp.getType())||theloai.equals("All")){
-                                if (temp.getTitle().toLowerCase().contains(tempchr) || temp.getAuthor().toLowerCase().contains(tempchr)
-                                        || temp.getType().toLowerCase().contains(tempchr)  ) {
-                                    result.add(temp);
+                            if (theloai.equals(temp.getType()) || theloai.equals("All")) {
+                                if (temp.getTitle().toLowerCase().contains(tempchr) ||
+                                        temp.getAuthor().toLowerCase().contains(tempchr)
+                                ) {
+                                    if (!tempchr.isEmpty())
+                                        result.add(temp);
                                 }
 
                             }

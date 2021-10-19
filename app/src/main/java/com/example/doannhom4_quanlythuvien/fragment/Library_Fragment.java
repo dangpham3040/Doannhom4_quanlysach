@@ -15,6 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Spinner;
@@ -58,6 +61,8 @@ public class Library_Fragment extends Fragment {
     private EditText etsearch;
     private ArrayList<Book> result = new ArrayList<>();
     private ArrayList<Library> yeuthich = new ArrayList<>();
+    private CheckBox checkBox;
+    private Button btndel;
 
 
     private Book book;
@@ -109,6 +114,8 @@ public class Library_Fragment extends Fragment {
         etsearch = view.findViewById(R.id.search);
         gridView = view.findViewById(R.id.book_gallery);
         spinner = view.findViewById(R.id.book_type);
+        checkBox = view.findViewById(R.id.checkbox);
+        btndel = view.findViewById(R.id.btndel);
         khoitao();
         adapter = new book_Adapter(getContext(), R.layout.items_library, data);
         gridView.setAdapter(adapter);
@@ -130,8 +137,6 @@ public class Library_Fragment extends Fragment {
             }
         });
         spinner.setAdapter(arrayAdapter);
-
-
     }
 
     private void khoitao() {
@@ -142,14 +147,11 @@ public class Library_Fragment extends Fragment {
                 yeuthich.removeAll(yeuthich);
                 int i = 0;
                 for (DataSnapshot ds : snapshot.getChildren()) {
-
                     library = ds.getValue(Library.class);
                     yeuthich.add(library);
-                    Log.d("so lam", yeuthich.get(i).getBook_id());
+//                    Log.d("so lam", yeuthich.get(i).getBook_id());
                     i++;
-
                 }
-
             }
 
             @Override
@@ -168,9 +170,9 @@ public class Library_Fragment extends Fragment {
                     for (int i = 0; i < yeuthich.size(); i++) {
                         if (book.getId().equals(yeuthich.get(i).getBook_id()) && yeuthich.get(i).getIs_heart() == true) {
                             data.add(book);
-                            adapter.notifyDataSetChanged();
                         }
                     }
+                    adapter.notifyDataSetChanged();
                 }
             }
 
@@ -184,6 +186,32 @@ public class Library_Fragment extends Fragment {
 
 
     private void setEnvet() {
+        //xoa sach khoi danh sach yeu thich
+        btndel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Log.d("so luong check",StaticConfig.ArrayCheck.size()+"");
+                for (int i = 0; i < StaticConfig.ArrayCheck.size(); i++) {
+                    Book sach = StaticConfig.ArrayCheck.get(i);
+                    StaticConfig.mLibrary.child(sach.getId()).child("is_heart").setValue(false);
+                    result.remove(sach);
+                }
+                StaticConfig.ArrayCheck.clear();
+                adapter.notifyDataSetChanged();
+                CheckBox checkBox = view.findViewById(R.id.checkbox);
+                btndel.setVisibility(View.INVISIBLE);
+                checkBox.setVisibility(View.INVISIBLE);
+            }
+        });
+        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                CheckBox checkBox = view.findViewById(R.id.checkbox);
+                checkBox.setVisibility(View.VISIBLE);
+                btndel.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
         etsearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -200,29 +228,26 @@ public class Library_Fragment extends Fragment {
                 StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        int i = 0;
                         //xoá list book
                         result.removeAll(result);
                         String tempchr = etsearch.getText().toString().toLowerCase();
-                        for (DataSnapshot ds : snapshot.getChildren()) {
-                            temp = ds.getValue(Book.class);
-                            if (temp.getTitle().toLowerCase().contains(tempchr) || temp.getAuthor().toLowerCase().contains(tempchr)
-                                    || temp.getType().toLowerCase().contains(tempchr)) {
-                                if (temp.getId().equals(yeuthich.get(i).getBook_id())) {
-                                    if (yeuthich.get(i).getIs_heart().equals(true))
-                                        result.add(temp);
-                                }
-
+                        for (int i = 0; i < data.size(); i++) {
+                            if (data.get(i).getTitle().toLowerCase().contains(tempchr) ||
+                                    data.get(i).getAuthor().toLowerCase().contains(tempchr)
+                            ) {
+                                if (theloai.equals("All") || theloai.equals(data.get(i).getType()))
+                                    result.add(data.get(i));
                             }
-                            if (tempchr.isEmpty()) {
-                                khoitao();
-                                break;
-                            }
-                            i++;
+                        }
+                        if (tempchr.isEmpty() && theloai.equals("All")) {
+                            result = data;
                         }
                         adapter = new book_Adapter(getContext(), R.layout.items_library, result);
                         gridView.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
+                        if (tempchr.isEmpty() && theloai.equals("All")) {
+                            khoitao();
+                        }
                     }
 
                     @Override
@@ -236,46 +261,19 @@ public class Library_Fragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 theloai = spinner.getSelectedItem().toString();
-                StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        int i = 0;
-                        //xoá list book
-                        result.removeAll(result);
-                        for (DataSnapshot ds : snapshot.getChildren()) {
-                            temp = ds.getValue(Book.class);
-
-                            if (temp.getType().contains(theloai)) {
-                                if (temp.getId().equals(yeuthich.get(i).getBook_id())) {
-                                    if (yeuthich.get(i).getIs_heart().equals(true))
-                                        result.add(temp);
-                                }
-
-                            } else if (theloai.equals("All")) {
-                                result = data;
-                            }
-                            i++;
-                        }
-                        if (theloai.equals("All")) {
-                            result = data;
-                        }
-                        adapter = new book_Adapter(getContext(), R.layout.items_library, result);
-                        gridView.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
-
+                result.removeAll(result);
+                for (int i = 0; i < data.size(); i++) {
+                    if (data.get(i).getType().equals(theloai) || theloai.equals("All")) {
+                        result.add(data.get(i));
                     }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        throw error.toException();
-                    }
-                });
-
+                }
+                adapter = new book_Adapter(getContext(), R.layout.items_library, result);
+                gridView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
