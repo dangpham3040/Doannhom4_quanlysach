@@ -1,6 +1,7 @@
 package com.example.doannhom4_quanlythuvien.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
 import com.example.doannhom4_quanlythuvien.model.Book;
 import com.example.doannhom4_quanlythuvien.model.Library;
 import com.example.doannhom4_quanlythuvien.ui.Book_detail;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

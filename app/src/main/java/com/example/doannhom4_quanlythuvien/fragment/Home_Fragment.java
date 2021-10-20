@@ -138,7 +138,6 @@ public class Home_Fragment extends Fragment {
     }
 
     private void khoitao() {
-
         StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -150,13 +149,11 @@ public class Home_Fragment extends Fragment {
                     adapter.notifyDataSetChanged();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
             }
         });
-
     }
 
     private void setEnvet() {

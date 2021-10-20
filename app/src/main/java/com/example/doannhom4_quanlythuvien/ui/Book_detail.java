@@ -32,12 +32,13 @@ public class Book_detail extends AppCompatActivity {
 
     private TextView title;
     private ImageView goback;
-    private TextView book_title, author, type,date;
+    private TextView book_title, author, type, date;
     private ImageView cover;
     private RatingBar ratingBar;
     private ImageView heart;
     private String book_id;
     private boolean isheart = false;
+    private Button readnow;
 
 
     @Override
@@ -49,6 +50,17 @@ public class Book_detail extends AppCompatActivity {
     }
 
     private void setEvnet() {
+        readnow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Book chitiet = (Book) getIntent().getSerializableExtra("chitiet");
+                Intent intent = new Intent(getApplicationContext(), Read_now.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("chitiet",chitiet);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
         heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +83,7 @@ public class Book_detail extends AppCompatActivity {
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Starup.class));
+                startActivity(new Intent(getApplicationContext(), Starup.class));
             }
         });
     }
@@ -87,24 +99,25 @@ public class Book_detail extends AppCompatActivity {
         cover = findViewById(R.id.cover);
         ratingBar = findViewById(R.id.rating);
         heart = findViewById(R.id.heart);
-        date=findViewById(R.id.date);
+        date = findViewById(R.id.date);
+        readnow = findViewById(R.id.readnow);
 
         //gan du lieu
         book_id = chitiet.getId();
-        book_title.setText("Title: "+chitiet.getTitle());
-        author.setText("Author: "+chitiet.getAuthor());
+        book_title.setText("Title: " + chitiet.getTitle());
+        author.setText("Author: " + chitiet.getAuthor());
         ratingBar.setRating(chitiet.getRating());
         Picasso.get()
                 .load(chitiet.getCoverPhotoURL())
                 .fit()
                 .placeholder(R.drawable.no_image)
-//                                .transform(transformation)
+//                .transform()
                 .into(cover);
-        type.setText("Category: "+chitiet.getType());
+        type.setText("Category: " + chitiet.getType());
 
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
         String dateStr = sdf.format(chitiet.getTimestamp());
-        date.setText("Date: "+dateStr);
+        date.setText("Date: " + dateStr);
         StaticConfig.mLibrary.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

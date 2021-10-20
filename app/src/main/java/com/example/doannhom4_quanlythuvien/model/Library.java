@@ -21,8 +21,6 @@ public class Library implements Serializable {
     public Library() {
     }
 
-
-
     public Boolean getIs_heart() {
         return is_heart;
     }
