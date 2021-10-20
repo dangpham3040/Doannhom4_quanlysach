@@ -111,11 +111,11 @@ public class Add_book extends AppCompatActivity {
         btnsave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                link = StaticConfig.Test_link;
                 mieuta = describe.getText().toString();
                 ten = ettitle.getText().toString();
                 tacgia = etauthor.getText().toString();
-                if (ten.isEmpty() || tacgia.isEmpty() || link.isEmpty() || sosao == 0 || mieuta.isEmpty() || cover_link.isEmpty() || link.isEmpty()) {
+                if (ten.isEmpty() || tacgia.isEmpty() || link.isEmpty()
+                        || sosao == 0 || mieuta.isEmpty() || cover_link.isEmpty() || link.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "vui long nhap du thong tin!!", Toast.LENGTH_SHORT).show();
                 } else {
                     String key = StaticConfig.mBook.push().getKey();
@@ -164,9 +164,9 @@ public class Add_book extends AppCompatActivity {
         file_type = "file";
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("*/*");
+        intent.setType("application/pdf");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), StaticConfig.PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Select PDF"), StaticConfig.PICK_IMAGE_REQUEST);
     }
 
     private void chooseImage() {
@@ -205,7 +205,7 @@ public class Add_book extends AppCompatActivity {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
-            StorageReference ref = StaticConfig.storageReference.child("Doc/" + filePath.getLastPathSegment());
+            StorageReference ref = StaticConfig.storageReference.child("PDF/" + filePath.getLastPathSegment());
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -217,7 +217,7 @@ public class Add_book extends AppCompatActivity {
                                 public void onSuccess(Uri uri) {
                                     //lấy link đã up lên firebase
                                     Log.d("downloadUrl:", "" + uri);
-                                    //link = uri.toString();
+                                    link = uri.toString();
                                     //StaticConfig.mUser.child(StaticConfig.currentuser).child("pic").setValue(link);
                                 }
                             });

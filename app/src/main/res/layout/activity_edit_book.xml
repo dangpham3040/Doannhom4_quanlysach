@@ -82,8 +82,8 @@
         <EditText
             android:id="@+id/book_describe"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:text="@string/text" />
+            android:layout_height="420dp"
+            android:text="@string/about" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -98,14 +98,16 @@
                 android:layout_marginRight="40dp"
                 android:backgroundTint="#2260b6"
                 android:enabled="false"
-                android:text="Save"></Button>
+                android:text="Save"
+                android:textColor="@color/white"></Button>
 
             <Button
                 android:id="@+id/btnremove"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:backgroundTint="#b45f06"
-                android:text="Remove"></Button>
+                android:text="Remove"
+                android:textColor="@color/white"></Button>
         </LinearLayout>
 
     </LinearLayout>
