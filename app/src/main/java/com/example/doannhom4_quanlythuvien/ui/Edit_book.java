@@ -57,6 +57,7 @@ public class Edit_book extends AppCompatActivity {
     private String file_type;
     private Uri filePath;
     private String link;
+    private int solan = 0;
     private boolean is_title = false, is_book_id = false, is_author = false, is_type = false,
             is_coverPhotoURL = false, is_link = false, is_rating = false;
     private Book chitiet;
@@ -84,22 +85,19 @@ public class Edit_book extends AppCompatActivity {
                 chooseFile();
             }
         });
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spinner.setSelection(arrayAdapter.getPosition(chitiet.getType()));
-                if (spinner.getSelectedItem().toString().equals(chitiet.getType())) {
-                    is_type = false;
-                } else if (!spinner.getSelectedItem().toString().equals(chitiet.getType())) {
-                    is_type = true;
+                if (solan == 0) {
+                    spinner.setSelection(arrayAdapter.getPosition(chitiet.getType()), true); //Add this line before setting listener
                 }
+                solan++;
                 kiemtra();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
         ratingBar.setOnTouchListener(new View.OnTouchListener() {
@@ -147,7 +145,6 @@ public class Edit_book extends AppCompatActivity {
         book_title.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -252,7 +249,7 @@ public class Edit_book extends AppCompatActivity {
                             // The dialog is automatically dismissed when a dialog button is clicked.
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-//                                gán dữ liệu vào firebase
+
                                     finish();
                                 }
                             })
@@ -448,10 +445,11 @@ public class Edit_book extends AppCompatActivity {
         });
         // spinner.setSelection(arrayAdapter.getPosition(chitiet.getType()));
         spinner.setAdapter(arrayAdapter);
+
     }
 
     private void kiemtra() {
-        if (is_title == true || is_author == true || is_type == true
+        if (is_title == true || is_author == true || !spinner.getSelectedItem().toString().equals(chitiet.getType())
                 || is_coverPhotoURL == true || is_link == true || is_rating == true) {
             btnsave.setEnabled(true);
         } else {
