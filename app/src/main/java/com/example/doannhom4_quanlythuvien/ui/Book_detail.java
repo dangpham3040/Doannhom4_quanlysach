@@ -68,13 +68,13 @@ public class Book_detail extends AppCompatActivity {
                 if (isheart == true) {
                     Boolean is_heart = false;
                     Library library = new Library(book_id, StaticConfig.currentuser, is_heart);
-                    StaticConfig.mLibrary.child(book_id).setValue(library);
+                    StaticConfig.mLibrary.child(StaticConfig.currentuser).setValue(library);
                     heart.setImageResource(R.drawable.heart_off);
                 }
                 if (isheart == false) {
                     Boolean is_heart = true;
                     Library library = new Library(book_id, StaticConfig.currentuser, is_heart);
-                    StaticConfig.mLibrary.child(book_id).setValue(library);
+                    StaticConfig.mLibrary.child(StaticConfig.currentuser).setValue(library);
                     heart.setImageResource(R.drawable.heart_on);
                 }
 
@@ -122,7 +122,8 @@ public class Book_detail extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    if (ds.child("user_id").getValue(String.class).equals(StaticConfig.currentuser) && ds.child("book_id").getValue(String.class).equals(book_id)) {
+                    if (ds.child("user_id").getValue(String.class).equals(StaticConfig.currentuser) &&
+                            ds.child("book_id").getValue(String.class).equals(book_id)) {
                         if (ds.child("is_heart").getValue(Boolean.class).equals(true)) {
                             heart.setImageResource(R.drawable.heart_on);
                             isheart = true;

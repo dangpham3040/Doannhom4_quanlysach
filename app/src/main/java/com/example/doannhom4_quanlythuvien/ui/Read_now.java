@@ -69,7 +69,7 @@ public class Read_now extends AppCompatActivity {
 
     private void sotrang() {
         NumberPage numberPage = new NumberPage(chitiet.getId(), StaticConfig.currentuser, pdfView.getCurrentPage());
-        StaticConfig.mPageNumber.child(chitiet.getId()).setValue(numberPage);
+        StaticConfig.mPageNumber.child(StaticConfig.currentuser).setValue(numberPage);
     }
 
     private void setControl() {

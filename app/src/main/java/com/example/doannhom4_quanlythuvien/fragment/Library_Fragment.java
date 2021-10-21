@@ -170,7 +170,8 @@ public class Library_Fragment extends Fragment {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     book = ds.getValue(Book.class);
                     for (int i = 0; i < yeuthich.size(); i++) {
-                        if (book.getId().equals(yeuthich.get(i).getBook_id()) && yeuthich.get(i).getIs_heart() == true) {
+                        if (book.getId().equals(yeuthich.get(i).getBook_id())
+                                && yeuthich.get(i).getIs_heart() == true&&yeuthich.get(i).getUser_id().equals(StaticConfig.currentuser)) {
                             data.add(book);
                         }
                     }
