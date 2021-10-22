@@ -1,5 +1,6 @@
 package com.example.doannhom4_quanlythuvien.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -65,6 +67,7 @@ public class Library_Fragment extends Fragment {
     private ArrayList<Library> yeuthich = new ArrayList<>();
     private CheckBox checkBox;
     private Button btndel;
+    private ProgressBar progressBar;
 
 
     private Book book;
@@ -118,7 +121,10 @@ public class Library_Fragment extends Fragment {
         spinner = view.findViewById(R.id.book_type);
         checkBox = view.findViewById(R.id.checkbox);
         btndel = view.findViewById(R.id.btndel);
+        progressBar = view.findViewById(R.id.progressBar);
         khoitao();
+        progressBar.setVisibility(View.INVISIBLE);
+
         adapter = new book_Adapter(getContext(), R.layout.items_library, data);
         gridView.setAdapter(adapter);
         ArrayList<String> arrayList = new ArrayList<>();
@@ -132,13 +138,15 @@ public class Library_Fragment extends Fragment {
                 }
                 arrayAdapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
             }
         });
         spinner.setAdapter(arrayAdapter);
+        if(!arrayAdapter.isEmpty()){
+            progressBar.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void khoitao() {
@@ -147,12 +155,11 @@ public class Library_Fragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //xoá list book
                 yeuthich.removeAll(yeuthich);
-                int i = 0;
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     library = ds.getValue(Library.class);
                     yeuthich.add(library);
 //                    Log.d("so lam", yeuthich.get(i).getBook_id());
-                    i++;
+
                 }
             }
 
@@ -161,7 +168,6 @@ public class Library_Fragment extends Fragment {
                 throw error.toException();
             }
         });
-
         StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -171,7 +177,7 @@ public class Library_Fragment extends Fragment {
                     book = ds.getValue(Book.class);
                     for (int i = 0; i < yeuthich.size(); i++) {
                         if (book.getId().equals(yeuthich.get(i).getBook_id())
-                                && yeuthich.get(i).getIs_heart() == true&&yeuthich.get(i).getUser_id().equals(StaticConfig.currentuser)) {
+                                && yeuthich.get(i).getIs_heart() == true && yeuthich.get(i).getUser_id().equals(StaticConfig.currentuser)) {
                             data.add(book);
                         }
                     }
@@ -184,7 +190,6 @@ public class Library_Fragment extends Fragment {
                 throw error.toException();
             }
         });
-
     }
 
 
@@ -248,6 +253,7 @@ public class Library_Fragment extends Fragment {
                         adapter = new book_Adapter(getContext(), R.layout.items_library, result);
                         gridView.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.INVISIBLE);
                         if (tempchr.isEmpty() && theloai.equals("All")) {
                             khoitao();
                         }

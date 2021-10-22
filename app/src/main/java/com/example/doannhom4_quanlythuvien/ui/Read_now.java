@@ -56,6 +56,12 @@ public class Read_now extends AppCompatActivity {
         setEvnet();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        sotrang();
+    }
+
     private void setEvnet() {
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,11 +115,11 @@ public class Read_now extends AppCompatActivity {
         });
     }
 
-    //create an async task to load pdf from URL.
+    //tạo async task để load pdf từ url
     private class loadpdffromUrl extends AsyncTask<String, Void, InputStream> implements OnLoadCompleteListener, OnErrorListener {
         @Override
         protected InputStream doInBackground(String... strings) {
-            //We use InputStream to get PDF.
+
             InputStream inputStream = null;
             try {
                 URL url = new URL(strings[0]);
@@ -134,6 +140,7 @@ public class Read_now extends AppCompatActivity {
         protected void onPostExecute(InputStream inputStream) {
             //after the executing async task we load pdf in to pdfview.
             pdfView.fromStream(inputStream)
+                    //gán số trang mặc định
                     .defaultPage(sotrang)
                     .onLoad(this)
                     .onError(this)
@@ -144,7 +151,6 @@ public class Read_now extends AppCompatActivity {
         public void onError(Throwable t) {
             t.getMessage();
         }
-
         @Override
         public void loadComplete(int nbPages) {
             progressBar.setVisibility(View.GONE);
