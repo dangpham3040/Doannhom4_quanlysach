@@ -70,7 +70,6 @@ public class Management extends AppCompatActivity {
         gridView = findViewById(R.id.book_gallery);
         etsearch = findViewById(R.id.search);
         btnadd = findViewById(R.id.btnadd);
-
         khoitao();
 
         adapter = new book_Adapter(getApplicationContext(), R.layout.items_library, data);
@@ -108,11 +107,11 @@ public class Management extends AppCompatActivity {
                 data.removeAll(data);
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     book = ds.getValue(Book.class);
-                    data.add(book);
+                    data.add(0,book);
                     adapter.notifyDataSetChanged();
+                    Log.d("bookid",book.getTimestamp()+"");
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();

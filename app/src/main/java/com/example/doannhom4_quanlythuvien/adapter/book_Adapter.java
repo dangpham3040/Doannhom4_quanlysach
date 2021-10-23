@@ -31,7 +31,7 @@ public class book_Adapter extends ArrayAdapter implements Filterable {
     Context context;
     int resource;
     ArrayList<Book> data;
-    ArrayList<Book> dataResults;
+
 
     @Override
     public int getCount() {
@@ -43,7 +43,7 @@ public class book_Adapter extends ArrayAdapter implements Filterable {
         this.context = context;
         this.resource = resource;
         this.data = data;
-        this.dataResults = data;
+
     }
 
     @Nullable
@@ -87,59 +87,5 @@ public class book_Adapter extends ArrayAdapter implements Filterable {
         return convertView;
     }
 
-//    // Filter Class
-//    public void filter(String charText) {
-//        charText = charText.toLowerCase(Locale.getDefault());
-//        dataResults.clear();
-//        if (charText.length() == 0) {
-//            dataResults.addAll(data);
-//        } else {
-//
-//            for (Book wp : data) {
-//                if (wp.getAuthor().toLowerCase(Locale.getDefault()).contains(charText)) {
-//                    dataResults.add(wp);
-//                    Log.d("search", dataResults.toString());
-//                }
-//                if (charText.isEmpty()) {
-//                    dataResults.addAll(data);
-//                }
-//            }
-//        }
-//        notifyDataSetChanged();
-//    }
-//
-//    @NonNull
-//    @Override
-//    public Filter getFilter() {
-//
-//        return filter;
-//    }
-//
-//    Filter filter = new Filter() {
-//        @Override
-//        protected FilterResults performFiltering(CharSequence constraint) {
-//            FilterResults filterResults = new FilterResults();
-//            if (constraint == null || constraint.length() == 0) {
-//                filterResults.count = data.size();
-//                filterResults.values = data;
-//            } else {
-//                String seachChr = constraint.toString().toLowerCase();
-//                ArrayList<Book> searchResults = new ArrayList<>();
-//                for (Book d : data) {
-//                    if (d.getTitle().contains(seachChr) || d.getAuthor().contains(seachChr)) {
-//                        searchResults.add(d);
-//                    }
-//                    filterResults.count = searchResults.size();
-//                    filterResults.values = searchResults;
-//                }
-//            }
-//            return filterResults;
-//        }
-//
-//        @Override
-//        protected void publishResults(CharSequence constraint, FilterResults results) {
-//            dataResults = (ArrayList<Book>) results.values;
-//            notifyDataSetChanged();
-//        }
-//    };
+
 }

@@ -56,7 +56,7 @@ public class Add_book extends AppCompatActivity {
     private ImageView cover;
     private Spinner spinner;
     private RatingBar ratingBar;
-    private String ten, tacgia, loai, link, mieuta, cover_link;
+    private String ten, tacgia, loai, link = "", mieuta, cover_link;
     private float sosao;
     private Uri filePath;
     private Button btnsave;
@@ -119,9 +119,12 @@ public class Add_book extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "vui long nhap du thong tin!!", Toast.LENGTH_SHORT).show();
                 } else {
                     String key = StaticConfig.mBook.push().getKey();
-                    Book book = new Book(key,ten, tacgia, cover_link, link, loai, sosao);
+                    Book book = new Book(key, ten, tacgia, cover_link, link, loai, sosao);
                     StaticConfig.mBook.child(key).setValue(book);
-                    finish();
+                    if (StaticConfig.mBook.child(key) != null) {
+                        finish();
+                    }
+
                 }
             }
         });
@@ -155,7 +158,7 @@ public class Add_book extends AppCompatActivity {
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              startActivity(new Intent(getApplicationContext(),Management.class));
+                startActivity(new Intent(getApplicationContext(), Management.class));
             }
         });
     }

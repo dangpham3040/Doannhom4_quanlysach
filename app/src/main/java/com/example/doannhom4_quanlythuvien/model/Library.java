@@ -10,15 +10,25 @@ public class Library implements Serializable {
     String Book_id;
     String User_id;
     Boolean is_heart;
+    private long timestamp;
 
     public Library(String book_id, String user_id, Boolean is_heart) {
-
         Book_id = book_id;
         User_id = user_id;
         this.is_heart = is_heart;
+        this.timestamp = StaticConfig.timestamp;
+
     }
 
     public Library() {
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public Boolean getIs_heart() {

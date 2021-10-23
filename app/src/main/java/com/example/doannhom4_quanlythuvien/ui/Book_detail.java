@@ -56,7 +56,7 @@ public class Book_detail extends AppCompatActivity {
                 Book chitiet = (Book) getIntent().getSerializableExtra("chitiet");
                 Intent intent = new Intent(getApplicationContext(), Read_now.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("chitiet",chitiet);
+                bundle.putSerializable("chitiet", chitiet);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -64,17 +64,16 @@ public class Book_detail extends AppCompatActivity {
         heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (isheart == true) {
                     Boolean is_heart = false;
                     Library library = new Library(book_id, StaticConfig.currentuser, is_heart);
-                    StaticConfig.mLibrary.child(StaticConfig.currentuser).setValue(library);
+                    StaticConfig.mLibrary.child(StaticConfig.currentuser).child(book_id).setValue(library);
                     heart.setImageResource(R.drawable.heart_off);
                 }
                 if (isheart == false) {
                     Boolean is_heart = true;
                     Library library = new Library(book_id, StaticConfig.currentuser, is_heart);
-                    StaticConfig.mLibrary.child(StaticConfig.currentuser).setValue(library);
+                    StaticConfig.mLibrary.child(StaticConfig.currentuser).child(book_id).setValue(library);
                     heart.setImageResource(R.drawable.heart_on);
                 }
 
@@ -122,18 +121,19 @@ public class Book_detail extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    if (ds.child("user_id").getValue(String.class).equals(StaticConfig.currentuser) &&
-                            ds.child("book_id").getValue(String.class).equals(book_id)) {
-                        if (ds.child("is_heart").getValue(Boolean.class).equals(true)) {
-                            heart.setImageResource(R.drawable.heart_on);
-                            isheart = true;
-                        }
-                        if (ds.child("is_heart").getValue(Boolean.class).equals(false)) {
-                            heart.setImageResource(R.drawable.heart_off);
-                            isheart = false;
+                    if (ds.hasChild(book_id)) {
+                        if (ds.child(book_id).child("user_id").getValue(String.class).equals(StaticConfig.currentuser) &&
+                                ds.child(book_id).child("book_id").getValue(String.class).equals(book_id)) {
+                            if (ds.child(book_id).child("is_heart").getValue(Boolean.class).equals(true)) {
+                                heart.setImageResource(R.drawable.heart_on);
+                                isheart = true;
+                            }
+                            if (ds.child(book_id).child("is_heart").getValue(Boolean.class).equals(false)) {
+                                heart.setImageResource(R.drawable.heart_off);
+                                isheart = false;
+                            }
                         }
                     }
-
                 }
 
             }

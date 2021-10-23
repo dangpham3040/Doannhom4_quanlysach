@@ -145,7 +145,7 @@ public class Home_Fragment extends Fragment {
                 data.removeAll(data);
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     book = ds.getValue(Book.class);
-                    data.add(book);
+                    data.add(0,book);
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -194,10 +194,10 @@ public class Home_Fragment extends Fragment {
                                     temp.getAuthor().toLowerCase().contains(tempchr)
                             ) {
                                 if (theloai.equals("All")) {
-                                    result.add(temp);
+                                    result.add(0,temp);
                                 }
                                 if (theloai.equals(temp.getType())) {
-                                    result.add(temp);
+                                    result.add(0,temp);
                                 }
                             }
 
@@ -232,14 +232,14 @@ public class Home_Fragment extends Fragment {
                         for (DataSnapshot ds : snapshot.getChildren()) {
                             temp = ds.getValue(Book.class);
                             if (temp.getType().contains(theloai) && tempchr.isEmpty()) {
-                                result.add(temp);
+                                result.add(0,temp);
                             }
                             if (theloai.equals(temp.getType()) || theloai.equals("All")) {
                                 if (temp.getTitle().toLowerCase().contains(tempchr) ||
                                         temp.getAuthor().toLowerCase().contains(tempchr)
                                 ) {
                                     if (!tempchr.isEmpty())
-                                        result.add(temp);
+                                        result.add(0,temp);
                                 }
 
                             }

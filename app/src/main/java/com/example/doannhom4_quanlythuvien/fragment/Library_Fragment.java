@@ -36,9 +36,11 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -138,35 +140,35 @@ public class Library_Fragment extends Fragment {
                 }
                 arrayAdapter.notifyDataSetChanged();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
             }
         });
         spinner.setAdapter(arrayAdapter);
-        if(!arrayAdapter.isEmpty()){
+        if (!arrayAdapter.isEmpty()) {
             progressBar.setVisibility(View.INVISIBLE);
         }
     }
 
     private void khoitao() {
-        StaticConfig.mLibrary.addValueEventListener(new ValueEventListener() {
+        Query thuvien = StaticConfig.mLibrary.child(StaticConfig.currentuser).orderByChild("timestamp");
+        thuvien.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //xoá list book
                 yeuthich.removeAll(yeuthich);
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     library = ds.getValue(Library.class);
-                    yeuthich.add(library);
-//                    Log.d("so lam", yeuthich.get(i).getBook_id());
-
+                    yeuthich.add(0,library);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
             }
+
         });
         StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
             @Override
@@ -177,14 +179,14 @@ public class Library_Fragment extends Fragment {
                     book = ds.getValue(Book.class);
                     for (int i = 0; i < yeuthich.size(); i++) {
                         if (book.getId().equals(yeuthich.get(i).getBook_id())
-                                && yeuthich.get(i).getIs_heart() == true && yeuthich.get(i).getUser_id().equals(StaticConfig.currentuser)) {
-                            data.add(book);
+                                && yeuthich.get(i).getIs_heart() == true &&
+                                yeuthich.get(i).getUser_id().equals(StaticConfig.currentuser)) {
+                            data.add(0,book);
                         }
                     }
                     adapter.notifyDataSetChanged();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
