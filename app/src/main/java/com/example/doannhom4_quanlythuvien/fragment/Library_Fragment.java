@@ -181,7 +181,7 @@ public class Library_Fragment extends Fragment {
                         if (book.getId().equals(yeuthich.get(i).getBook_id())
                                 && yeuthich.get(i).getIs_heart() == true &&
                                 yeuthich.get(i).getUser_id().equals(StaticConfig.currentuser)) {
-                            data.add(0,book);
+                            data.add(book);
                         }
                     }
                     adapter.notifyDataSetChanged();
