@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class Book implements Serializable {
     private String id, title, author, coverPhotoURL, link;
     private String type;
-    private float rating;
+
     private long timestamp;
 
     public Book() {
@@ -69,36 +69,16 @@ public class Book implements Serializable {
         this.type = type;
     }
 
-    public float getRating() {
-        return rating;
-    }
 
-    public void setRating(float rating) {
-        this.rating = rating;
-    }
-
-    public Book(String id, String title, String author, String coverPhotoURL, String link, String type, float rating) {
+    public Book(String id, String title, String author, String coverPhotoURL, String link, String type) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.coverPhotoURL = coverPhotoURL;
         this.link = link;
         this.type = type;
-        this.rating = rating;
         this.timestamp = StaticConfig.timestamp;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id='" + id + '\'' +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", coverPhotoURL='" + coverPhotoURL + '\'' +
-                ", link='" + link + '\'' +
-                ", type='" + type + '\'' +
-                ", rating=" + rating +
-                '}';
-    }
 
 }

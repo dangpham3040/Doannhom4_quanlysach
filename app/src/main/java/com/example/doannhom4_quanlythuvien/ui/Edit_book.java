@@ -50,7 +50,6 @@ public class Edit_book extends AppCompatActivity {
     private EditText book_title, author;
     private Spinner spinner;
     private ImageView cover;
-    private RatingBar ratingBar;
     private Button btnsave, btnremove, btnchoose_file;
     private String book_id;
     private String coverPhotoURL;
@@ -59,7 +58,7 @@ public class Edit_book extends AppCompatActivity {
     private String link;
     private int solan = 0;
     private boolean is_title = false, is_book_id = false, is_author = false, is_type = false,
-            is_coverPhotoURL = false, is_link = false, is_rating = false;
+            is_coverPhotoURL = false, is_link = false;
     private Book chitiet;
     private ArrayList<String> arrayList = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapter;
@@ -100,19 +99,7 @@ public class Edit_book extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        ratingBar.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (ratingBar.getRating() != chitiet.getRating()) {
-                    is_rating = true;
-                }
-                if (ratingBar.getRating() == chitiet.getRating()) {
-                    is_rating = false;
-                }
-                kiemtra();
-                return false;
-            }
-        });
+
         //Viết hoa
         book_title.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -202,7 +189,8 @@ public class Edit_book extends AppCompatActivity {
                         // The dialog is automatically dismissed when a dialog button is clicked.
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                StaticConfig.mBook.child(book_id).setValue(null);
+                                StaticConfig.mBook.child(book_id).removeValue();
+                                StaticConfig.mComment.child(book_id).removeValue();
                                 startActivity(new Intent(getApplicationContext(), Management.class));
                             }
                         })
@@ -225,9 +213,16 @@ public class Edit_book extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
 //                                gán dữ liệu vào firebase
                                 Book book = new Book(book_id, book_title.getText().toString(), author.getText().toString(),
-                                        coverPhotoURL, link, spinner.getSelectedItem().toString(), ratingBar.getRating());
-                                StaticConfig.mBook.child(book_id).setValue(book);
-                                startActivity(new Intent(getApplicationContext(), Management.class));
+                                        coverPhotoURL, link, spinner.getSelectedItem().toString());
+                                StaticConfig.mBook.child(book_id).setValue(book)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        startActivity(new Intent(getApplicationContext(), Management.class));
+                                    }
+
+                                });
+
                             }
                         })
 
@@ -324,6 +319,8 @@ public class Edit_book extends AppCompatActivity {
                                     //lấy link đã up lên firebase
                                     Log.d("downloadUrl:", "" + uri);
                                     link = uri.toString();
+                                    is_link = true;
+                                    kiemtra();
                                     //StaticConfig.mUser.child(StaticConfig.currentuser).child("pic").setValue(link);
                                 }
                             });
@@ -370,6 +367,8 @@ public class Edit_book extends AppCompatActivity {
                                     //lấy link đã up lên firebase
                                     Log.d("downloadUrl:", "" + uri);
                                     coverPhotoURL = uri.toString();
+                                    is_coverPhotoURL = true;
+                                    kiemtra();
                                     //StaticConfig.mUser.child(StaticConfig.currentuser).child("pic").setValue(link);
                                 }
                             });
@@ -404,7 +403,6 @@ public class Edit_book extends AppCompatActivity {
         author = findViewById(R.id.author);
         spinner = findViewById(R.id.book_type);
         cover = findViewById(R.id.cover);
-        ratingBar = findViewById(R.id.rating);
         btnremove = findViewById(R.id.btnremove);
         btnsave = findViewById(R.id.btnsave);
         btnchoose_file = findViewById(R.id.choose_file);
@@ -415,7 +413,7 @@ public class Edit_book extends AppCompatActivity {
         book_id = chitiet.getId();
         book_title.setText(chitiet.getTitle());
         author.setText(chitiet.getAuthor());
-        ratingBar.setRating(chitiet.getRating());
+
         Picasso.get()
                 .load(chitiet.getCoverPhotoURL())
                 .fit()
@@ -437,7 +435,6 @@ public class Edit_book extends AppCompatActivity {
                 }
                 arrayAdapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
@@ -450,7 +447,7 @@ public class Edit_book extends AppCompatActivity {
 
     private void kiemtra() {
         if (is_title == true || is_author == true || !spinner.getSelectedItem().toString().equals(chitiet.getType())
-                || is_coverPhotoURL == true || is_link == true || is_rating == true) {
+                || is_coverPhotoURL == true || is_link == true ) {
             btnsave.setEnabled(true);
         } else {
             btnsave.setEnabled(false);

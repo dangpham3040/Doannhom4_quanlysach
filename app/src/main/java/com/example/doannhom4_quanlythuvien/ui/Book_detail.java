@@ -4,19 +4,33 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowId;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.doannhom4_quanlythuvien.R;
+import com.example.doannhom4_quanlythuvien.adapter.*;
 import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
 import com.example.doannhom4_quanlythuvien.model.Book;
+import com.example.doannhom4_quanlythuvien.model.Comment;
 import com.example.doannhom4_quanlythuvien.model.Library;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,6 +39,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -39,6 +54,12 @@ public class Book_detail extends AppCompatActivity {
     private String book_id;
     private boolean isheart = false;
     private Button readnow;
+    private ImageButton add_comment;
+    private GridView gridView;
+    private Book chitiet;
+    private ArrayList<Comment> data = new ArrayList<>();
+    private comment_Adapter adapter;
+    private float sosao = 0;
 
 
     @Override
@@ -50,6 +71,12 @@ public class Book_detail extends AppCompatActivity {
     }
 
     private void setEvnet() {
+        add_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addCommnetDialog();
+            }
+        });
         readnow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,8 +114,45 @@ public class Book_detail extends AppCompatActivity {
         });
     }
 
+    private void addCommnetDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_comment_add);
+
+        Window window = dialog.getWindow();
+        if (window == null) {
+            return;
+        }
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCancelable(false);
+        RatingBar ratingBar = dialog.findViewById(R.id.rating);
+        EditText Comment = dialog.findViewById(R.id.edit_Comment);
+        Button Submit = dialog.findViewById(R.id.Submit);
+        ImageButton goback = dialog.findViewById(R.id.goback);
+
+        goback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        Submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!Comment.getText().toString().isEmpty()) {
+                    StaticConfig.mComment.child(book_id).child(StaticConfig.currentuser).
+                            setValue(new Comment(book_id, StaticConfig.currentuser, Comment.getText().toString(), ratingBar.getRating()));
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        dialog.show();
+    }
+
     private void setControl() {
-        Book chitiet = (Book) getIntent().getSerializableExtra("chitiet");
+        chitiet = (Book) getIntent().getSerializableExtra("chitiet");
         title = findViewById(R.id.title);
         title.setText(chitiet.getTitle());
         goback = findViewById(R.id.goback);
@@ -100,12 +164,18 @@ public class Book_detail extends AppCompatActivity {
         heart = findViewById(R.id.heart);
         date = findViewById(R.id.date);
         readnow = findViewById(R.id.readnow);
+        add_comment = findViewById(R.id.add_comment);
+        gridView = findViewById(R.id.list_comment);
+
+        adapter = new comment_Adapter(getApplicationContext(), R.layout.item_comment, data);
+        gridView.setAdapter(adapter);
+        khoitao();
 
         //gan du lieu
         book_id = chitiet.getId();
         book_title.setText("Title: " + chitiet.getTitle());
         author.setText("Author: " + chitiet.getAuthor());
-        ratingBar.setRating(chitiet.getRating());
+
         Picasso.get()
                 .load(chitiet.getCoverPhotoURL())
                 .fit()
@@ -144,5 +214,32 @@ public class Book_detail extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void khoitao() {
+        Query xapsepbinhluan = StaticConfig.mComment.child(chitiet.getId()).orderByChild("timestamp");
+        xapsepbinhluan.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int i = 1;
+                float tongsao = 0;
+                data.clear();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    Comment comment = ds.getValue(Comment.class);
+                    data.add(0,comment);
+                    tongsao += ds.child("rating").getValue(Float.class);
+                    sosao = tongsao / i;
+                    i++;
+                }
+                adapter.notifyDataSetChanged();
+                ratingBar.setRating(sosao);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
     }
 }

@@ -32,6 +32,7 @@ import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
 import com.example.doannhom4_quanlythuvien.model.Book;
 import com.example.doannhom4_quanlythuvien.model.Library;
 import com.example.doannhom4_quanlythuvien.ui.Book_detail;
+import com.google.android.material.behavior.SwipeDismissBehavior;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -158,12 +159,13 @@ public class Library_Fragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //xoá list book
-                yeuthich.removeAll(yeuthich);
+                yeuthich.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     library = ds.getValue(Library.class);
-                    yeuthich.add(0,library);
+                    yeuthich.add(0, library);
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
@@ -174,7 +176,7 @@ public class Library_Fragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //xoá list book
-                data.removeAll(data);
+                data.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     book = ds.getValue(Book.class);
                     for (int i = 0; i < yeuthich.size(); i++) {
@@ -187,6 +189,7 @@ public class Library_Fragment extends Fragment {
                     adapter.notifyDataSetChanged();
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();

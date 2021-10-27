@@ -55,9 +55,7 @@ public class Add_book extends AppCompatActivity {
     private EditText ettitle, etauthor;
     private ImageView cover;
     private Spinner spinner;
-    private RatingBar ratingBar;
     private String ten, tacgia, loai, link = "", mieuta, cover_link;
-    private float sosao;
     private Uri filePath;
     private Button btnsave;
     private Button choose_file;
@@ -115,11 +113,11 @@ public class Add_book extends AppCompatActivity {
                 ten = ettitle.getText().toString();
                 tacgia = etauthor.getText().toString();
                 if (ten.isEmpty() || tacgia.isEmpty() || link.isEmpty()
-                        || sosao == 0 || mieuta.isEmpty() || cover_link.isEmpty() || link.isEmpty()) {
+                         || mieuta.isEmpty() || cover_link.isEmpty() || link.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "vui long nhap du thong tin!!", Toast.LENGTH_SHORT).show();
                 } else {
                     String key = StaticConfig.mBook.push().getKey();
-                    Book book = new Book(key, ten, tacgia, cover_link, link, loai, sosao);
+                    Book book = new Book(key, ten, tacgia, cover_link, link, loai);
                     StaticConfig.mBook.child(key).setValue(book);
                     if (StaticConfig.mBook.child(key) != null) {
                         finish();
@@ -135,14 +133,7 @@ public class Add_book extends AppCompatActivity {
                 chooseImage();
             }
         });
-        ratingBar.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                sosao = ratingBar.getRating();
-                //Toast.makeText(getApplicationContext(), sosao + "", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
+
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -302,7 +293,7 @@ public class Add_book extends AppCompatActivity {
         etauthor = findViewById(R.id.author);
         ettitle = findViewById(R.id.book_title);
         cover = findViewById(R.id.cover);
-        ratingBar = findViewById(R.id.rating);
+
 
         //gan tieu de
         title.setText("Thêm sách");
@@ -327,7 +318,5 @@ public class Add_book extends AppCompatActivity {
             }
         });
         spinner.setAdapter(arrayAdapter);
-
-
     }
 }
