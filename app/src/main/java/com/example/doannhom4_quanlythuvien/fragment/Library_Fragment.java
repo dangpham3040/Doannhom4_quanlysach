@@ -127,6 +127,7 @@ public class Library_Fragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
         khoitao();
         progressBar.setVisibility(View.INVISIBLE);
+        StaticConfig.is_del = false;
 
         adapter = new book_Adapter(getContext(), R.layout.items_library, data);
         gridView.setAdapter(adapter);
@@ -165,7 +166,6 @@ public class Library_Fragment extends Fragment {
                     yeuthich.add(0, library);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
@@ -211,17 +211,16 @@ public class Library_Fragment extends Fragment {
                 }
                 StaticConfig.ArrayCheck.clear();
                 adapter.notifyDataSetChanged();
-                CheckBox checkBox = view.findViewById(R.id.checkbox);
                 btndel.setVisibility(View.INVISIBLE);
-                checkBox.setVisibility(View.INVISIBLE);
+                StaticConfig.is_del = false;
             }
         });
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                CheckBox checkBox = view.findViewById(R.id.checkbox);
-                checkBox.setVisibility(View.VISIBLE);
+                StaticConfig.is_del = true;
                 btndel.setVisibility(View.VISIBLE);
+                adapter.notifyDataSetChanged();
                 return false;
             }
         });

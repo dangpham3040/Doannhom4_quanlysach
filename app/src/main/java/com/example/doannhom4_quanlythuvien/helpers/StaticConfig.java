@@ -36,4 +36,6 @@ public class StaticConfig {
 
     //arralist check
     public static ArrayList<Book> ArrayCheck = new ArrayList<>();
+    //kiem tra xoa
+    public static boolean is_del = false;
 }

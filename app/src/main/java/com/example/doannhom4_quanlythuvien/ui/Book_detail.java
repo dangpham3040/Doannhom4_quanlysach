@@ -109,7 +109,7 @@ public class Book_detail extends AppCompatActivity {
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Starup.class));
+                finish();
             }
         });
     }

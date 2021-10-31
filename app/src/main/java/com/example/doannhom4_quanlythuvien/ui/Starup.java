@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.example.doannhom4_quanlythuvien.MainActivity;
 import com.example.doannhom4_quanlythuvien.R;
 import com.example.doannhom4_quanlythuvien.fragment.Contact_Fragment;
-import com.example.doannhom4_quanlythuvien.fragment.Home_Fragment;
+import com.example.doannhom4_quanlythuvien.fragment.*;
 import com.example.doannhom4_quanlythuvien.fragment.Library_Fragment;
 import com.example.doannhom4_quanlythuvien.fragment.Profile_Fragment;
 import com.example.doannhom4_quanlythuvien.fragment.SettingsFragment;
