@@ -216,12 +216,12 @@ public class Edit_book extends AppCompatActivity {
                                         coverPhotoURL, link, spinner.getSelectedItem().toString());
                                 StaticConfig.mBook.child(book_id).setValue(book)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        startActivity(new Intent(getApplicationContext(), Management.class));
-                                    }
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                startActivity(new Intent(getApplicationContext(), Management.class));
+                                            }
 
-                                });
+                                        });
 
                             }
                         })
@@ -262,36 +262,36 @@ public class Edit_book extends AppCompatActivity {
     }
 
     private void chooseFile() {
-        file_type = "file";
+
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("application/pdf");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select PDF"), StaticConfig.PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Select PDF"), 0);
     }
 
     private void chooseImage() {
-        file_type = "image";
+
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), StaticConfig.PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
     }
 
     //gán dữ liệu vào filePath
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == StaticConfig.PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+        if (resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             filePath = data.getData();
             try {
-                if (file_type.equals("image")) {
+                if (requestCode == 1) {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                     cover.setImageBitmap(bitmap);
                     uploadImage();
                 }
-                if (file_type.equals("file")) {
+                if (requestCode == 0) {
                     uploadFile();
                 }
 
@@ -435,6 +435,7 @@ public class Edit_book extends AppCompatActivity {
                 }
                 arrayAdapter.notifyDataSetChanged();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
@@ -447,7 +448,7 @@ public class Edit_book extends AppCompatActivity {
 
     private void kiemtra() {
         if (is_title == true || is_author == true || !spinner.getSelectedItem().toString().equals(chitiet.getType())
-                || is_coverPhotoURL == true || is_link == true ) {
+                || is_coverPhotoURL == true || is_link == true) {
             btnsave.setEnabled(true);
         } else {
             btnsave.setEnabled(false);

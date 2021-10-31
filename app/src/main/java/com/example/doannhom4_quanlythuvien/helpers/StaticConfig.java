@@ -28,7 +28,6 @@ public class StaticConfig {
     public static DatabaseReference mLibrary = Database.getReference("Library");
     public static DatabaseReference mPageNumber = Database.getReference("Page");
     public static DatabaseReference mComment = Database.getReference("Comment");
-    public static final int PICK_IMAGE_REQUEST = 10;
     public static String Default_avatar = "https://firebasestorage.googleapis.com/v0/b/quan-ly-thu-vien-eac1a.appspot.com/o/Default%20avatar%2Fuser.jpg?alt=media&token=22760e3b-7970-4cc5-b4a8-cb0331569f5a";
     //timestamp
     public static Date now = new Date();

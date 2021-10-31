@@ -75,7 +75,6 @@
                     android:overlapAnchor="false"></Spinner>
 
             </LinearLayout>
-
         </LinearLayout>
 
         <GridView
@@ -88,7 +87,7 @@
             android:horizontalSpacing="10dp"
             android:numColumns="1"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="1dp"
+            android:verticalSpacing="10dp"
             tools:listitem="@layout/items_library" />
     </LinearLayout>
 

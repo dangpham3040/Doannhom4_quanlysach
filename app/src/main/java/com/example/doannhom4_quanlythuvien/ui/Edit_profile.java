@@ -239,22 +239,22 @@ public class Edit_profile extends AppCompatActivity {
             save.setEnabled(false);
         }
     }
-
     private void chooseImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), StaticConfig.PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 0);
     }
 
     //gán dữ liệu vào filePath
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == StaticConfig.PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+        if (requestCode == 0 && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             filePath = data.getData();
             try {
+
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 avatar.setImageBitmap(bitmap);
                 uploadImage();

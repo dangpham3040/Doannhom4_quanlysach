@@ -113,7 +113,7 @@ public class Add_book extends AppCompatActivity {
                 ten = ettitle.getText().toString();
                 tacgia = etauthor.getText().toString();
                 if (ten.isEmpty() || tacgia.isEmpty() || link.isEmpty()
-                         || mieuta.isEmpty() || cover_link.isEmpty() || link.isEmpty()) {
+                        || mieuta.isEmpty() || cover_link.isEmpty() || link.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "vui long nhap du thong tin!!", Toast.LENGTH_SHORT).show();
                 } else {
                     String key = StaticConfig.mBook.push().getKey();
@@ -155,36 +155,34 @@ public class Add_book extends AppCompatActivity {
     }
 
     private void chooseFile() {
-        file_type = "file";
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("application/pdf");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select PDF"), StaticConfig.PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Select PDF"), 0);
     }
 
     private void chooseImage() {
-        file_type = "image";
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), StaticConfig.PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
     }
 
     //gán dữ liệu vào filePath
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == StaticConfig.PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+        if (resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             filePath = data.getData();
             try {
-                if (file_type.equals("image")) {
+                if (requestCode == 1) {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                     cover.setImageBitmap(bitmap);
                     uploadImage();
                 }
-                if (file_type.equals("file")) {
+                if (requestCode == 0) {
                     uploadFile();
                 }
 
