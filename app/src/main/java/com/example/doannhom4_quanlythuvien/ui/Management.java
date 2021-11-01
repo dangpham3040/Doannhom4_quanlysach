@@ -104,8 +104,6 @@ public class Management extends AppCompatActivity {
         });
         spinner.setAdapter(arrayAdapter);
     }
-
-
     private void khoitao() {
         Query querybook = StaticConfig.mBook.orderByChild("timestamp");
         querybook.addValueEventListener(new ValueEventListener() {
@@ -195,7 +193,7 @@ public class Management extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(!etsearch.getText().toString().isEmpty())
+
                 StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

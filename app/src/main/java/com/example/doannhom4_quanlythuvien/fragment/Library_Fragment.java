@@ -237,13 +237,14 @@ public class Library_Fragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(!etsearch.getText().toString().isEmpty())
+                if(theloai!=null)
                 StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         //xoá list book
                         result.removeAll(result);
                         String tempchr = etsearch.getText().toString().toLowerCase();
+                        if(theloai!=null)
                         for (int i = 0; i < data.size(); i++) {
                             if (data.get(i).getTitle().toLowerCase().contains(tempchr) ||
                                     data.get(i).getAuthor().toLowerCase().contains(tempchr)

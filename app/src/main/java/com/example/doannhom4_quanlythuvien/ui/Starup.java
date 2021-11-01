@@ -54,12 +54,10 @@ public class Starup extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment = null;
                 switch (item.getItemId()) {
                     case R.id.fragment_home:
                         viewPager.setCurrentItem(0);
                         break;
-
                     case R.id.fragment_profile:
                         viewPager.setCurrentItem(1);
                         break;
@@ -149,7 +147,7 @@ public class Starup extends AppCompatActivity {
 //    }
 
     public void onBackPressed() {
-        new AlertDialog.Builder(getApplicationContext())
+        new AlertDialog.Builder(Starup.this)
                 .setTitle("Thoát ")
                 .setMessage("Are you sure you want to close  the app??")
                 // Specifying a listener allows you to take an action before dismissing the dialog.

@@ -183,14 +183,14 @@ public class Home_Fragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(!etsearch.getText().toString().isEmpty())
+                String tempchr = etsearch.getText().toString().toLowerCase();
+
                 StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         //xoá list book
                         result.removeAll(result);
-                        theloai = spinner.getSelectedItem().toString();
-                        String tempchr = etsearch.getText().toString().toLowerCase();
+                        if(theloai!=null)
                         for (DataSnapshot ds : snapshot.getChildren()) {
                             temp = ds.getValue(Book.class);
                             if (temp.getTitle().toLowerCase().contains(tempchr) ||
@@ -227,6 +227,7 @@ public class Home_Fragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 theloai = spinner.getSelectedItem().toString();
                 String tempchr = etsearch.getText().toString().toLowerCase();
+                if(theloai!=null)
                 StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
