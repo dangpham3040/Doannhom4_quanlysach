@@ -183,6 +183,7 @@ public class Home_Fragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if(!etsearch.getText().toString().isEmpty())
                 StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
