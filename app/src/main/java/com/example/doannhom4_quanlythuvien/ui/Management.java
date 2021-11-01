@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Build;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -35,15 +37,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
 public class Management extends AppCompatActivity {
     private Spinner spinner;
-    private ImageView goback;
-    private TextView title;
+    private ImageView goback, icon_lich;
+    private TextView title, date;
     private ArrayList<Book> data = new ArrayList<>();
     private GridView gridView;
     private book_Adapter adapter;
@@ -70,6 +76,8 @@ public class Management extends AppCompatActivity {
         gridView = findViewById(R.id.book_gallery);
         etsearch = findViewById(R.id.search);
         btnadd = findViewById(R.id.btnadd);
+        date = findViewById(R.id.tvDate);
+        icon_lich = findViewById(R.id.icon_lich);
         khoitao();
 
         adapter = new book_Adapter(getApplicationContext(), R.layout.items_library, data);
@@ -107,20 +115,49 @@ public class Management extends AppCompatActivity {
                 data.removeAll(data);
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     book = ds.getValue(Book.class);
-                    data.add(0,book);
+                    data.add(0, book);
                     adapter.notifyDataSetChanged();
-                    Log.d("bookid",book.getTimestamp()+"");
+                    Log.d("bookid", book.getTimestamp() + "");
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
             }
         });
+        //lay ngay  hien tai
+        final Calendar calendar = Calendar.getInstance();
+        int ngay = calendar.get(Calendar.DATE);
+        int thang = calendar.get(Calendar.MONTH);
+        int nam = calendar.get(Calendar.YEAR);
+        calendar.set(nam, thang, ngay);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        date.setText(simpleDateFormat.format(calendar.getTime()));
 
     }
-
+    private void chonNgay() {
+        final Calendar calendar = Calendar.getInstance();
+        int ngay = calendar.get(Calendar.DATE);
+        int thang = calendar.get(Calendar.MONTH);
+        int nam = calendar.get(Calendar.YEAR);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(year, month, dayOfMonth);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                date.setText(simpleDateFormat.format(calendar.getTime()));
+            }
+        }, nam, thang, ngay);
+        datePickerDialog.show();
+    }
     private void setEvent() {
+        icon_lich.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chonNgay();
+            }
+        });
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

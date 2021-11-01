@@ -184,7 +184,7 @@ public class Book_detail extends AppCompatActivity {
                 .into(cover);
         type.setText("Category: " + chitiet.getType());
 
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         String dateStr = sdf.format(chitiet.getTimestamp());
         date.setText("Date: " + dateStr);
         StaticConfig.mLibrary.addValueEventListener(new ValueEventListener() {
