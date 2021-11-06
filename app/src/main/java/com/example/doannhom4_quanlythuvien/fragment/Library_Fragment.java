@@ -185,6 +185,11 @@ public class Library_Fragment extends Fragment {
                                 yeuthich.get(i).getUser_id().equals(StaticConfig.currentuser)) {
                             data.add(book);
                         }
+//                        xoa sach khong ton tai
+                        if(!snapshot.child(yeuthich.get(i).getBook_id()).exists()){
+                            StaticConfig.mLibrary.child(StaticConfig.currentuser).
+                                    child(yeuthich.get(i).getBook_id()).removeValue();
+                        }
                     }
                     adapter.notifyDataSetChanged();
                 }
@@ -206,7 +211,8 @@ public class Library_Fragment extends Fragment {
 //                Log.d("so luong check",StaticConfig.ArrayCheck.size()+"");
                 for (int i = 0; i < StaticConfig.ArrayCheck.size(); i++) {
                     Book sach = StaticConfig.ArrayCheck.get(i);
-                    StaticConfig.mLibrary.child(sach.getId()).child("is_heart").setValue(false);
+                    StaticConfig.mLibrary.child(StaticConfig.currentuser).child(sach.getId()).child("is_heart")
+                            .setValue(false);
                     result.remove(sach);
                 }
                 StaticConfig.ArrayCheck.clear();

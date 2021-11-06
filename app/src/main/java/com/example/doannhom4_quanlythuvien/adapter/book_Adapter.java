@@ -37,7 +37,6 @@ public class book_Adapter extends ArrayAdapter implements Filterable {
     int i = 1;
     float tongsao = 0;
     float sosao = 0;
-    static CheckBox checkBox;
 
     @Override
     public int getCount() {
@@ -66,7 +65,7 @@ public class book_Adapter extends ArrayAdapter implements Filterable {
         TextView name = convertView.findViewById(R.id.title);
         TextView author = convertView.findViewById(R.id.author);
         RatingBar ratingBar = convertView.findViewById(R.id.rating);
-        checkBox = convertView.findViewById(R.id.checkbox);
+        CheckBox checkBox = convertView.findViewById(R.id.checkbox);
 
         Book sach = data.get(position);
         Picasso.get()
@@ -77,14 +76,10 @@ public class book_Adapter extends ArrayAdapter implements Filterable {
         name.setText(sach.getTitle());
         author.setText(sach.getAuthor());
         ratingBar.setRating(0);
-
-        if (checkBox != null){
-            if(StaticConfig.is_del==true)
-            checkBox.setVisibility(View.VISIBLE);
-        }
-
-        //lay danh sach da chon
-        if (checkBox != null) {
+        if(checkBox!=null){
+            if (StaticConfig.is_del == true) {
+                checkBox.setVisibility(View.VISIBLE);
+            }
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -96,6 +91,20 @@ public class book_Adapter extends ArrayAdapter implements Filterable {
                 }
             });
         }
+
+
+
+//        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (checkBox.isChecked()) {
+//                    StaticConfig.ArrayCheck.add(sach);
+//                } else {
+//                    StaticConfig.ArrayCheck.remove(sach);
+//                }
+//            }
+//        });
+
         //rating
         StaticConfig.mComment.child(sach.getId()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -120,7 +129,6 @@ public class book_Adapter extends ArrayAdapter implements Filterable {
         });
         return convertView;
     }
-
 
 
 }
