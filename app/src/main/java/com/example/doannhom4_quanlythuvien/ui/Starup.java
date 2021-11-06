@@ -1,7 +1,9 @@
 package com.example.doannhom4_quanlythuvien.ui;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
@@ -10,8 +12,11 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.AutoText;
 import android.util.Log;
@@ -123,6 +128,7 @@ public class Starup extends AppCompatActivity {
 //        }
 //        return true;
 //    }
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void setControl() {
         //set id của người dùng hiện tại
         StaticConfig.currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -131,6 +137,9 @@ public class Starup extends AppCompatActivity {
         viewPager = findViewById(R.id.view_pager);
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
+
+        //test thong bao
+        thongbao();
     }
 //
 //    private void loadFragment(Fragment fragment) {
@@ -162,5 +171,15 @@ public class Starup extends AppCompatActivity {
                 .setNegativeButton(android.R.string.no, null)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+    //test thong bao
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void thongbao(){
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(getApplicationContext(), "Thong bao")
+                .setSmallIcon(R.drawable.ibrary)
+                .setContentTitle("imageTitle")
+                .setContentText("imageDescription");
+        NotificationManager manager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        manager.notify(0,notification.build());
     }
 }

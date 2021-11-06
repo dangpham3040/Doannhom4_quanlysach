@@ -267,7 +267,6 @@ public class Edit_profile extends AppCompatActivity {
 //Up hình lên firebase
 
     private void uploadImage() {
-
         if (filePath != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
