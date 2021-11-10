@@ -60,7 +60,7 @@ public class Edit_profile extends AppCompatActivity {
     private String url_avatar;
     private Uri filePath;
     private Button save;
-    private String name, phone, link, gioitinh;
+    private String name, phone, gioitinh;
     //kiem tra co doi chua
     private Boolean isname = false, isphone = false, islink = false, issex = false;
     private String kname, kphone, klink, kgioitinh;
