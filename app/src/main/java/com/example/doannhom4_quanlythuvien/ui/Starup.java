@@ -45,6 +45,7 @@ public class Starup extends AppCompatActivity {
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,8 +178,8 @@ public class Starup extends AppCompatActivity {
     public void thongbao(){
         NotificationCompat.Builder notification = new NotificationCompat.Builder(getApplicationContext(), "Thong bao")
                 .setSmallIcon(R.drawable.ibrary)
-                .setContentTitle("imageTitle")
-                .setContentText("imageDescription");
+                .setContentTitle("Quản lý sách")
+                .setContentText("test thồng báo");
         NotificationManager manager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         manager.notify(0,notification.build());
     }
