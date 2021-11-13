@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -19,22 +21,31 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.doannhom4_quanlythuvien.MainActivity;
 import com.example.doannhom4_quanlythuvien.R;
 import com.example.doannhom4_quanlythuvien.helpers.*;
+import com.example.doannhom4_quanlythuvien.model.Comment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
@@ -204,28 +215,81 @@ public class Edit_profile extends AppCompatActivity {
         changepass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(Edit_profile.this)
-                        .setTitle("Change Password")
-                        .setMessage("Are you sure you want to Change Password??")
-                        // Specifying a listener allows you to take an action before dismissing the dialog.
-                        // The dialog is automatically dismissed when a dialog button is clicked.
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                StaticConfig.fAuth.signOut();
-                                StaticConfig.fAuth.sendPasswordResetEmail("");
-                                Toast.makeText(getApplicationContext(), "vào email để xác nhận đổi pass", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            }
-                        })
-
-                        // A null listener allows the button to dismiss the dialog and take no further action.
-                        .setNegativeButton(android.R.string.no, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                updatePassDialog();
             }
         });
     }
 
+    private void updatePassDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_change_password);
+
+        Window window = dialog.getWindow();
+        if (window == null) {
+            return;
+        }
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCancelable(false);
+
+        EditText current_password = dialog.findViewById(R.id.edit_current_password);
+        EditText new_password = dialog.findViewById(R.id.edit_new_password);
+        Button change = dialog.findViewById(R.id.Submit);
+        ImageButton goback = dialog.findViewById(R.id.goback);
+
+        goback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String oldpass = current_password.getText().toString();
+                String newpass = new_password.getText().toString();
+                if (!oldpass.isEmpty() && !newpass.isEmpty()) {
+                    if (newpass.length() < 6) {
+                        Toast.makeText(getApplicationContext(), "mật khẩu phải có ít nhất 6 ký tự", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Updatepass(oldpass, newpass);
+                    }
+                }
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void Updatepass(String oldpass, String newpass) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        //kiểm tra pass trước khi đổi
+        AuthCredential auth = EmailAuthProvider.getCredential(user.getEmail(), oldpass);
+        user.reauthenticate(auth)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        //Thành công
+                        user.updatePassword(newpass)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(getApplicationContext(), "Thay đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+                                StaticConfig.fAuth.signOut();
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            }
+                        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        //Thất bại
+                        Toast.makeText(getApplicationContext(), "Vui Lòng kiểm tra mật khẩu!!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
     private void kiemtra() {
         if (!etname.getText().toString().isEmpty() && !etphone.getText().toString().isEmpty() && Patterns.EMAIL_ADDRESS.matcher(etemail.getText().toString()).matches()) {
@@ -239,6 +303,7 @@ public class Edit_profile extends AppCompatActivity {
             save.setEnabled(false);
         }
     }
+
     private void chooseImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
