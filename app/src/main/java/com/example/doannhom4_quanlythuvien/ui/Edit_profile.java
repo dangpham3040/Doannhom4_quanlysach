@@ -202,8 +202,27 @@ public class Edit_profile extends AppCompatActivity {
         avatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chooseImage();
-                islink = true;
+                final CharSequence[] options = {"Take Photo", "Choose From Gallery", "Cancel"};
+                new AlertDialog.Builder(Edit_profile.this)
+                        .setTitle("Select Option")
+                        .setItems(options, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int item) {
+                                if (options[item].equals("Take Photo")) {
+                                    dialog.dismiss();
+                                    chooseImage();
+                                    islink = true;
+                                    kiemtra();
+                                } else if (options[item].equals("Choose From Gallery")) {
+                                    dialog.dismiss();
+                                    startActivity(new Intent(getApplicationContext(), Gallery.class));
+                                } else if (options[item].equals("Cancel")) {
+                                    dialog.dismiss();
+                                }
+                            }
+                        })
+                        .show();
+
             }
         });
         goback.setOnClickListener(new View.OnClickListener() {
@@ -273,13 +292,13 @@ public class Edit_profile extends AppCompatActivity {
                         //Thành công
                         user.updatePassword(newpass)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                Toast.makeText(getApplicationContext(), "Thay đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
-                                StaticConfig.fAuth.signOut();
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            }
-                        });
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(getApplicationContext(), "Thay đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+                                        StaticConfig.fAuth.signOut();
+                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    }
+                                });
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -295,7 +314,7 @@ public class Edit_profile extends AppCompatActivity {
         if (!etname.getText().toString().isEmpty() && !etphone.getText().toString().isEmpty() && Patterns.EMAIL_ADDRESS.matcher(etemail.getText().toString()).matches()) {
             if (isname == true || isphone == true || islink == true || issex == true) {
                 save.setEnabled(true);
-                save.setTextColor(Color.parseColor("#FFFFFF"));
+
             } else {
                 save.setEnabled(false);
             }

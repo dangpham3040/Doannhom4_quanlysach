@@ -103,7 +103,7 @@
 
         <ImageView
             style="@style/imgview_profile"
-            android:background="@drawable/user" />
+            android:background="@drawable/gender" />
 
         <LinearLayout
             android:layout_width="match_parent"
