@@ -2,6 +2,9 @@
     <string name="app_name">Book</string>
     //tác giả
     <string name="tachgia">Phạm Hải Đăng</string>
+    //login page
+    <string name="Register_caption">Lets Join to find Your Friends and Family Location</string>
+    <string name="Login_caption">Lets Join to find Your Friends and Family Location</string>
     //nút
     <string name="add">Thêm</string>
     <string name="del">Xoá</string>

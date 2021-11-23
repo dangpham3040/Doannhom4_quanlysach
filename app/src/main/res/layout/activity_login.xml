@@ -1,98 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8dc6ca"
-    android:gravity="center"
-    android:orientation="vertical">
+    tools:context=".ui.Login">
 
     <TextView
+        android:id="@+id/tvLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_50"
+        android:background="@color/white"
+        android:fontFamily="@font/coiny"
+        android:textColor="@color/black"
+        android:text="Login"
+        android:textSize="50sp" />
+
+    <TextView
+        android:id="@+id/tvLoginSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvLogin"
+        android:layout_marginStart="@dimen/dp_30"
+        android:fontFamily="casual"
+        android:text="@string/Login_caption"
+        android:textSize="17sp" />
+
+
+    <EditText
+        android:id="@+id/lemail"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/tvLoginSubtitle"
+        android:layout_marginStart="@dimen/dp_30"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="@dimen/dp_30"
+        android:background="@drawable/et"
+        android:hint="Enter email"
+        android:inputType="textPersonName"
+        android:padding="15dp"
+        android:textSize="15sp" />
+
+
+    <EditText
+        android:id="@+id/lpass"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/lemail"
+        android:layout_marginStart="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_30"
+        android:background="@drawable/et"
+        android:hint="Enter Password"
+        android:inputType="textWebPassword"
+        android:padding="15dp"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/btnlogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:gravity="center"
-        android:text="@string/login"
-        android:textColor="#F60D0D"
-        android:textSize="40dp" />
+        android:layout_below="@+id/lpass"
+        android:layout_marginStart="@dimen/dp_50"
+        android:layout_marginTop="@dimen/dp_50"
+        android:layout_marginEnd="@dimen/dp_50"
+        android:background="#313435"
+        android:fontFamily="@font/copse"
+        android:text="Login"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        app:backgroundTint="#2D2F31"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/link_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lpass"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/black"
+        android:text="Click here for Sign Up"
+        android:layout_marginEnd="@dimen/dp_30"/>
 
     <ImageView
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_marginTop="15dp"
-        android:src="@mipmap/ic_launcher" />
+        android:id="@+id/btnGoogleLoginPage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@id/btnlogin"
+        android:layout_marginStart="@dimen/dp_100"
+        android:layout_marginTop="@dimen/dp_30"
+        android:src="@drawable/google" />
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/btnFacebookLoginPage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@id/btnlogin"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginEnd="@dimen/dp_100"
+        android:src="@drawable/facebook_icon" />
+
+    <TextView
+        android:id="@+id/forgot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="40dp"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/lemail"
-            style="@style/etkhung_style"
-            android:layout_marginBottom="15dp"
-            android:hint="@string/email"
-            android:padding="10dp" />
-
-        <EditText
-            android:id="@+id/lpass"
-            style="@style/etkhung_style"
-            android:layout_marginBottom="15dp"
-            android:hint="@string/pass"
-            android:inputType="textPassword"
-            android:padding="10dp" />
-
-        <Button
-            android:id="@+id/btnlogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:text="@string/login" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/text_register" />
-
-            <TextView
-                android:id="@+id/link_register"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:inputType="textUri"
-                android:text="@string/link_register"
-                android:textColorLink="#0C8FF8" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/forgot"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="@string/forgot"
-            android:textColor="#F44336"
-            android:textSize="15dp" />
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/forgot"
+        android:textColor="#F44336"
+        android:layout_below="@id/btnGoogleLoginPage"
+        android:textSize="15dp" />
 
 
-    </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="invisible" />
-
-
-</LinearLayout>
+</RelativeLayout>
