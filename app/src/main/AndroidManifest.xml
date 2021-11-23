@@ -22,6 +22,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Doannhom4_quanlythuvien">
         <activity
+            android:name=".ui.Statistical"
+            android:exported="false" />
+        <activity
             android:name=".ui.Gallery"
             android:exported="false" />
         <activity

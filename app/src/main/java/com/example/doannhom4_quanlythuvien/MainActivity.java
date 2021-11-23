@@ -34,5 +34,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }, 2500);
+        //startActivity(new Intent(getApplicationContext(), Statistical.class));
     }
 }
