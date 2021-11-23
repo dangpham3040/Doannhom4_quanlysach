@@ -11,9 +11,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowId;
 import android.view.WindowManager;
@@ -32,6 +35,7 @@ import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
 import com.example.doannhom4_quanlythuvien.model.Book;
 import com.example.doannhom4_quanlythuvien.model.Comment;
 import com.example.doannhom4_quanlythuvien.model.Library;
+import com.example.readmoretextview.ReadMoreTextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
@@ -47,7 +51,7 @@ public class Book_detail extends AppCompatActivity {
 
     private TextView title;
     private ImageView goback;
-    private TextView book_title, author, type, date;
+    private TextView book_title, author, type, date,book_describe;
     private ImageView cover;
     private RatingBar ratingBar;
     private ImageView heart;
@@ -163,6 +167,7 @@ public class Book_detail extends AppCompatActivity {
         ratingBar = findViewById(R.id.rating);
         heart = findViewById(R.id.heart);
         date = findViewById(R.id.date);
+        book_describe=findViewById(R.id.book_describe);
         readnow = findViewById(R.id.readnow);
         add_comment = findViewById(R.id.add_comment);
         gridView = findViewById(R.id.list_comment);
@@ -170,6 +175,16 @@ public class Book_detail extends AppCompatActivity {
         adapter = new comment_Adapter(getApplicationContext(), R.layout.item_comment, data);
         gridView.setAdapter(adapter);
         khoitao();
+
+        //see more
+        book_describe.setText(R.string.about);
+        ReadMoreTextView readMoreTextView = new ReadMoreTextView();
+        readMoreTextView.setTextView(book_describe);
+        readMoreTextView.setMaximumLine(10);
+        readMoreTextView.setCollapseText("See Less");
+        readMoreTextView.setExpandText("See More");
+        readMoreTextView.setColorCode("#e74c3c");
+        readMoreTextView.setReadMore();
 
         //gan du lieu
         book_id = chitiet.getId();
@@ -226,7 +241,7 @@ public class Book_detail extends AppCompatActivity {
                 data.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     Comment comment = ds.getValue(Comment.class);
-                    data.add(0,comment);
+                    data.add(0, comment);
                     tongsao += ds.child("rating").getValue(Float.class);
                     sosao = tongsao / i;
                     i++;
@@ -241,5 +256,6 @@ public class Book_detail extends AppCompatActivity {
                 throw error.toException();
             }
         });
+
     }
 }

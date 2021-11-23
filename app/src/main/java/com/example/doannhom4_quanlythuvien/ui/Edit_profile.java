@@ -36,6 +36,7 @@ import android.widget.Toast;
 import com.example.doannhom4_quanlythuvien.MainActivity;
 import com.example.doannhom4_quanlythuvien.R;
 import com.example.doannhom4_quanlythuvien.helpers.*;
+import com.example.doannhom4_quanlythuvien.model.Book;
 import com.example.doannhom4_quanlythuvien.model.Comment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -69,6 +70,7 @@ public class Edit_profile extends AppCompatActivity {
     private TextView title;
     private CircleImageView avatar;
     private String url_avatar;
+    private String linkanh;
     private Uri filePath;
     private Button save;
     private String name, phone, gioitinh;
@@ -125,7 +127,7 @@ public class Edit_profile extends AppCompatActivity {
                                 if (rbfemale.isChecked()) {
                                     StaticConfig.mUser.child(StaticConfig.currentuser).child("sex").setValue("Nữ");
                                 }
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                startActivity(new Intent(getApplicationContext(), Starup.class));
                             }
                         })
 
@@ -215,7 +217,11 @@ public class Edit_profile extends AppCompatActivity {
                                     kiemtra();
                                 } else if (options[item].equals("Choose From Gallery")) {
                                     dialog.dismiss();
-                                    startActivity(new Intent(getApplicationContext(), Gallery.class));
+                                    Intent intent = new Intent(getApplicationContext(), Gallery.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("chitiet", linkanh);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
                                 } else if (options[item].equals("Cancel")) {
                                     dialog.dismiss();
                                 }
@@ -414,6 +420,7 @@ public class Edit_profile extends AppCompatActivity {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     if (ds.exists()) {
                         url_avatar = ds.child("pic").getValue(String.class);
+                        linkanh=url_avatar;
                         Picasso.get()
                                 .load(url_avatar)
                                 .fit()

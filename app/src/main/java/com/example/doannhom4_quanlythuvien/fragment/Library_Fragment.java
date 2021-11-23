@@ -159,18 +159,17 @@ public class Library_Fragment extends Fragment {
         thuvien.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //xoá list book
                 yeuthich.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     library = ds.getValue(Library.class);
                     yeuthich.add(0, library);
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
             }
-
         });
         StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
             @Override

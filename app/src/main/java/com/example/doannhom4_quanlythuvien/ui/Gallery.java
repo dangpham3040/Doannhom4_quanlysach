@@ -34,6 +34,7 @@ public class Gallery extends AppCompatActivity {
     private ArrayList<String> data = new ArrayList<>();
     private Gallery_Adapter adapter;
     private ProgressBar progressBar;
+    private String linkanh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +89,10 @@ public class Gallery extends AppCompatActivity {
                             file.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    data.add(uri.toString());
-                                    adapter.notifyDataSetChanged();
+                                    if (!uri.toString().equals(linkanh)) {
+                                        data.add(uri.toString());
+                                        adapter.notifyDataSetChanged();
+                                    }
                                 }
                             });
                         }
@@ -110,5 +113,6 @@ public class Gallery extends AppCompatActivity {
         gridView = findViewById(R.id.gridView);
         progressBar = findViewById(R.id.progressBar);
         title.setText("Gallery");
+        linkanh = getIntent().getStringExtra("chitiet");
     }
 }
