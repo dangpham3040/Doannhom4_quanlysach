@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     tools:context=".ui.Login">
 
     <TextView
@@ -113,6 +114,11 @@
         android:textColor="#F44336"
         android:layout_below="@id/btnGoogleLoginPage"
         android:textSize="15dp" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
 
 
 </RelativeLayout>
