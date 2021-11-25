@@ -51,7 +51,7 @@ public class Book_detail extends AppCompatActivity {
 
     private TextView title;
     private ImageView goback;
-    private TextView book_title, author, type, date,book_describe;
+    private TextView book_title, author, type, date, book_describe;
     private ImageView cover;
     private RatingBar ratingBar;
     private ImageView heart;
@@ -167,7 +167,7 @@ public class Book_detail extends AppCompatActivity {
         ratingBar = findViewById(R.id.rating);
         heart = findViewById(R.id.heart);
         date = findViewById(R.id.date);
-        book_describe=findViewById(R.id.book_describe);
+        book_describe = findViewById(R.id.book_describe);
         readnow = findViewById(R.id.readnow);
         add_comment = findViewById(R.id.add_comment);
         gridView = findViewById(R.id.list_comment);
@@ -178,13 +178,19 @@ public class Book_detail extends AppCompatActivity {
 
         //see more
         book_describe.setText(chitiet.getDescription());
+
+
         ReadMoreTextView readMoreTextView = new ReadMoreTextView();
         readMoreTextView.setTextView(book_describe);
         readMoreTextView.setMaximumLine(10);
-        readMoreTextView.setCollapseText("See Less");
-        readMoreTextView.setExpandText("See More");
-        readMoreTextView.setColorCode("#e74c3c");
-        readMoreTextView.setReadMore();
+        if (book_describe.length() > 1000) {
+            readMoreTextView.setCollapseText("See Less");
+            readMoreTextView.setExpandText("See More");
+            readMoreTextView.setColorCode("#e74c3c");
+            readMoreTextView.setReadMore();
+        }
+
+
 
         //gan du lieu
         book_id = chitiet.getId();
