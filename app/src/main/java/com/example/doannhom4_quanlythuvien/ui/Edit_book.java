@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -47,18 +48,19 @@ import java.util.UUID;
 public class Edit_book extends AppCompatActivity {
     private TextView title;
     private ImageView goback;
-    private EditText book_title, author;
+    private EditText book_title, author, book_describe;
     private Spinner spinner;
     private ImageView cover;
     private Button btnsave, btnremove, btnchoose_file;
     private String book_id;
     private String coverPhotoURL;
+    private String mieuta;
     private String file_type;
     private Uri filePath;
     private String link;
     private int solan = 0;
     private boolean is_title = false, is_book_id = false, is_author = false, is_type = false,
-            is_coverPhotoURL = false, is_link = false;
+            is_coverPhotoURL = false, is_link = false, is_describe = false;
     private Book chitiet;
     private ArrayList<String> arrayList = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapter;
@@ -179,6 +181,27 @@ public class Edit_book extends AppCompatActivity {
                 kiemtra();
             }
         });
+        book_describe.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (book_describe.getText().toString().equals(chitiet.getDescription())) {
+                    is_describe = false;
+                } else if (!book_describe.getText().toString().equals(chitiet.getDescription())) {
+                    is_describe = true;
+                }
+                kiemtra();
+            }
+        });
         btnremove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -213,7 +236,7 @@ public class Edit_book extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
 //                                gán dữ liệu vào firebase
                                 Book book = new Book(book_id, book_title.getText().toString(), author.getText().toString(),
-                                        coverPhotoURL, link, spinner.getSelectedItem().toString());
+                                        coverPhotoURL, link, spinner.getSelectedItem().toString(), book_describe.getText().toString());
                                 StaticConfig.mBook.child(book_id).setValue(book)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
@@ -403,6 +426,7 @@ public class Edit_book extends AppCompatActivity {
         author = findViewById(R.id.author);
         spinner = findViewById(R.id.book_type);
         cover = findViewById(R.id.cover);
+        book_describe = findViewById(R.id.book_describe);
         btnremove = findViewById(R.id.btnremove);
         btnsave = findViewById(R.id.btnsave);
         btnchoose_file = findViewById(R.id.choose_file);
@@ -411,6 +435,8 @@ public class Edit_book extends AppCompatActivity {
         link = chitiet.getLink();
         coverPhotoURL = chitiet.getCoverPhotoURL();
         book_id = chitiet.getId();
+        mieuta = chitiet.getDescription();
+        book_describe.setText(mieuta);
         book_title.setText(chitiet.getTitle());
         author.setText(chitiet.getAuthor());
 
@@ -448,9 +474,11 @@ public class Edit_book extends AppCompatActivity {
 
     private void kiemtra() {
         if (is_title == true || is_author == true || !spinner.getSelectedItem().toString().equals(chitiet.getType())
-                || is_coverPhotoURL == true || is_link == true) {
+                || is_coverPhotoURL == true || is_link == true || is_describe == true) {
             btnsave.setEnabled(true);
+            btnsave.setTextColor(Color.WHITE);
         } else {
+            btnsave.setTextColor(Color.parseColor("#9b9b9b"));
             btnsave.setEnabled(false);
         }
     }

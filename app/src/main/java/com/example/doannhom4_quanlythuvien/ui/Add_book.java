@@ -117,7 +117,7 @@ public class Add_book extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "vui long nhap du thong tin!!", Toast.LENGTH_SHORT).show();
                 } else {
                     String key = StaticConfig.mBook.push().getKey();
-                    Book book = new Book(key, ten, tacgia, cover_link, link, loai);
+                    Book book = new Book(key, ten, tacgia, cover_link, link, loai,mieuta);
                     StaticConfig.mBook.child(key).setValue(book);
                     if (StaticConfig.mBook.child(key) != null) {
                         finish();

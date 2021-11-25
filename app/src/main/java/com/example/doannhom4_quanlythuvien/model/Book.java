@@ -7,10 +7,19 @@ import java.io.Serializable;
 public class Book implements Serializable {
     private String id, title, author, coverPhotoURL, link;
     private String type;
+    private String description;
 
     private long timestamp;
 
     public Book() {
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public long getTimestamp() {
@@ -69,8 +78,7 @@ public class Book implements Serializable {
         this.type = type;
     }
 
-
-    public Book(String id, String title, String author, String coverPhotoURL, String link, String type) {
+    public Book(String id, String title, String author, String coverPhotoURL, String link, String type, String description) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -78,6 +86,7 @@ public class Book implements Serializable {
         this.link = link;
         this.type = type;
         this.timestamp = StaticConfig.timestamp;
+        this.description = description;
     }
 
 

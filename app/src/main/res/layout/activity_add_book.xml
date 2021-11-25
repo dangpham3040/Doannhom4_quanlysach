@@ -75,10 +75,11 @@
             android:textStyle="bold" />
 
         <EditText
+            android:gravity="top"
             android:id="@+id/book_describe"
             android:layout_width="match_parent"
             android:layout_height="420dp"
-            android:text="@string/about" />
+            />
 
     </LinearLayout>
 
