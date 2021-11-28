@@ -178,8 +178,6 @@ public class Book_detail extends AppCompatActivity {
 
         //see more
         book_describe.setText(chitiet.getDescription());
-
-
         ReadMoreTextView readMoreTextView = new ReadMoreTextView();
         readMoreTextView.setTextView(book_describe);
         readMoreTextView.setMaximumLine(10);
@@ -189,8 +187,6 @@ public class Book_detail extends AppCompatActivity {
             readMoreTextView.setColorCode("#e74c3c");
             readMoreTextView.setReadMore();
         }
-
-
 
         //gan du lieu
         book_id = chitiet.getId();

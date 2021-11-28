@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.doannhom4_quanlythuvien.R;
 import com.example.doannhom4_quanlythuvien.databinding.ActivityStatisticalBinding;
@@ -16,6 +19,8 @@ import java.util.ArrayList;
 
 public class Statistical extends AppCompatActivity {
     ActivityStatisticalBinding binding;
+    private TextView tieude;
+    private ImageView goback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +28,12 @@ public class Statistical extends AppCompatActivity {
         binding = ActivityStatisticalBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         ArrayList<BarEntry> data = new ArrayList<>();
-        data.add(new BarEntry(20, 0));
-        BarDataSet dataSet1 = new BarDataSet(data, "data");
-        data.add(new BarEntry(15, 3));
-        BarDataSet dataSet2 = new BarDataSet(data, "data");
-        data.add(new BarEntry(10, 1));
-        BarDataSet dataSet3 = new BarDataSet(data, "data");
+        data.add(new BarEntry(0, 2));
+        BarDataSet dataSet1 = new BarDataSet(data, "data1");
+        data.add(new BarEntry(1, 5));
+        BarDataSet dataSet2 = new BarDataSet(data, "data2");
+        data.add(new BarEntry(2, 1));
+        BarDataSet dataSet3 = new BarDataSet(data, "data3");
 
 
         BarData barData = new BarData(dataSet1);
@@ -40,7 +45,22 @@ public class Statistical extends AppCompatActivity {
         binding.bar.setTouchEnabled(true);
         binding.bar.setDragEnabled(true);
         binding.bar.setScaleEnabled(true);
+        setControl();
+        setEvnet();
+    }
 
+    private void setEvnet() {
+        goback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
 
+    private void setControl() {
+        tieude = findViewById(R.id.title);
+        goback = findViewById(R.id.goback);
+        tieude.setText("Statistical");
     }
 }

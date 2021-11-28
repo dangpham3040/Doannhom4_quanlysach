@@ -177,7 +177,7 @@ public class Management extends AppCompatActivity {
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Starup.class));
+                startActivity(new Intent(getApplicationContext(), Menu_admin.class));
             }
         });
         etsearch.addTextChangedListener(new TextWatcher() {

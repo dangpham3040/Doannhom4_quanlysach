@@ -15,8 +15,8 @@
         android:layout_marginTop="@dimen/dp_50"
         android:background="@color/white"
         android:fontFamily="@font/coiny"
-        android:textColor="@color/black"
         android:text="Login"
+        android:textColor="@color/black"
         android:textSize="50sp" />
 
     <TextView

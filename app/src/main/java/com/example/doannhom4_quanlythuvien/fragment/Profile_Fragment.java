@@ -168,7 +168,7 @@ public class Profile_Fragment extends Fragment {
         kimcuong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), Management.class));
+                startActivity(new Intent(getContext(), Menu_admin.class));
             }
         });
 
