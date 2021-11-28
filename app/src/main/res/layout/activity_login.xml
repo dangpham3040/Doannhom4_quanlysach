@@ -70,9 +70,11 @@
         android:fontFamily="@font/copse"
         android:text="Login"
         android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textSize="20sp"
-        app:backgroundTint="#2D2F31"
-        android:textColor="@color/white"/>
+        app:backgroundTint="#2D2F31" />
+
+
 
     <TextView
         android:id="@+id/link_register"
@@ -102,6 +104,34 @@
         android:layout_marginTop="@dimen/dp_30"
         android:layout_marginEnd="@dimen/dp_100"
         android:src="@drawable/facebook_icon" />
+
+    <Button
+        android:id="@+id/btnanimation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnFacebookLoginPage"
+        android:layout_marginStart="@dimen/dp_50"
+        android:layout_marginTop="@dimen/dp_50"
+        android:layout_marginEnd="@dimen/dp_50"
+        android:background="#313435"
+        android:fontFamily="@font/copse"
+        android:text="Login"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:backgroundTint="#2D2F31" />
+<!--test button animation-->
+    <com.royrodriguez.transitionbutton.TransitionButton
+        android:id="@+id/transition_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/btnanimation"
+        android:text="Login"
+        app:defaultColor="#313435"
+        app:loaderColor="@android:color/white"
+        android:textColor="@android:color/white" />
+
+
 
     <TextView
         android:id="@+id/forgot"

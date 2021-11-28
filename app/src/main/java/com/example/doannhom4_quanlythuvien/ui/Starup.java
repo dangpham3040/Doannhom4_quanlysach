@@ -109,26 +109,7 @@ public class Starup extends AppCompatActivity {
         });
     }
 
-    //    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//
-//        switch (menuItem.getItemId()) {
-//            case R.id.fragment_home:
-//                viewPager.setCurrentItem(0);
-//                break;
-//
-//            case R.id.fragment_profile:
-//                viewPager.setCurrentItem(1);
-//                break;
-//            case R.id.fragment_contact:
-//                viewPager.setCurrentItem(2);
-//                break;
-//            case R.id.fragment_library:
-//                viewPager.setCurrentItem(3);
-//                break;
-//        }
-//        return true;
-//    }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void setControl() {
         //set id của người dùng hiện tại
@@ -142,19 +123,7 @@ public class Starup extends AppCompatActivity {
         //test thong bao
         thongbao();
     }
-//
-//    private void loadFragment(Fragment fragment) {
-//        // load fragment
-//        if (fragment != null) {
-//            FrameLayout fl = (FrameLayout) findViewById(R.id.fragment);
-//            fl.removeAllViews();
-//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//            transaction.replace(R.id.fragment, fragment);
-//            transaction.addToBackStack(null);
-//            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//            transaction.commit();
-//        }
-//    }
+
 
     public void onBackPressed() {
         new AlertDialog.Builder(Starup.this)
