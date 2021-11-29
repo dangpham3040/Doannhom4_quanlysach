@@ -59,7 +59,7 @@
         android:padding="15dp"
         android:textSize="15sp" />
 
-    <Button
+    <com.royrodriguez.transitionbutton.TransitionButton
         android:id="@+id/btnlogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,13 +68,15 @@
         android:layout_marginTop="@dimen/dp_50"
         android:layout_marginEnd="@dimen/dp_50"
         android:background="#313435"
+        android:enabled="false"
         android:fontFamily="@font/copse"
         android:text="Login"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:backgroundTint="#2D2F31" />
-
+        app:backgroundTint="#2D2F31"
+        app:defaultColor="#313435"
+        app:loaderColor="@android:color/white" />
 
 
     <TextView
@@ -83,9 +85,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/lpass"
         android:layout_alignParentEnd="true"
-        android:textColor="@color/black"
+        android:layout_marginEnd="@dimen/dp_30"
         android:text="Click here for Sign Up"
-        android:layout_marginEnd="@dimen/dp_30"/>
+        android:textColor="@color/black" />
 
     <ImageView
         android:id="@+id/btnGoogleLoginPage"
@@ -106,31 +108,6 @@
         android:layout_marginEnd="@dimen/dp_100"
         android:src="@drawable/facebook_icon" />
 
-    <Button
-        android:id="@+id/btnanimation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnFacebookLoginPage"
-        android:layout_marginStart="@dimen/dp_50"
-        android:layout_marginTop="@dimen/dp_50"
-        android:layout_marginEnd="@dimen/dp_50"
-        android:background="#313435"
-        android:fontFamily="@font/copse"
-        android:text="Login"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:backgroundTint="#2D2F31" />
-<!--test button animation-->
-    <com.royrodriguez.transitionbutton.TransitionButton
-        android:id="@+id/transition_button"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/btnanimation"
-        android:text="Login"
-        app:defaultColor="#313435"
-        app:loaderColor="@android:color/white"
-        android:textColor="@android:color/white" />
 
 
 
@@ -138,12 +115,13 @@
         android:id="@+id/forgot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/btnGoogleLoginPage"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="@string/forgot"
         android:textColor="#F44336"
-        android:layout_below="@id/btnGoogleLoginPage"
         android:textSize="15dp" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="match_parent"

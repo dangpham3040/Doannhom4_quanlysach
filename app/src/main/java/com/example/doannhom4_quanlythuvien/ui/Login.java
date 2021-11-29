@@ -39,12 +39,11 @@ import com.royrodriguez.transitionbutton.TransitionButton;
 
 public class Login extends AppCompatActivity {
     private TextView link_register, forgotpass;
-    private Button btnLogin;
     private ProgressBar progressBar;
     private EditText etEmail, etPass;
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
-    private TransitionButton transitionButton;
+    private TransitionButton btnLogin;
 //    int RC_SIGN_IN = 73;
     private FirebaseAuth auth;
     private GoogleSignInClient mGoogleSignInClient;
@@ -64,34 +63,6 @@ public class Login extends AppCompatActivity {
 //                .requestEmail()
 //                .build();
 //        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        transitionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                transitionButton.startAnimation();
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        boolean isSuccessful = true;
-
-                        // Choose a stop animation if your call was succesful or not
-                        if (isSuccessful) {
-                            transitionButton.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND, new TransitionButton.OnAnimationStopEndListener() {
-                                @Override
-                                public void onAnimationStopEnd() {
-                                    Intent intent = new Intent(getBaseContext(), Starup.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                    startActivity(intent);
-                                }
-                            });
-                        } else {
-                            transitionButton.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
-                        }
-                    }
-                }, 2000);
-            }
-        });
 
         forgotpass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,7 +124,7 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             progressBar.setVisibility(View.VISIBLE);
-                            startActivity(new Intent(getApplication(), Starup.class));
+                            animation();
                         } else {
                             Toast.makeText(Login.this, "sai email hoac pass!!", Toast.LENGTH_SHORT).show();
                         }
@@ -171,7 +142,30 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    private void animation() {
+        btnLogin.startAnimation();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                boolean isSuccessful = true;
 
+                // Choose a stop animation if your call was succesful or not
+                if (isSuccessful) {
+                    btnLogin.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND, new TransitionButton.OnAnimationStopEndListener() {
+                        @Override
+                        public void onAnimationStopEnd() {
+                            Intent intent = new Intent(getBaseContext(), Starup.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            startActivity(intent);
+                        }
+                    });
+                } else {
+                    btnLogin.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
+                }
+            }
+        }, 2000);
+    }
 
 
     private void updateUI(FirebaseUser user) {
@@ -209,6 +203,5 @@ public class Login extends AppCompatActivity {
         etPass = findViewById(R.id.lpass);
         progressBar = findViewById(R.id.progressBar);
         btnGoogleLoginPage = findViewById(R.id.btnGoogleLoginPage);
-        transitionButton = findViewById(R.id.transition_button);
     }
 }

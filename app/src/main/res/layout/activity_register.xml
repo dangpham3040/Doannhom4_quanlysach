@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".ui.Register">
 
     <TextView
@@ -60,6 +60,7 @@
         android:inputType="number"
         android:padding="15dp"
         android:textSize="15sp" />
+
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
@@ -73,6 +74,7 @@
         android:inputType="textEmailAddress"
         android:padding="15dp"
         android:textSize="15sp" />
+
     <EditText
         android:id="@+id/pass"
         android:layout_width="match_parent"
@@ -139,6 +141,7 @@
 
 
     </LinearLayout>
+
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
@@ -148,12 +151,13 @@
         android:layout_marginTop="@dimen/dp_20"
         android:layout_marginEnd="@dimen/dp_50"
         android:background="#313435"
+        android:enabled="false"
         android:fontFamily="@font/copse"
         android:text="Register"
         android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textSize="20sp"
-        app:backgroundTint="#2D2F31"
-        android:textColor="@color/white"/>
+        app:backgroundTint="#2D2F31" />
 
 
     <LinearLayout
