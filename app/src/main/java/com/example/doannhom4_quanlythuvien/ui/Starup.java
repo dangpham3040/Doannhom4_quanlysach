@@ -44,6 +44,7 @@ public class Starup extends AppCompatActivity {
     private NavController navigation;
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
+    int onStartCount = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -53,6 +54,15 @@ public class Starup extends AppCompatActivity {
         setContentView(R.layout.activity_starup);
         setControl();
         setEvent();
+//        onStartCount = 1;
+//        if (savedInstanceState == null) // 1st time
+//        {
+//            this.overridePendingTransition(R.anim.anim_slide_in_left,
+//                    R.anim.anim_slide_out_left);
+//        } else // already created so reverse animation
+//        {
+//            onStartCount = 2;
+//        }
     }
 
     private void setEvent() {
@@ -152,4 +162,18 @@ public class Starup extends AppCompatActivity {
         NotificationManager manager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         manager.notify(0,notification.build());
     }
+
+//    @Override
+//    protected void onStart() {
+//        // TODO Auto-generated method stub
+//        super.onStart();
+//        if (onStartCount > 1) {
+//            this.overridePendingTransition(R.anim.anim_slide_in_right,
+//                    R.anim.anim_slide_out_right);
+//
+//        } else if (onStartCount == 1) {
+//            onStartCount++;
+//        }
+//
+//    }
 }

@@ -53,7 +53,7 @@ public class comment_Adapter extends ArrayAdapter {
         TextView text = convertView.findViewById(R.id.tv_Comment);
 
         Comment comment = data.get(position);
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         String dateStr = sdf.format(comment.getTimestamp());
         date.setText(dateStr);
         ratingBar.setRating(comment.getRating());

@@ -50,7 +50,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/toolbar"
-            android:columnWidth="170dp"
             android:gravity="center"
             android:horizontalSpacing="1dp"
             android:numColumns="auto_fit"

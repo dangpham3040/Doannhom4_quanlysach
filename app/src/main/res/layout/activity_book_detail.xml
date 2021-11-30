@@ -12,9 +12,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="@dimen/dp_20"
         android:layout_marginTop="15dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginRight="@dimen/dp_20"
         android:orientation="vertical">
 
         <LinearLayout
@@ -64,11 +64,12 @@
 
                 <RatingBar
                     android:id="@+id/rating"
+                    style="?android:attr/ratingBarStyleIndicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:isIndicator="true"
-                    android:numStars="5" />
+                    android:numStars="5"
+                     />
             </LinearLayout>
         </LinearLayout>
 
@@ -81,8 +82,7 @@
         <TextView
             android:id="@+id/book_describe"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-          />
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"

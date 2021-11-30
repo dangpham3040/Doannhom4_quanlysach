@@ -123,7 +123,6 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            progressBar.setVisibility(View.VISIBLE);
                             animation();
                         } else {
                             Toast.makeText(Login.this, "sai email hoac pass!!", Toast.LENGTH_SHORT).show();

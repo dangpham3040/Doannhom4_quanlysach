@@ -17,6 +17,7 @@
         android:visibility="invisible" />
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:src="@drawable/no_image"
         android:id="@+id/avatar"
         android:layout_width="150dp"
         android:layout_height="150dp"
