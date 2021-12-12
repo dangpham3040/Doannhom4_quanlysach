@@ -102,7 +102,7 @@ public class Register extends AppCompatActivity {
 
                 } else {
                     btnRegister.setEnabled(false);
-                    Phonenumber.setError("Số điênj thoài cần ít nhất 10 số !!");
+                    Phonenumber.setError("Số Điện Thoại cần ít nhất 10 số !!");
                 }
                 validcheck();
             }
@@ -270,6 +270,7 @@ public class Register extends AppCompatActivity {
                 Email.getText().toString(), gioitinh, StaticConfig.Default_avatar);
         StaticConfig.mUser.child(StaticConfig.currentuser).setValue(user);
         Intent intent = new Intent(getApplicationContext(), Login.class);
+
         startActivity(intent);
     }
 

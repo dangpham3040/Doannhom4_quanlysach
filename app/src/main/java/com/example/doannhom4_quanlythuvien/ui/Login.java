@@ -3,7 +3,9 @@ package com.example.doannhom4_quanlythuvien.ui;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -11,30 +13,23 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.doannhom4_quanlythuvien.MainActivity;
 import com.example.doannhom4_quanlythuvien.R;
 import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
-import com.example.doannhom4_quanlythuvien.model.User;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
 import com.royrodriguez.transitionbutton.TransitionButton;
 
 public class Login extends AppCompatActivity {
@@ -44,10 +39,15 @@ public class Login extends AppCompatActivity {
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
     private TransitionButton btnLogin;
-//    int RC_SIGN_IN = 73;
+    private SharedPreferences loginPreferences;
+    private SharedPreferences.Editor loginPrefsEditor;
+    private CheckBox cbSaveLogin;
+    //    int RC_SIGN_IN = 73;
     private FirebaseAuth auth;
     private GoogleSignInClient mGoogleSignInClient;
     ImageView btnGoogleLoginPage;
+    private boolean saveLogin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +57,26 @@ public class Login extends AppCompatActivity {
     }
 
     private void setEvent() {
+        cbSaveLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (cbSaveLogin.isChecked()) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(etEmail.getWindowToken(), 0);
+
+                    if (cbSaveLogin.isChecked()) {
+                        loginPrefsEditor.putBoolean("saveLogin", true);
+                        loginPrefsEditor.putString("username", etEmail.getText().toString());
+                        loginPrefsEditor.putString("password", etPass.getText().toString());
+                        loginPrefsEditor.commit();
+                    } else {
+                        loginPrefsEditor.clear();
+                        loginPrefsEditor.commit();
+                    }
+                }
+            }
+
+        });
 //        // Configure Google Sign In
 //        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
 //                .requestIdToken(getString(R.string.default_web_client_id))
@@ -123,6 +143,10 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            loginPrefsEditor.putBoolean("saveLogin", true);
+                            loginPrefsEditor.putString("username", etEmail.getText().toString());
+                            loginPrefsEditor.putString("password", etPass.getText().toString());
+                            loginPrefsEditor.commit();
                             animation();
                         } else {
                             Toast.makeText(Login.this, "sai email hoac pass!!", Toast.LENGTH_SHORT).show();
@@ -168,9 +192,9 @@ public class Login extends AppCompatActivity {
 
 
     private void updateUI(FirebaseUser user) {
-        if(user!= null){
+        if (user != null) {
             Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             Toast.makeText(getApplicationContext(), "Something error", Toast.LENGTH_SHORT).show();
         }
     }
@@ -202,5 +226,19 @@ public class Login extends AppCompatActivity {
         etPass = findViewById(R.id.lpass);
         progressBar = findViewById(R.id.progressBar);
         btnGoogleLoginPage = findViewById(R.id.btnGoogleLoginPage);
+        cbSaveLogin = findViewById(R.id.cbSaveLogin);
+
+        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
+
+        saveLogin = loginPreferences.getBoolean("saveLogin", false);
+        if (saveLogin == true) {
+            etEmail.setText(loginPreferences.getString("username", ""));
+            etPass.setText(loginPreferences.getString("password", ""));
+            if (kiemtra()) {
+                btnLogin.setEnabled(true);
+                cbSaveLogin.setChecked(true);
+            }
+        }
     }
 }

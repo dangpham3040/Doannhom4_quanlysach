@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.doannhom4_quanlythuvien.R;
+import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +26,7 @@ public class Contact_Fragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private View view;
 
     public Contact_Fragment() {
         // Required empty public constructor
@@ -59,7 +61,10 @@ public class Contact_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_contact, container, false);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contact, container, false);
+        return view;
+
     }
 }

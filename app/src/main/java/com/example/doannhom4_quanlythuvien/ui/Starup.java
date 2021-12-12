@@ -117,6 +117,7 @@ public class Starup extends AppCompatActivity {
 
             }
         });
+        viewPager.setCurrentItem(StaticConfig.items);
     }
 
 
@@ -131,13 +132,13 @@ public class Starup extends AppCompatActivity {
         viewPager.setAdapter(viewPagerAdapter);
 
         //test thong bao
-        thongbao();
+//        thongbao();
     }
 
 
     public void onBackPressed() {
         new AlertDialog.Builder(Starup.this)
-                .setTitle("Thoát ")
+                .setTitle("Exit ")
                 .setMessage("Are you sure you want to close  the app??")
                 // Specifying a listener allows you to take an action before dismissing the dialog.
                 // The dialog is automatically dismissed when a dialog button is clicked.
@@ -152,16 +153,16 @@ public class Starup extends AppCompatActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
-    //test thong bao
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void thongbao(){
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(getApplicationContext(), "Thong bao")
-                .setSmallIcon(R.drawable.ibrary)
-                .setContentTitle("Quản lý sách")
-                .setContentText("test thồng báo");
-        NotificationManager manager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        manager.notify(0,notification.build());
-    }
+//    //test thong bao
+//    @RequiresApi(api = Build.VERSION_CODES.M)
+//    public void thongbao(){
+//        NotificationCompat.Builder notification = new NotificationCompat.Builder(getApplicationContext(), "Thong bao")
+//                .setSmallIcon(R.drawable.ibrary)
+//                .setContentTitle("Quản lý sách")
+//                .setContentText("test thồng báo");
+//        NotificationManager manager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//        manager.notify(0,notification.build());
+//    }
 
 //    @Override
 //    protected void onStart() {

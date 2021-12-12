@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.example.doannhom4_quanlythuvien.R;
 import com.example.doannhom4_quanlythuvien.adapter.*;
+import com.example.doannhom4_quanlythuvien.fragment.Library_Fragment;
 import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
 import com.example.doannhom4_quanlythuvien.model.Book;
 import com.example.doannhom4_quanlythuvien.model.Comment;
@@ -64,6 +65,7 @@ public class Book_detail extends AppCompatActivity {
     private ArrayList<Comment> data = new ArrayList<>();
     private comment_Adapter adapter;
     private float sosao = 0;
+    private String mathuvien = "";
 
 
     @Override
@@ -72,6 +74,7 @@ public class Book_detail extends AppCompatActivity {
         setContentView(R.layout.activity_book_detail);
         setControl();
         setEvnet();
+        Log.e("itm",StaticConfig.items+"");
     }
 
     private void setEvnet() {
@@ -97,14 +100,14 @@ public class Book_detail extends AppCompatActivity {
             public void onClick(View v) {
                 if (isheart == true) {
                     Boolean is_heart = false;
-                    Library library = new Library(book_id, StaticConfig.currentuser, is_heart);
-                    StaticConfig.mLibrary.child(StaticConfig.currentuser).child(book_id).setValue(library);
+                    Library library = new Library(mathuvien, book_id, StaticConfig.currentuser, is_heart);
+                    StaticConfig.mLibrary.child(mathuvien).setValue(library);
                     heart.setImageResource(R.drawable.heart_off);
                 }
                 if (isheart == false) {
                     Boolean is_heart = true;
-                    Library library = new Library(book_id, StaticConfig.currentuser, is_heart);
-                    StaticConfig.mLibrary.child(StaticConfig.currentuser).child(book_id).setValue(library);
+                    Library library = new Library(mathuvien, book_id, StaticConfig.currentuser, is_heart);
+                    StaticConfig.mLibrary.child(mathuvien).setValue(library);
                     heart.setImageResource(R.drawable.heart_on);
                 }
 
@@ -113,7 +116,7 @@ public class Book_detail extends AppCompatActivity {
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+              startActivity(new Intent(getApplicationContext(),Starup.class));
             }
         });
     }
@@ -208,17 +211,15 @@ public class Book_detail extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    if (ds.hasChild(book_id)) {
-                        if (ds.child(book_id).child("user_id").getValue(String.class).equals(StaticConfig.currentuser) &&
-                                ds.child(book_id).child("book_id").getValue(String.class).equals(book_id)) {
-                            if (ds.child(book_id).child("is_heart").getValue(Boolean.class).equals(true)) {
-                                heart.setImageResource(R.drawable.heart_on);
-                                isheart = true;
-                            }
-                            if (ds.child(book_id).child("is_heart").getValue(Boolean.class).equals(false)) {
-                                heart.setImageResource(R.drawable.heart_off);
-                                isheart = false;
-                            }
+                    Library library = ds.getValue(Library.class);
+                    if (library.getBook_id().equals(book_id)) {
+                        if (library.getIs_heart() == true
+                                && library.getUser_id().equals(StaticConfig.currentuser)) {
+                            heart.setImageResource(R.drawable.heart_on);
+                            isheart = true;
+                        } else {
+                            heart.setImageResource(R.drawable.heart_off);
+                            isheart = false;
                         }
                     }
                 }
@@ -234,6 +235,7 @@ public class Book_detail extends AppCompatActivity {
     }
 
     private void khoitao() {
+        mathuvien = StaticConfig.currentuser + chitiet.getId();
         Query xapsepbinhluan = StaticConfig.mComment.child(chitiet.getId()).orderByChild("timestamp");
         xapsepbinhluan.addValueEventListener(new ValueEventListener() {
             @Override

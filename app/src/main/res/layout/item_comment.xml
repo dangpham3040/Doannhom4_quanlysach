@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/avatar"
             android:layout_width="50dp"
@@ -29,10 +30,10 @@
                 android:weightSum="4">
 
                 <TextView
-                    android:layout_marginLeft="5dp"
                     android:id="@+id/username"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="3"
                     android:text="User name" />
 
@@ -46,14 +47,14 @@
 
             <RatingBar
                 android:id="@+id/rating"
+                style="?android:attr/ratingBarStyleIndicator"
                 android:layout_width="wrap_content"
                 android:layout_height="43dp"
                 android:layout_weight="1"
                 android:numStars="5"
                 android:rating="1"
-                android:scaleX="0.45"
-                android:scaleY="0.45"
                 android:transformPivotX="0dp" />
+
             <TextView
                 android:id="@+id/tv_Comment"
                 android:layout_width="match_parent"

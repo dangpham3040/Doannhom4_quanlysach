@@ -1,14 +1,27 @@
 package com.example.doannhom4_quanlythuvien.model;
 
 public class NumberPage {
+    String id;
     String book_id;
     String user_id;
     int numberpage;
 
-    public NumberPage(String book_id, String user_id, int numberpage) {
+    public NumberPage(String id, String book_id, String user_id, int numberpage) {
+        this.id = id;
         this.book_id = book_id;
         this.user_id = user_id;
         this.numberpage = numberpage;
+    }
+
+    public NumberPage() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getBook_id() {

@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                StaticConfig.items=0;
                 //kiểm tra coi đã login chưa
                 if (StaticConfig.fAuth.getCurrentUser() != null) {
                     startActivity(new Intent(getApplicationContext(), Starup.class));

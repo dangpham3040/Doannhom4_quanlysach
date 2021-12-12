@@ -155,7 +155,7 @@ public class Profile_Fragment extends Fragment {
                 throw error.toException();
             }
         });
-
+        StaticConfig.items = 1;
     }
 
     private void setEnvet() {

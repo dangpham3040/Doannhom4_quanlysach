@@ -33,8 +33,12 @@ public class StaticConfig {
     public static Date now = new Date();
     public static long timestamp = now.getTime();
 
+    //man hinh
+    public static int items = 0;
     //arralist check
     public static ArrayList<Book> ArrayCheck = new ArrayList<>();
+    //arraylist sach
+    public static ArrayList<Book> ArrayBook = new ArrayList<>();
     //kiem tra xoa
     public static boolean is_del = false;
 }

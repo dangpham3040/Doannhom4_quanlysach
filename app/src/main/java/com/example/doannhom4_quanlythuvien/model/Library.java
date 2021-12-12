@@ -6,21 +6,29 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Library implements Serializable {
-
+    String id;
     String Book_id;
     String User_id;
     Boolean is_heart;
     private long timestamp;
 
-    public Library(String book_id, String user_id, Boolean is_heart) {
-        Book_id = book_id;
-        User_id = user_id;
+    public Library(String id, String book_id, String user_id, Boolean is_heart) {
+        this.id = id;
+        this.Book_id = book_id;
+        this.User_id = user_id;
         this.is_heart = is_heart;
-        this.timestamp = StaticConfig.timestamp;
-
+        this.timestamp= StaticConfig.timestamp;
     }
 
     public Library() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public long getTimestamp() {

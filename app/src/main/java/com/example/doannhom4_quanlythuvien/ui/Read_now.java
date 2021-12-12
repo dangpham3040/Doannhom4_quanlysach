@@ -46,6 +46,7 @@ public class Read_now extends AppCompatActivity {
     private int sotrang;
     private ProgressBar progressBar;
     private Book chitiet;
+    private String madoc;
 
 
     @Override
@@ -74,8 +75,8 @@ public class Read_now extends AppCompatActivity {
     }
 
     private void sotrang() {
-        NumberPage numberPage = new NumberPage(chitiet.getId(), StaticConfig.currentuser, pdfView.getCurrentPage());
-        StaticConfig.mPageNumber.child(StaticConfig.currentuser).setValue(numberPage);
+        NumberPage numberPage = new NumberPage(madoc, chitiet.getId(), StaticConfig.currentuser, pdfView.getCurrentPage());
+        StaticConfig.mPageNumber.child(madoc).setValue(numberPage);
     }
 
     private void setControl() {
@@ -84,7 +85,6 @@ public class Read_now extends AppCompatActivity {
         pdfView = findViewById(R.id.pdfView);
         khoitao();
         new loadpdffromUrl().execute(pdfurl);
-
     }
 
     private void khoitao() {
@@ -93,14 +93,13 @@ public class Read_now extends AppCompatActivity {
         title.setText(chitiet.getTitle());
         progressBar = findViewById(R.id.progressBar);
         pdfurl = chitiet.getLink();
-
+        madoc = StaticConfig.currentuser + chitiet.getId();
         StaticConfig.mPageNumber.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     if (ds.exists()) {
-                        if (ds.child("book_id").getValue(String.class).equals(chitiet.getId())
-                                && ds.child("user_id").getValue(String.class).equals(StaticConfig.currentuser)) {
+                        if (ds.child("id").getValue(String.class).equals(madoc)) {
                             sotrang = ds.child("numberpage").getValue(int.class);
                         }
 
@@ -151,6 +150,7 @@ public class Read_now extends AppCompatActivity {
         public void onError(Throwable t) {
             t.getMessage();
         }
+
         @Override
         public void loadComplete(int nbPages) {
             progressBar.setVisibility(View.GONE);

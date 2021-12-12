@@ -10,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -76,12 +77,7 @@ public class Add_book extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus && !ettitle.getText().toString().isEmpty()) {
-                    String name = ettitle.getText().toString();
-                    //ký tự dầu hoa còn lại thường
-                    name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
-                    //thay thế các khoảng trống thành 1 khoảng trống
-                    name = name.trim().replaceAll(" +", " ");
-                    ettitle.setText(name);
+                    ettitle.setText( viethoa(ettitle.getText().toString()));
                 }
 
             }
@@ -90,12 +86,7 @@ public class Add_book extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus && !etauthor.getText().toString().isEmpty()) {
-                    String name = etauthor.getText().toString();
-                    //ký tự dầu hoa còn lại thường
-                    name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
-                    //thay thế các khoảng trống thành 1 khoảng trống
-                    name = name.trim().replaceAll(" +", " ");
-                    etauthor.setText(name);
+                    etauthor.setText( viethoa(etauthor.getText().toString()));
                 }
 
             }
@@ -131,6 +122,8 @@ public class Add_book extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 chooseImage();
+                ettitle.setText( viethoa(ettitle.getText().toString()));
+                etauthor.setText( viethoa(etauthor.getText().toString()));
             }
         });
 
@@ -139,6 +132,10 @@ public class Add_book extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 loai = spinner.getSelectedItem().toString();
+//                if(!ettitle.getText().toString().equals(null)&&!etauthor.getText().toString().equals(null)){
+//                    ettitle.setText( viethoa(ettitle.getText().toString()));
+//                    etauthor.setText( viethoa(etauthor.getText().toString()));
+//                }
                 //Toast.makeText(getApplicationContext(), loai, Toast.LENGTH_SHORT).show();
             }
 
@@ -152,6 +149,14 @@ public class Add_book extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), Management.class));
             }
         });
+    }
+
+    private String viethoa(String toString) {
+        //ký tự dầu hoa còn lại thường
+        toString = toString.substring(0, 1).toUpperCase() + toString.substring(1).toLowerCase();
+        //thay thế các khoảng trống thành 1 khoảng trống
+        toString = toString.trim().replaceAll(" +", " ");
+        return toString;
     }
 
     private void chooseFile() {
@@ -210,6 +215,7 @@ public class Add_book extends AppCompatActivity {
                                     //lấy link đã up lên firebase
                                     Log.d("downloadUrl:", "" + uri);
                                     link = uri.toString();
+                                    choose_file.setBackgroundColor(Color.parseColor("#2260b6"));
                                     //StaticConfig.mUser.child(StaticConfig.currentuser).child("pic").setValue(link);
                                 }
                             });

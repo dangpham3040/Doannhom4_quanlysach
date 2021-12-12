@@ -344,6 +344,7 @@ public class Edit_book extends AppCompatActivity {
                                     link = uri.toString();
                                     is_link = true;
                                     kiemtra();
+                                    btnchoose_file.setBackgroundColor(Color.parseColor("#2260b6"));
                                     //StaticConfig.mUser.child(StaticConfig.currentuser).child("pic").setValue(link);
                                 }
                             });

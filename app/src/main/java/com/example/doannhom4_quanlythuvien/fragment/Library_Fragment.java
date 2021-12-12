@@ -32,6 +32,7 @@ import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
 import com.example.doannhom4_quanlythuvien.model.Book;
 import com.example.doannhom4_quanlythuvien.model.Library;
 import com.example.doannhom4_quanlythuvien.ui.Book_detail;
+import com.example.doannhom4_quanlythuvien.ui.Starup;
 import com.google.android.material.behavior.SwipeDismissBehavior;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -61,9 +62,9 @@ public class Library_Fragment extends Fragment {
 
     private View view;
     private Spinner spinner;
-    private ArrayList<Book> data = new ArrayList<>();
+    private static ArrayList<Book> data = new ArrayList<>();
     private GridView gridView;
-    private book_Adapter adapter;
+    private static book_Adapter adapter;
     private String theloai;
     private EditText etsearch;
     private ArrayList<Book> result = new ArrayList<>();
@@ -71,11 +72,12 @@ public class Library_Fragment extends Fragment {
     private CheckBox checkBox;
     private Button btndel;
     private ProgressBar progressBar;
+    private String mathuvien = "";
 
 
     private Book book;
     private Book temp;
-    private Library library;
+    private static Library library;
 
     public Library_Fragment() {
         // Required empty public constructor
@@ -125,7 +127,7 @@ public class Library_Fragment extends Fragment {
         checkBox = view.findViewById(R.id.checkbox);
         btndel = view.findViewById(R.id.btndel);
         progressBar = view.findViewById(R.id.progressBar);
-        khoitao();
+
         progressBar.setVisibility(View.INVISIBLE);
         StaticConfig.is_del = false;
 
@@ -152,46 +154,28 @@ public class Library_Fragment extends Fragment {
         if (!arrayAdapter.isEmpty()) {
             progressBar.setVisibility(View.INVISIBLE);
         }
+        khoitao();
+
     }
 
-    private void khoitao() {
-        Query thuvien = StaticConfig.mLibrary.child(StaticConfig.currentuser).orderByChild("timestamp");
+    public static void khoitao() {
+        Query thuvien = StaticConfig.mLibrary.orderByChild("timestamp");
         thuvien.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                yeuthich.clear();
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    library = ds.getValue(Library.class);
-                    yeuthich.add(0, library);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                throw error.toException();
-            }
-        });
-        StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //xoá list book
                 data.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    book = ds.getValue(Book.class);
-                    for (int i = 0; i < yeuthich.size(); i++) {
-                        if (book.getId().equals(yeuthich.get(i).getBook_id())
-                                && yeuthich.get(i).getIs_heart() == true &&
-                                yeuthich.get(i).getUser_id().equals(StaticConfig.currentuser)) {
-                            data.add(book);
-                        }
-//                        xoa sach khong ton tai
-                        if(!snapshot.child(yeuthich.get(i).getBook_id()).exists()){
-                            StaticConfig.mLibrary.child(StaticConfig.currentuser).
-                                    child(yeuthich.get(i).getBook_id()).removeValue();
+                    library = ds.getValue(Library.class);
+                    if (library.getIs_heart() == true && library.getUser_id().equals(StaticConfig.currentuser)) {
+                        for (int i = 0; i < StaticConfig.ArrayBook.size(); i++) {
+                            Book sach = StaticConfig.ArrayBook.get(i);
+                            if (library.getBook_id().equals(sach.getId())) {
+                                data.add(sach);
+                            }
                         }
                     }
-                    adapter.notifyDataSetChanged();
                 }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -199,6 +183,7 @@ public class Library_Fragment extends Fragment {
                 throw error.toException();
             }
         });
+        StaticConfig.items = 2;
     }
 
 
@@ -207,17 +192,29 @@ public class Library_Fragment extends Fragment {
         btndel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Log.d("so luong check",StaticConfig.ArrayCheck.size()+"");
                 for (int i = 0; i < StaticConfig.ArrayCheck.size(); i++) {
                     Book sach = StaticConfig.ArrayCheck.get(i);
-                    StaticConfig.mLibrary.child(StaticConfig.currentuser).child(sach.getId()).child("is_heart")
-                            .setValue(false);
-                    result.remove(sach);
+                    StaticConfig.mLibrary.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot ds : snapshot.getChildren()) {
+                                Library thuvien = ds.getValue(Library.class);
+                                if (thuvien.getBook_id().equals(sach.getId())) {
+                                    StaticConfig.mLibrary.child(thuvien.getId()).removeValue();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
                 StaticConfig.ArrayCheck.clear();
-                adapter.notifyDataSetChanged();
                 btndel.setVisibility(View.INVISIBLE);
                 StaticConfig.is_del = false;
+                startActivity(new Intent(getContext(), Starup.class));
             }
         });
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -242,39 +239,39 @@ public class Library_Fragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(theloai!=null)
-                StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        //xoá list book
-                        result.removeAll(result);
-                        String tempchr = etsearch.getText().toString().toLowerCase();
-                        if(theloai!=null)
-                        for (int i = 0; i < data.size(); i++) {
-                            if (data.get(i).getTitle().toLowerCase().contains(tempchr) ||
-                                    data.get(i).getAuthor().toLowerCase().contains(tempchr)
-                            ) {
-                                if (theloai.equals("All") || theloai.equals(data.get(i).getType()))
-                                    result.add(data.get(i));
+                if (theloai != null)
+                    StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            //xoá list book
+                            result.removeAll(result);
+                            String tempchr = etsearch.getText().toString().toLowerCase();
+                            if (theloai != null)
+                                for (int i = 0; i < data.size(); i++) {
+                                    if (data.get(i).getTitle().toLowerCase().contains(tempchr) ||
+                                            data.get(i).getAuthor().toLowerCase().contains(tempchr)
+                                    ) {
+                                        if (theloai.equals("All") || theloai.equals(data.get(i).getType()))
+                                            result.add(data.get(i));
+                                    }
+                                }
+                            if (tempchr.isEmpty() && theloai.equals("All")) {
+                                result = data;
+                            }
+                            adapter = new book_Adapter(getContext(), R.layout.items_library, result);
+                            gridView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                            progressBar.setVisibility(View.INVISIBLE);
+                            if (tempchr.isEmpty() && theloai.equals("All")) {
+                                khoitao();
                             }
                         }
-                        if (tempchr.isEmpty() && theloai.equals("All")) {
-                            result = data;
-                        }
-                        adapter = new book_Adapter(getContext(), R.layout.items_library, result);
-                        gridView.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
-                        progressBar.setVisibility(View.INVISIBLE);
-                        if (tempchr.isEmpty() && theloai.equals("All")) {
-                            khoitao();
-                        }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        throw error.toException();
-                    }
-                });
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            throw error.toException();
+                        }
+                    });
             }
         });
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -147,8 +147,9 @@ public class Home_Fragment extends Fragment {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     book = ds.getValue(Book.class);
                     data.add(0, book);
-                    adapter.notifyDataSetChanged();
                 }
+                StaticConfig.ArrayBook = data;
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -156,6 +157,7 @@ public class Home_Fragment extends Fragment {
                 throw error.toException();
             }
         });
+        StaticConfig.items = 0;
     }
 
     private void setEnvet() {
@@ -190,29 +192,28 @@ public class Home_Fragment extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         //xoá list book
                         result.removeAll(result);
-                        if(theloai!=null)
-                        for (DataSnapshot ds : snapshot.getChildren()) {
-                            temp = ds.getValue(Book.class);
-                            if (temp.getTitle().toLowerCase().contains(tempchr) ||
-                                    temp.getAuthor().toLowerCase().contains(tempchr)
-                            ) {
-                                if (theloai.equals("All")) {
-                                    result.add(0, temp);
+                        if (theloai != null)
+                            for (DataSnapshot ds : snapshot.getChildren()) {
+                                temp = ds.getValue(Book.class);
+                                if (temp.getTitle().toLowerCase().contains(tempchr) ||
+                                        temp.getAuthor().toLowerCase().contains(tempchr)
+                                ) {
+                                    if (theloai.equals("All")) {
+                                        result.add(0, temp);
+                                    }
+                                    if (theloai.equals(temp.getType())) {
+                                        result.add(0, temp);
+                                    }
                                 }
-                                if (theloai.equals(temp.getType())) {
-                                    result.add(0, temp);
-                                }
-                            }
 
-                            if (tempchr.isEmpty() && theloai.equals("All")) {
-                                khoitao();
-                                break;
+                                if (tempchr.isEmpty() && theloai.equals("All")) {
+                                    khoitao();
+                                    break;
+                                }
                             }
-                        }
                         adapter = new book_Adapter(getContext(), R.layout.item_book, result);
                         gridView.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
-
                     }
 
                     @Override
@@ -227,44 +228,44 @@ public class Home_Fragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 theloai = spinner.getSelectedItem().toString();
                 String tempchr = etsearch.getText().toString().toLowerCase();
-                if(theloai!=null)
-                StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        //xoá list book
-                        result.removeAll(result);
-                        for (DataSnapshot ds : snapshot.getChildren()) {
-                            temp = ds.getValue(Book.class);
-                            if (temp.getType().contains(theloai) && tempchr.isEmpty()) {
-                                result.add(0, temp);
-                            }
-                            if (theloai.equals(temp.getType()) || theloai.equals("All")) {
-                                if (temp.getTitle().toLowerCase().contains(tempchr) ||
-                                        temp.getAuthor().toLowerCase().contains(tempchr)
-                                ) {
-                                    if (!tempchr.isEmpty())
-                                        result.add(0, temp);
+                if (theloai != null)
+                    StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            //xoá list book
+                            result.removeAll(result);
+                            for (DataSnapshot ds : snapshot.getChildren()) {
+                                temp = ds.getValue(Book.class);
+                                if (temp.getType().contains(theloai) && tempchr.isEmpty()) {
+                                    result.add(0, temp);
+                                }
+                                if (theloai.equals(temp.getType()) || theloai.equals("All")) {
+                                    if (temp.getTitle().toLowerCase().contains(tempchr) ||
+                                            temp.getAuthor().toLowerCase().contains(tempchr)
+                                    ) {
+                                        if (!tempchr.isEmpty())
+                                            result.add(0, temp);
+                                    }
+
                                 }
 
+                                if (theloai.equals("All") && tempchr.isEmpty()) {
+                                    result = data;
+                                }
                             }
-
+                            adapter = new book_Adapter(getContext(), R.layout.item_book, result);
+                            gridView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
                             if (theloai.equals("All") && tempchr.isEmpty()) {
-                                result = data;
+                                khoitao();
                             }
                         }
-                        adapter = new book_Adapter(getContext(), R.layout.item_book, result);
-                        gridView.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
-                        if (theloai.equals("All") && tempchr.isEmpty()) {
-                            khoitao();
-                        }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        throw error.toException();
-                    }
-                });
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            throw error.toException();
+                        }
+                    });
 
             }
 
