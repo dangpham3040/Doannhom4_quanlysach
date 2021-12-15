@@ -1,6 +1,7 @@
 package com.example.doannhom4_quanlythuvien.helpers;
 
 import com.example.doannhom4_quanlythuvien.model.Book;
+import com.example.doannhom4_quanlythuvien.model.Thongke;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,6 +34,8 @@ public class StaticConfig {
     public static Date now = new Date();
     public static long timestamp = now.getTime();
 
+    //array thong ke
+    public static ArrayList<Thongke> ArrayThongke =new ArrayList<>();
     //man hinh
     public static int items = 0;
     //arralist check

@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -41,6 +42,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -77,7 +79,7 @@ public class Add_book extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus && !ettitle.getText().toString().isEmpty()) {
-                    ettitle.setText( viethoa(ettitle.getText().toString()));
+                    ettitle.setText(viethoa(ettitle.getText().toString()));
                 }
 
             }
@@ -86,7 +88,7 @@ public class Add_book extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus && !etauthor.getText().toString().isEmpty()) {
-                    etauthor.setText( viethoa(etauthor.getText().toString()));
+                    etauthor.setText(viethoa(etauthor.getText().toString()));
                 }
 
             }
@@ -108,10 +110,11 @@ public class Add_book extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "vui long nhap du thong tin!!", Toast.LENGTH_SHORT).show();
                 } else {
                     String key = StaticConfig.mBook.push().getKey();
-                    Book book = new Book(key, ten, tacgia, cover_link, link, loai,mieuta);
+                    Book book = new Book(key, ten, tacgia, cover_link, link, loai, mieuta);
                     StaticConfig.mBook.child(key).setValue(book);
                     if (StaticConfig.mBook.child(key) != null) {
                         finish();
+                        themThongbao(ten, cover_link, mieuta);
                     }
 
                 }
@@ -122,8 +125,8 @@ public class Add_book extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 chooseImage();
-                ettitle.setText( viethoa(ettitle.getText().toString()));
-                etauthor.setText( viethoa(etauthor.getText().toString()));
+                ettitle.setText(viethoa(ettitle.getText().toString()));
+                etauthor.setText(viethoa(etauthor.getText().toString()));
             }
         });
 
@@ -149,6 +152,19 @@ public class Add_book extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), Management.class));
             }
         });
+    }
+
+    private void themThongbao(String ten, String cover_link, String mieuta) {
+//        // The topic name can be optionally prefixed with "/topics/".
+//        String topic = "highScores";
+//
+//// See documentation on defining a message payload.
+//
+//
+//// Send a message to the devices subscribed to the provided topic.
+//        String response = FirebaseMessaging.getInstance().send(message);
+//// Response is a message ID string.
+//        System.out.println("Successfully sent message: " + response);
     }
 
     private String viethoa(String toString) {

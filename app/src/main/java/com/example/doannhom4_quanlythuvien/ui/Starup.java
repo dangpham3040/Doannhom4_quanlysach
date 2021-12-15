@@ -38,6 +38,9 @@ import com.example.doannhom4_quanlythuvien.model.*;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 public class Starup extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
@@ -45,6 +48,9 @@ public class Starup extends AppCompatActivity {
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
     int onStartCount = 0;
+    int Tong = 0;
+    int solan = 0;
+    int soSao = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -54,6 +60,7 @@ public class Starup extends AppCompatActivity {
         setContentView(R.layout.activity_starup);
         setControl();
         setEvent();
+        Tongsao();
 //        onStartCount = 1;
 //        if (savedInstanceState == null) // 1st time
 //        {
@@ -152,6 +159,44 @@ public class Starup extends AppCompatActivity {
                 .setNegativeButton(android.R.string.no, null)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+    public void Tongsao() {
+        StaticConfig.ArrayThongke.clear();
+        StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    Book sach = ds.getValue(Book.class);
+                    StaticConfig.mComment.child(sach.getId()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Tong = 0;
+                            solan = 1;
+                            soSao = 0;
+                            for (DataSnapshot ds : snapshot.getChildren()) {
+                                Comment cm = ds.getValue(Comment.class);
+                                Tong += cm.getRating();
+                                soSao = Tong / solan;
+                                solan++;
+                            }
+                            StaticConfig.ArrayThongke.add(new Thongke(sach.getTitle(), soSao));
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 //    //test thong bao
 //    @RequiresApi(api = Build.VERSION_CODES.M)
