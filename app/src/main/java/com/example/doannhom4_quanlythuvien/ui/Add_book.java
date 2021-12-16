@@ -43,6 +43,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -71,6 +72,7 @@ public class Add_book extends AppCompatActivity {
         setContentView(R.layout.activity_add_book);
         setControl();
         setEvent();
+        themThongbao("","","");
     }
 
     private void setEvent() {
@@ -115,6 +117,7 @@ public class Add_book extends AppCompatActivity {
                     if (StaticConfig.mBook.child(key) != null) {
                         finish();
                         themThongbao(ten, cover_link, mieuta);
+
                     }
 
                 }
@@ -135,11 +138,6 @@ public class Add_book extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 loai = spinner.getSelectedItem().toString();
-//                if(!ettitle.getText().toString().equals(null)&&!etauthor.getText().toString().equals(null)){
-//                    ettitle.setText( viethoa(ettitle.getText().toString()));
-//                    etauthor.setText( viethoa(etauthor.getText().toString()));
-//                }
-                //Toast.makeText(getApplicationContext(), loai, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -155,16 +153,11 @@ public class Add_book extends AppCompatActivity {
     }
 
     private void themThongbao(String ten, String cover_link, String mieuta) {
-//        // The topic name can be optionally prefixed with "/topics/".
-//        String topic = "highScores";
-//
-//// See documentation on defining a message payload.
-//
-//
-//// Send a message to the devices subscribed to the provided topic.
-//        String response = FirebaseMessaging.getInstance().send(message);
-//// Response is a message ID string.
-//        System.out.println("Successfully sent message: " + response);
+//        RemoteMessage message = new RemoteMessage.Builder("")
+//                .setMessageId("kjagsduiaskdnasklm")
+//                .addData("message", "Hello")
+//                .build();
+//        FirebaseMessaging.getInstance().send(message);
     }
 
     private String viethoa(String toString) {

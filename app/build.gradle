@@ -97,6 +97,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
     //swipe
     implementation 'com.royrodriguez:transitionbutton:0.2.0'
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 }
 //Add this line
 apply plugin: 'com.google.gms.google-services'

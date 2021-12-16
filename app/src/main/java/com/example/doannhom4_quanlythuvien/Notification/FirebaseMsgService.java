@@ -12,8 +12,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.doannhom4_quanlythuvien.MainActivity;
 import com.example.doannhom4_quanlythuvien.R;
 import com.google.firebase.iid.*;
@@ -32,6 +34,7 @@ public class FirebaseMsgService extends FirebaseMessagingService {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         String channelId = "Default";
+
         NotificationCompat.Builder builder = new  NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(rm.getNotification().getTitle())
@@ -44,4 +47,8 @@ public class FirebaseMsgService extends FirebaseMessagingService {
         manager.notify(0, builder.build());
     }
 
+    @Override
+    public void onNewToken(@NonNull String s) {
+        super.onNewToken(s);
+    }
 }

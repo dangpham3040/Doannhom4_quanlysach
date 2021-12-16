@@ -151,6 +151,7 @@ public class Book_detail extends AppCompatActivity {
                     StaticConfig.mComment.child(book_id).child(StaticConfig.currentuser).
                             setValue(new Comment(book_id, StaticConfig.currentuser, Comment.getText().toString(), ratingBar.getRating()));
                     dialog.dismiss();
+                    Starup.Tongsao();
                 }
             }
         });

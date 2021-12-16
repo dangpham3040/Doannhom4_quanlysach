@@ -48,9 +48,9 @@ public class Starup extends AppCompatActivity {
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
     int onStartCount = 0;
-    int Tong = 0;
-    int solan = 0;
-    int soSao = 0;
+    static int Tong = 0;
+    static int solan = 0;
+    static int soSao = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -161,7 +161,7 @@ public class Starup extends AppCompatActivity {
                 .show();
     }
 
-    public void Tongsao() {
+    public static void Tongsao() {
         StaticConfig.ArrayThongke.clear();
         StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
             @Override
