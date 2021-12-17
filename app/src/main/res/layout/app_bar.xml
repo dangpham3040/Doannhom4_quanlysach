@@ -29,7 +29,6 @@
                 android:paddingLeft="25dp"
                 android:text="@string/title"
                 android:textColor="@color/white"
-                android:textSize="25dp"
                 tools:ignore="MissingConstraints" />
         </LinearLayout>
 
