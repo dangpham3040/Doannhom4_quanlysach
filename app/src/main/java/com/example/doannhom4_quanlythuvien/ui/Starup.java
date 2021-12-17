@@ -46,15 +46,6 @@ public class Starup extends AppCompatActivity {
         setControl();
         setEvent();
         Tongsao();
-//        onStartCount = 1;
-//        if (savedInstanceState == null) // 1st time
-//        {
-//            this.overridePendingTransition(R.anim.anim_slide_in_left,
-//                    R.anim.anim_slide_out_left);
-//        } else // already created so reverse animation
-//        {
-//            onStartCount = 2;
-//        }
     }
 
     private void setEvent() {
@@ -90,19 +81,19 @@ public class Starup extends AppCompatActivity {
             public void onPageSelected(int position) {
                 switch (position) {
                     case 0:
-                        StaticConfig.items=0;
+                        StaticConfig.items = 0;
                         bottomNavigationView.getMenu().findItem(R.id.fragment_home).setChecked(true);
                         break;
                     case 1:
-                        StaticConfig.items=1;
+                        StaticConfig.items = 1;
                         bottomNavigationView.getMenu().findItem(R.id.fragment_profile).setChecked(true);
                         break;
                     case 2:
-                        StaticConfig.items=2;
+                        StaticConfig.items = 2;
                         bottomNavigationView.getMenu().findItem(R.id.fragment_library).setChecked(true);
                         break;
                     case 3:
-                        StaticConfig.items=3;
+                        StaticConfig.items = 3;
                         bottomNavigationView.getMenu().findItem(R.id.fragment_contact).setChecked(true);
                         break;
                 }
@@ -138,8 +129,7 @@ public class Starup extends AppCompatActivity {
                 // The dialog is automatically dismissed when a dialog button is clicked.
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                        System.exit(0);
+                        finishAffinity();
                     }
                 })
                 // A null listener allows the button to dismiss the dialog and take no further action.
@@ -189,7 +179,7 @@ public class Starup extends AppCompatActivity {
         for (int i = 0; i < 100; i++) {
             Random rnd = new Random();
             int mau = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-            StaticConfig.arrayListColer[i]=mau;
+            StaticConfig.arrayListColer[i] = mau;
         }
 
     }
