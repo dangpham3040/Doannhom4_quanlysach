@@ -193,8 +193,7 @@ public class Management extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
-                StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
+                StaticConfig.mBook.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         //xoá list book

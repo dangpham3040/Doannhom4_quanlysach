@@ -9,9 +9,9 @@ import com.example.doannhom4_quanlythuvien.fragment.Home_Fragment;
 import com.example.doannhom4_quanlythuvien.fragment.Library_Fragment;
 import com.example.doannhom4_quanlythuvien.fragment.Profile_Fragment;
 
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+public class viewPager_Adapter extends FragmentStatePagerAdapter {
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    public viewPager_Adapter(FragmentManager fm) {
         super(fm);
     }
 

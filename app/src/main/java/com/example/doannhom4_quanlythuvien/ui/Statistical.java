@@ -1,37 +1,28 @@
 package com.example.doannhom4_quanlythuvien.ui;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.doannhom4_quanlythuvien.R;
 import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
-import com.example.doannhom4_quanlythuvien.model.Book;
-import com.example.doannhom4_quanlythuvien.model.Comment;
-import com.example.doannhom4_quanlythuvien.model.Thongke;
+import com.example.doannhom4_quanlythuvien.adapter.*;
+import com.example.doannhom4_quanlythuvien.model.*;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.android.material.slider.LabelFormatter;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 
 public class Statistical extends AppCompatActivity {
     private TextView tieude;
@@ -39,7 +30,9 @@ public class Statistical extends AppCompatActivity {
     private float vitri = 0f;
     private BarChart bar;
     private BarData data;
-    private BarChart chart;
+    private GridView gridView_thongke;
+    private statistical_Adapter adapter;
+    private ArrayList<Statisticals> datamau = new ArrayList<>();
 
 
     @Override
@@ -63,25 +56,26 @@ public class Statistical extends AppCompatActivity {
     private void khoitao() {
         ArrayList<BarEntry> entries = new ArrayList<>();
         for (int i = 0; i < StaticConfig.ArrayThongke.size(); i++) {
-            Thongke tk = StaticConfig.ArrayThongke.get(i);
+            Statisticals tk = StaticConfig.ArrayThongke.get(i);
             entries.add(new BarEntry(vitri, tk.getTongsosao()));
-            BarDataSet dataSet = new BarDataSet(entries, tk.getTen());
+            BarDataSet dataSet = new BarDataSet(entries, "Data");
             data = new BarData(dataSet);
-            chart = new BarChart(getApplicationContext());
-            dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+            int [] mau =StaticConfig.arrayListColer;
+            dataSet.setColors(mau);
             dataSet.setValueTextSize(16f);
             dataSet.setValueTextColor(Color.BLACK);
-            chart = new BarChart(getApplicationContext());
-            bar.setData(data);
-            vitri ++;
+            vitri++;
         }
-        chart.setData(data);
-        chart.animateY(5000);
-
+        bar.setData(data);
+        bar.getXAxis().setValueFormatter(new IndexAxisValueFormatter(getXAxisLabels()));
+        bar.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        bar.getLegend().setEnabled(false);
+        bar.animateY(4500);
         bar.setTouchEnabled(true);
         bar.setDragEnabled(true);
         bar.setScaleEnabled(true);
         bar.setHighlightFullBarEnabled(false);
+        adapter.notifyDataSetChanged();
     }
 
     private void setControl() {
@@ -89,6 +83,20 @@ public class Statistical extends AppCompatActivity {
         goback = findViewById(R.id.goback);
         tieude.setText("Statistical");
         bar = findViewById(R.id.bar);
+        gridView_thongke = findViewById(R.id.gridView_thongke);
+        adapter = new statistical_Adapter(getApplicationContext(), R.layout.item_statistical, StaticConfig.ArrayThongke);
+        gridView_thongke.setAdapter(adapter);
 
+
+    }
+
+    private ArrayList<String> getXAxisLabels() {
+        ArrayList<String> labels = new ArrayList<String>();
+        for (int i = 0; i < StaticConfig.ArrayThongke.size(); i++) {
+            Statisticals tk = StaticConfig.ArrayThongke.get(i);
+            labels.add(tk.getTen());
+            Log.e("ten", i + " " + tk.getTen());
+        }
+        return labels;
     }
 }

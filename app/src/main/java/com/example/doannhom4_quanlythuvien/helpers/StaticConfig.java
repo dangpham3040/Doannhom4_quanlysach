@@ -1,8 +1,7 @@
 package com.example.doannhom4_quanlythuvien.helpers;
 
 import com.example.doannhom4_quanlythuvien.model.Book;
-import com.example.doannhom4_quanlythuvien.model.Thongke;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.doannhom4_quanlythuvien.model.Statisticals;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -10,10 +9,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 
 public class StaticConfig {
     public static FirebaseDatabase Database = FirebaseDatabase.getInstance();
@@ -35,7 +32,9 @@ public class StaticConfig {
     public static long timestamp = now.getTime();
 
     //array thong ke
-    public static ArrayList<Thongke> ArrayThongke =new ArrayList<>();
+    public static ArrayList<Statisticals> ArrayThongke = new ArrayList<>();
+    //array mau
+    public  static int[] arrayListColer =new int[100];
     //man hinh
     public static int items = 0;
     //arralist check

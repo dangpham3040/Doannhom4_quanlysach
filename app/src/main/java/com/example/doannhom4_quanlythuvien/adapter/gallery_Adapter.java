@@ -15,12 +15,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class Gallery_Adapter extends ArrayAdapter {
+public class gallery_Adapter extends ArrayAdapter {
     Context context;
     int resource;
     ArrayList<String> data;
 
-    public Gallery_Adapter(@NonNull Context context, int resource, ArrayList<String> data) {
+    public gallery_Adapter(@NonNull Context context, int resource, ArrayList<String> data) {
         super(context, resource, data);
         this.context = context;
         this.resource = resource;

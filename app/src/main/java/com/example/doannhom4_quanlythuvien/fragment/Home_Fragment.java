@@ -246,7 +246,6 @@ public class Home_Fragment extends Fragment {
                                         if (!tempchr.isEmpty())
                                             result.add(0, temp);
                                     }
-
                                 }
 
                                 if (theloai.equals("All") && tempchr.isEmpty()) {

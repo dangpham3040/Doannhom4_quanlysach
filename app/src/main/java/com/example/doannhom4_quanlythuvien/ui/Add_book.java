@@ -6,7 +6,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -63,7 +65,6 @@ public class Add_book extends AppCompatActivity {
     private Uri filePath;
     private Button btnsave;
     private Button choose_file;
-    private String file_type;
 
 
     @Override
@@ -72,7 +73,7 @@ public class Add_book extends AppCompatActivity {
         setContentView(R.layout.activity_add_book);
         setControl();
         setEvent();
-        themThongbao("","","");
+        themThongbao("", "", "");
     }
 
     private void setEvent() {
@@ -81,7 +82,12 @@ public class Add_book extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus && !ettitle.getText().toString().isEmpty()) {
-                    ettitle.setText(viethoa(ettitle.getText().toString()));
+                    String toString = ettitle.getText().toString();
+                    //ký tự dầu hoa còn lại thường
+                    toString = toString.substring(0, 1).toUpperCase() + toString.substring(1).toLowerCase();
+                    //thay thế các khoảng trống thành 1 khoảng trống
+                    toString = toString.trim().replaceAll(" +", " ");
+                    ettitle.setText(toString);
                 }
 
             }
@@ -90,7 +96,12 @@ public class Add_book extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus && !etauthor.getText().toString().isEmpty()) {
-                    etauthor.setText(viethoa(etauthor.getText().toString()));
+                    String toString = etauthor.getText().toString();
+                    //ký tự dầu hoa còn lại thường
+                    toString = toString.substring(0, 1).toUpperCase() + toString.substring(1).toLowerCase();
+                    //thay thế các khoảng trống thành 1 khoảng trống
+                    toString = toString.trim().replaceAll(" +", " ");
+                    etauthor.setText(toString);
                 }
 
             }
@@ -111,15 +122,29 @@ public class Add_book extends AppCompatActivity {
                         || mieuta.isEmpty() || cover_link.isEmpty() || link.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "vui long nhap du thong tin!!", Toast.LENGTH_SHORT).show();
                 } else {
-                    String key = StaticConfig.mBook.push().getKey();
-                    Book book = new Book(key, ten, tacgia, cover_link, link, loai, mieuta);
-                    StaticConfig.mBook.child(key).setValue(book);
-                    if (StaticConfig.mBook.child(key) != null) {
-                        finish();
-                        themThongbao(ten, cover_link, mieuta);
+                    new AlertDialog.Builder(Add_book.this)
+                            .setTitle("Add Book!!")
+                            .setMessage("Are you sure you want to add this book??")
+                            // Specifying a listener allows you to take an action before dismissing the dialog.
+                            // The dialog is automatically dismissed when a dialog button is clicked.
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+//                                gán dữ liệu vào firebase
+                                    String key = StaticConfig.mBook.push().getKey();
+                                    Book book = new Book(key, ten, tacgia, cover_link, link, loai, mieuta);
+                                    StaticConfig.mBook.child(key).setValue(book);
+                                    if (StaticConfig.mBook.child(key) != null) {
+                                        finish();
+                                        themThongbao(ten, cover_link, mieuta);
+                                    }
 
-                    }
+                                }
+                            })
 
+                            // A null listener allows the button to dismiss the dialog and take no further action.
+                            .setNegativeButton(android.R.string.no, null)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
                 }
             }
         });
@@ -128,8 +153,7 @@ public class Add_book extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 chooseImage();
-                ettitle.setText(viethoa(ettitle.getText().toString()));
-                etauthor.setText(viethoa(etauthor.getText().toString()));
+
             }
         });
 
@@ -160,13 +184,6 @@ public class Add_book extends AppCompatActivity {
 //        FirebaseMessaging.getInstance().send(message);
     }
 
-    private String viethoa(String toString) {
-        //ký tự dầu hoa còn lại thường
-        toString = toString.substring(0, 1).toUpperCase() + toString.substring(1).toLowerCase();
-        //thay thế các khoảng trống thành 1 khoảng trống
-        toString = toString.trim().replaceAll(" +", " ");
-        return toString;
-    }
 
     private void chooseFile() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);

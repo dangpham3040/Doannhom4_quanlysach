@@ -26,8 +26,7 @@ import com.example.doannhom4_quanlythuvien.ui.*;
 
 public class FirebaseMsgService extends FirebaseMessagingService {
     @Override
-    public void onMessageReceived(RemoteMessage rm) {
-        // Hiển thị thông báo
+    public void onMessageReceived(@NonNull RemoteMessage rm) {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_logo);
         Log.d("msg", "onMessageReceived: " + rm.getNotification().getTitle());
         Intent intent = new Intent(this, MainActivity.class);

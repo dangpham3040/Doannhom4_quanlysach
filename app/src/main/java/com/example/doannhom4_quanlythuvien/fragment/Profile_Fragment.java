@@ -99,6 +99,7 @@ public class Profile_Fragment extends Fragment {
     }
 
     private void setControl() {
+        StaticConfig.items = 1;
         kimcuong = view.findViewById(R.id.kimcuong);
         btnlogout = view.findViewById(R.id.btnlogout);
         avatar = view.findViewById(R.id.avatar);
@@ -155,7 +156,7 @@ public class Profile_Fragment extends Fragment {
                 throw error.toException();
             }
         });
-        StaticConfig.items = 1;
+
     }
 
     private void setEnvet() {
@@ -168,6 +169,7 @@ public class Profile_Fragment extends Fragment {
         kimcuong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                StaticConfig.items = 1;
                 startActivity(new Intent(getContext(), Menu_admin.class));
             }
         });

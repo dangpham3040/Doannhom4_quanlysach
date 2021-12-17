@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -16,23 +15,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.doannhom4_quanlythuvien.R;
-import com.example.doannhom4_quanlythuvien.adapter.Gallery_Adapter;
+import com.example.doannhom4_quanlythuvien.adapter.gallery_Adapter;
 import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.UUID;
 
 public class Gallery extends AppCompatActivity {
     private TextView title;
     private ImageView goback;
     private GridView gridView;
     private ArrayList<String> data = new ArrayList<>();
-    private Gallery_Adapter adapter;
+    private gallery_Adapter adapter;
     private ProgressBar progressBar;
     private String linkanh;
 
@@ -45,7 +41,7 @@ public class Gallery extends AppCompatActivity {
     }
 
     private void setEvnet() {
-        adapter = new Gallery_Adapter(getApplication(), R.layout.item_gallery, data);
+        adapter = new gallery_Adapter(getApplication(), R.layout.item_gallery, data);
         gridView.setAdapter(adapter);
         khoitao();
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

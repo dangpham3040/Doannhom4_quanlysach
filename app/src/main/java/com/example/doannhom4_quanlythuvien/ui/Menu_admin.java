@@ -24,7 +24,7 @@ public class Menu_admin extends AppCompatActivity {
         binding.thoat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),Starup.class));
+               startActivity(new Intent(getApplicationContext(),Starup.class));
             }
         });
         binding.quanly.setOnClickListener(new View.OnClickListener() {
