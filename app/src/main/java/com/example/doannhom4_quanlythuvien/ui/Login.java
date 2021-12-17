@@ -109,6 +109,13 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if (etPass.getText().toString().isEmpty()) {
+                    etPass.setError("Pass is require!!");
+
+                }
+                if (etPass.getText().toString().length() < 6) {
+                    etPass.setError("Pass at least 6 characters ");
+                }
                 if (kiemtra()) {
                     btnLogin.setEnabled(true);
                 }
@@ -128,6 +135,12 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if (etEmail.getText().toString().isEmpty()) {
+                    etEmail.setError("email is require!!");
+                }
+                if (!Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString()).matches()) {
+                    etEmail.setError("Enter Valid Email Address");
+                }
                 if (kiemtra()) {
                     btnLogin.setEnabled(true);
                 }
@@ -201,15 +214,11 @@ public class Login extends AppCompatActivity {
 
     private boolean kiemtra() {
         if (etEmail.getText().toString().isEmpty()) {
-            etEmail.setError("email is require!!");
             return false;
         } else if (etPass.getText().toString().isEmpty()) {
-            etPass.setError("Pass is require!!");
             return false;
         } else if (etPass.getText().toString().length() < 6) {
-            etPass.setError("email have 6 characters ");
             return false;
-
         } else if (!Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString()).matches()) {
             etEmail.setError("Enter Valid Email Address");
             return false;

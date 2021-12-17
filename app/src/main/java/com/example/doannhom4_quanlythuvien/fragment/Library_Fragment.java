@@ -183,7 +183,7 @@ public class Library_Fragment extends Fragment {
                 throw error.toException();
             }
         });
-        StaticConfig.items = 2;
+
     }
 
 

@@ -74,7 +74,6 @@ public class Book_detail extends AppCompatActivity {
         setContentView(R.layout.activity_book_detail);
         setControl();
         setEvnet();
-        Log.e("itm",StaticConfig.items+"");
     }
 
     private void setEvnet() {
@@ -184,8 +183,8 @@ public class Book_detail extends AppCompatActivity {
         book_describe.setText(chitiet.getDescription());
         ReadMoreTextView readMoreTextView = new ReadMoreTextView();
         readMoreTextView.setTextView(book_describe);
-        readMoreTextView.setMaximumLine(10);
-        if (book_describe.length() > 1000) {
+        readMoreTextView.setMaximumLine(5);
+        if (book_describe.length() > 100) {
             readMoreTextView.setCollapseText("See Less");
             readMoreTextView.setExpandText("See More");
             readMoreTextView.setColorCode("#e74c3c");

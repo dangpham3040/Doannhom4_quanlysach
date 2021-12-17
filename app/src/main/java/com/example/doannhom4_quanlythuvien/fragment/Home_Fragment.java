@@ -157,7 +157,7 @@ public class Home_Fragment extends Fragment {
                 throw error.toException();
             }
         });
-        StaticConfig.items = 0;
+
     }
 
     private void setEnvet() {

@@ -99,7 +99,7 @@ public class Profile_Fragment extends Fragment {
     }
 
     private void setControl() {
-        StaticConfig.items = 1;
+
         kimcuong = view.findViewById(R.id.kimcuong);
         btnlogout = view.findViewById(R.id.btnlogout);
         avatar = view.findViewById(R.id.avatar);

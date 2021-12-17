@@ -90,15 +90,19 @@ public class Starup extends AppCompatActivity {
             public void onPageSelected(int position) {
                 switch (position) {
                     case 0:
+                        StaticConfig.items=0;
                         bottomNavigationView.getMenu().findItem(R.id.fragment_home).setChecked(true);
                         break;
                     case 1:
+                        StaticConfig.items=1;
                         bottomNavigationView.getMenu().findItem(R.id.fragment_profile).setChecked(true);
                         break;
                     case 2:
+                        StaticConfig.items=2;
                         bottomNavigationView.getMenu().findItem(R.id.fragment_library).setChecked(true);
                         break;
                     case 3:
+                        StaticConfig.items=3;
                         bottomNavigationView.getMenu().findItem(R.id.fragment_contact).setChecked(true);
                         break;
                 }
@@ -135,6 +139,7 @@ public class Starup extends AppCompatActivity {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
+                        System.exit(0);
                     }
                 })
                 // A null listener allows the button to dismiss the dialog and take no further action.

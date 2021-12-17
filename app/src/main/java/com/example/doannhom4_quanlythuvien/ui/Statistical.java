@@ -60,15 +60,14 @@ public class Statistical extends AppCompatActivity {
             entries.add(new BarEntry(vitri, tk.getTongsosao()));
             BarDataSet dataSet = new BarDataSet(entries, "Data");
             data = new BarData(dataSet);
-            int [] mau =StaticConfig.arrayListColer;
+            int [] mau = StaticConfig.arrayListColer;
             dataSet.setColors(mau);
-            dataSet.setValueTextSize(16f);
+            dataSet.setValueTextSize(10f);
             dataSet.setValueTextColor(Color.BLACK);
-            vitri++;
+            vitri= vitri+2;
         }
         bar.setData(data);
-        bar.getXAxis().setValueFormatter(new IndexAxisValueFormatter(getXAxisLabels()));
-        bar.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
         bar.getLegend().setEnabled(false);
         bar.animateY(4500);
         bar.setTouchEnabled(true);
@@ -90,13 +89,5 @@ public class Statistical extends AppCompatActivity {
 
     }
 
-    private ArrayList<String> getXAxisLabels() {
-        ArrayList<String> labels = new ArrayList<String>();
-        for (int i = 0; i < StaticConfig.ArrayThongke.size(); i++) {
-            Statisticals tk = StaticConfig.ArrayThongke.get(i);
-            labels.add(tk.getTen());
-            Log.e("ten", i + " " + tk.getTen());
-        }
-        return labels;
-    }
+
 }
