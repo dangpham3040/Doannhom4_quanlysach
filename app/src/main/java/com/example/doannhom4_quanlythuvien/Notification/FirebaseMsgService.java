@@ -25,19 +25,22 @@ import com.example.doannhom4_quanlythuvien.ui.*;
 
 
 public class FirebaseMsgService extends FirebaseMessagingService {
+
     @Override
     public void onMessageReceived(@NonNull RemoteMessage rm) {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_logo);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_logo);
         Log.d("msg", "onMessageReceived: " + rm.getNotification().getTitle());
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         String channelId = "Default";
 
-        NotificationCompat.Builder builder = new  NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.mipmap.ic_launcher)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.drawable.ic_logo)
+                .setLargeIcon(bitmap)
                 .setContentTitle(rm.getNotification().getTitle())
-                .setContentText(rm.getNotification().getBody()).setAutoCancel(true).setContentIntent(pendingIntent);;
+                .setContentText(rm.getNotification().getBody()).setAutoCancel(true).setContentIntent(pendingIntent);
+        ;
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(channelId, "Default channel", NotificationManager.IMPORTANCE_DEFAULT);

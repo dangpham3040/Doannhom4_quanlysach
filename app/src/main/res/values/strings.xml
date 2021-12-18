@@ -28,7 +28,7 @@
     <string name="_pass">confirm Password:</string>
     <string name="sex">sex:</string>
     <string name="full">Fullname: </string>
-    <string name="register">register</string>
+    <string name="register">Register</string>
     <string name="logout">Logout</string>
     <string name="login">Login</string>
     <string name="forgot">forgot password?!</string>
@@ -105,7 +105,7 @@ Cuốn sách này mang lại cho tôi rất nhiều nhiều kiến thức hay tr
     <string name="sp_key_on_off_random_color">key_on_off_random_color</string>
     <string name="sp_title_on_off_random_color">Enable/Disable Random Color</string>
 <string name="EditProfile">Edit Profile</string>
-    <string name="Changepass">Changepass</string>
+    <string name="Changepass">Change PassWord</string>
     <string name="Search">Seach</string>
     <string name="language">English</string>
 </resources>

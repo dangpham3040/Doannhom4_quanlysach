@@ -1,5 +1,6 @@
 package com.example.doannhom4_quanlythuvien;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
@@ -12,14 +13,22 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
+import com.example.doannhom4_quanlythuvien.Notification.NotificationApi;
 import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
+import com.example.doannhom4_quanlythuvien.model.Notification;
 import com.example.doannhom4_quanlythuvien.ui.*;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +37,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setControl() {
+        //set Ngôn ngữ mặc định
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String language = settings.getString("ngonngu", "");
         setLocale(MainActivity.this, language);
-        Log.e("ngon ngu", language);
+
+        //get tonken
+//        FirebaseMessaging.getInstance().getToken()
+//                .addOnCompleteListener(new OnCompleteListener<String>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<String> task) {
+//                        if (!task.isSuccessful()) {
+//                            Log.w("TAG", "Fetching FCM registration token failed", task.getException());
+//                            return;
+//                        }
+//
+//                        // Get new FCM registration token
+//                        String token = task.getResult();
+//                        Log.d("TAG", token);
+//                    }
+//                });
+
         //màn hình loading....
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

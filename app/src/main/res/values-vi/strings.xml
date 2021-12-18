@@ -20,7 +20,7 @@
     <string name="pas">Mật Khẩu: </string>
     <string name="_pas">nhập lại Password: </string>
     //tiêu đề
-    <string name="registration">đăng ký</string>
+    <string name="registration">Đăng ký</string>
     <string name="fist_">Họ:</string>
     <string name="last_">Tên:</string>
     <string name="email_">Email:</string>
@@ -73,7 +73,7 @@
     <string name="name">Họ tên</string>
     <string name="phone">Số Diện Thoại</string>
     <string name="matkhau">Mật Khẩu</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>

@@ -35,9 +35,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.doannhom4_quanlythuvien.Notification.NotificationApi;
 import com.example.doannhom4_quanlythuvien.R;
 import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
 import com.example.doannhom4_quanlythuvien.model.Book;
+import com.example.doannhom4_quanlythuvien.model.Notification;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
@@ -52,7 +54,12 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Add_book extends AppCompatActivity {
 
@@ -65,6 +72,7 @@ public class Add_book extends AppCompatActivity {
     private Uri filePath;
     private Button btnsave;
     private Button choose_file;
+    final NotificationApi Api = NotificationApi.retrofit.create(NotificationApi.class);
 
 
     @Override
@@ -73,7 +81,6 @@ public class Add_book extends AppCompatActivity {
         setContentView(R.layout.activity_add_book);
         setControl();
         setEvent();
-        themThongbao("", "", "");
     }
 
     private void setEvent() {
@@ -136,7 +143,7 @@ public class Add_book extends AppCompatActivity {
                                     if (StaticConfig.mBook.child(key) != null) {
                                         startActivity(new Intent(getApplicationContext(), Management.class));
                                         Starup.Tongsao();
-                                        themThongbao(ten, cover_link, mieuta);
+                                        themThongbao(ten);
                                     }
 
                                 }
@@ -177,12 +184,19 @@ public class Add_book extends AppCompatActivity {
         });
     }
 
-    private void themThongbao(String ten, String cover_link, String mieuta) {
-//        RemoteMessage message = new RemoteMessage.Builder("")
-//                .setMessageId("kjagsduiaskdnasklm")
-//                .addData("message", "Hello")
-//                .build();
-//        FirebaseMessaging.getInstance().send(message);
+    private void themThongbao(String ten) {
+        Notification notification = new Notification("Sách mới",ten+" vừa được thêm!!");
+        Call<List<Notification>> call = Api.addNotificaion(notification);
+        call.enqueue(new Callback<List<Notification>>() {
+            @Override
+            public void onResponse(Call<List<Notification>> call, Response<List<Notification>> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Notification>> call, Throwable t) {
+            }
+        });
     }
 
 
