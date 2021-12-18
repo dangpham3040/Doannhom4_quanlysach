@@ -134,7 +134,8 @@ public class Add_book extends AppCompatActivity {
                                     Book book = new Book(key, ten, tacgia, cover_link, link, loai, mieuta);
                                     StaticConfig.mBook.child(key).setValue(book);
                                     if (StaticConfig.mBook.child(key) != null) {
-                                        finish();
+                                        startActivity(new Intent(getApplicationContext(), Management.class));
+                                        Starup.Tongsao();
                                         themThongbao(ten, cover_link, mieuta);
                                     }
 

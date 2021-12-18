@@ -63,7 +63,7 @@ public class Starup extends AppCompatActivity {
                     case R.id.fragment_library:
                         viewPager.setCurrentItem(2);
                         break;
-                    case R.id.fragment_contact:
+                    case R.id.fragment_Setting:
                         viewPager.setCurrentItem(3);
                         break;
                 }
@@ -94,7 +94,7 @@ public class Starup extends AppCompatActivity {
                         break;
                     case 3:
                         StaticConfig.items = 3;
-                        bottomNavigationView.getMenu().findItem(R.id.fragment_contact).setChecked(true);
+                        bottomNavigationView.getMenu().findItem(R.id.fragment_Setting).setChecked(true);
                         break;
                 }
             }
@@ -139,14 +139,14 @@ public class Starup extends AppCompatActivity {
     }
 
     public static void Tongsao() {
-        StaticConfig.mBook.addValueEventListener(new ValueEventListener() {
+        StaticConfig.ArrayThongke.clear();
+        StaticConfig.mBook.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                StaticConfig.ArrayThongke.clear();
                 i = 0;
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     Book sach = ds.getValue(Book.class);
-                    StaticConfig.mComment.child(sach.getId()).addValueEventListener(new ValueEventListener() {
+                    StaticConfig.mComment.child(sach.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             Tong = 0;
@@ -164,7 +164,7 @@ public class Starup extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
+                            throw error.toException();
                         }
                     });
 
@@ -173,7 +173,7 @@ public class Starup extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                throw error.toException();
             }
         });
         for (int i = 0; i < 100; i++) {

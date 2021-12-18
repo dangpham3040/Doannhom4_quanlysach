@@ -16,10 +16,10 @@
         android:icon="@drawable/ic_baseline_library_books_24"
         android:title="@string/Library" />
     <item
-        android:id="@+id/fragment_contact"
+        android:id="@+id/fragment_Setting"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_contacts_24"
-        android:title="@string/Contact" />
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/Setting" />
 
 
 </menu>

@@ -43,6 +43,7 @@
         <entry key="..\:/android 2/Doannhom4_quanlysach/app/src/main/res/layout-xlarge/activity_add_book.xml" value="0.19467213114754098" />
         <entry key="..\:/android 2/Doannhom4_quanlysach/app/src/main/res/layout/activity_add_book.xml" value="0.25416666666666665" />
         <entry key="..\:/android 2/Doannhom4_quanlysach/app/src/main/res/layout/activity_book_detail.xml" value="0.2" />
+        <entry key="..\:/android 2/Doannhom4_quanlysach/app/src/main/res/layout/activity_contact.xml" value="0.16216216216216217" />
         <entry key="..\:/android 2/Doannhom4_quanlysach/app/src/main/res/layout/activity_edit_book.xml" value="0.176" />
         <entry key="..\:/android 2/Doannhom4_quanlysach/app/src/main/res/layout/activity_edit_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/android 2/Doannhom4_quanlysach/app/src/main/res/layout/activity_gallery.xml" value="0.27447916666666666" />
@@ -61,6 +62,7 @@
         <entry key="..\:/android 2/Doannhom4_quanlysach/app/src/main/res/layout/fragment_home.xml" value="0.134375" />
         <entry key="..\:/android 2/Doannhom4_quanlysach/app/src/main/res/layout/fragment_library.xml" value="0.13072916666666667" />
         <entry key="..\:/android 2/Doannhom4_quanlysach/app/src/main/res/layout/fragment_profile.xml" value="0.176" />
+        <entry key="..\:/android 2/Doannhom4_quanlysach/app/src/main/res/layout/img_setting.xml" value="0.16216216216216217" />
         <entry key="..\:/android 2/Doannhom4_quanlysach/app/src/main/res/layout/item_book.xml" value="0.25416666666666665" />
         <entry key="..\:/android 2/Doannhom4_quanlysach/app/src/main/res/layout/item_comment.xml" value="0.136" />
         <entry key="..\:/android 2/Doannhom4_quanlysach/app/src/main/res/layout/item_gallery.xml" value="0.27447916666666666" />
@@ -69,6 +71,7 @@
         <entry key="..\:/android 2/Doannhom4_quanlysach/app/src/main/res/layout/items_library.xml" value="0.25416666666666665" />
         <entry key="..\:/android 2/Doannhom4_quanlysach/app/src/main/res/layout/logout.xml" value="0.25416666666666665" />
         <entry key="..\:/android 2/Doannhom4_quanlysach/app/src/main/res/menu/bottom_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/android 2/Doannhom4_quanlysach/app/src/main/res/xml/root_preferences.xml" value="0.16216216216216217" />
         <entry key="..\:/android 2/Doannhom4_quanlythuvien/app/src/main/res/layout/activity_book_detail.xml" value="0.13854166666666667" />
         <entry key="..\:/android 2/Doannhom4_quanlythuvien/app/src/main/res/layout/activity_login.xml" value="0.13125" />
         <entry key="..\:/android 2/Doannhom4_quanlythuvien/app/src/main/res/layout/activity_management.xml" value="0.15489130434782608" />

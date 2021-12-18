@@ -1,39 +1,32 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <PreferenceCategory app:title="@string/messages_header">
-
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory app:title="@string/sync_header">
-
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
-
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
-
-    </PreferenceCategory>
     <Preference
-        android:key="logout"
-        app:title="Logout"></Preference>
+        android:key="img"
+        android:layout="@layout/img_setting"></Preference>
+    <PreferenceCategory app:title="Update">
+        <Preference
+            android:key="EditProfile"
+            app:title="@string/EditProfile"></Preference>
+        <Preference
+            android:key="Changepass"
+            app:title="@string/Changepass"></Preference>
 
+    </PreferenceCategory>
+    <PreferenceCategory android:title="language">
+        <SwitchPreference
+            android:key="language"
+            android:title="@string/language"></SwitchPreference>
+    </PreferenceCategory>
+    <PreferenceCategory app:title="Other">
+        <Preference
+            android:key="logout"
+            app:title="@string/logout"></Preference>
+        <Preference
+            android:key="Contact"
+            app:title="@string/Contact"></Preference>
+        <Preference
+            android:key="about"
+            app:title="version 3.2"></Preference>
+    </PreferenceCategory>
 </PreferenceScreen>
 

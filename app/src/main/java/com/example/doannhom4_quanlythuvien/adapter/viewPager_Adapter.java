@@ -4,10 +4,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.doannhom4_quanlythuvien.fragment.Contact_Fragment;
 import com.example.doannhom4_quanlythuvien.fragment.Home_Fragment;
 import com.example.doannhom4_quanlythuvien.fragment.Library_Fragment;
 import com.example.doannhom4_quanlythuvien.fragment.Profile_Fragment;
+import com.example.doannhom4_quanlythuvien.fragment.Settings_Fragment;
 
 public class viewPager_Adapter extends FragmentStatePagerAdapter {
 
@@ -25,7 +25,7 @@ public class viewPager_Adapter extends FragmentStatePagerAdapter {
             case 2:
                 return new Library_Fragment();
             case 3:
-                return new Contact_Fragment();
+                return new Settings_Fragment();
         }
         return null;
     }

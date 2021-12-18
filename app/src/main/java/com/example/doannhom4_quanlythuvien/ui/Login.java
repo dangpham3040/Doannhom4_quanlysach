@@ -63,7 +63,6 @@ public class Login extends AppCompatActivity {
                 if (cbSaveLogin.isChecked()) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(etEmail.getWindowToken(), 0);
-
                     if (cbSaveLogin.isChecked()) {
                         loginPrefsEditor.putBoolean("saveLogin", true);
                         loginPrefsEditor.putString("username", etEmail.getText().toString());

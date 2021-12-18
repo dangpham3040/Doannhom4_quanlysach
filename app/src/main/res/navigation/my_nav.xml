@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.doannhom4_quanlythuvien.fragment.SettingsFragment"
+        android:name="com.example.doannhom4_quanlythuvien.fragment.Settings_Fragment"
         android:label="SettingsFragment" />
     <fragment
         android:id="@+id/profile_Fragment"

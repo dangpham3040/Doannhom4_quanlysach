@@ -215,7 +215,7 @@ public class Edit_book extends AppCompatActivity {
                                 StaticConfig.mBook.child(book_id).removeValue();
                                 StaticConfig.mComment.child(book_id).removeValue();
                                 startActivity(new Intent(getApplicationContext(), Management.class));
-
+                                Starup.Tongsao();
                             }
                         })
                         // A null listener allows the button to dismiss the dialog and take no further action.

@@ -34,9 +34,11 @@ public class StaticConfig {
     //array thong ke
     public static ArrayList<Statisticals> ArrayThongke = new ArrayList<>();
     //array mau
-    public  static int[] arrayListColer =new int[100];
+    public static int[] arrayListColer = new int[100];
     //man hinh
     public static int items = 0;
+    //ngon ngu
+    public static String language = "";
     //arralist check
     public static ArrayList<Book> ArrayCheck = new ArrayList<>();
     //arraylist sach

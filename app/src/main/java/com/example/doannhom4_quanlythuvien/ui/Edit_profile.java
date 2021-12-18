@@ -199,8 +199,6 @@ public class Edit_profile extends AppCompatActivity {
                 }
             }
         });
-
-
         avatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
