@@ -158,7 +158,9 @@ public class Starup extends AppCompatActivity {
                                 soSao = Tong / solan;
                                 solan++;
                             }
-                            StaticConfig.ArrayThongke.add(new Statisticals(sach.getTitle(), soSao, i));
+                            if (Tong > 0) {
+                                StaticConfig.ArrayThongke.add(new Statisticals(sach.getTitle(), soSao, i));
+                            }
                             i++;
                         }
 

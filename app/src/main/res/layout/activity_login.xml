@@ -39,7 +39,7 @@
         android:layout_marginTop="70dp"
         android:layout_marginEnd="@dimen/dp_30"
         android:background="@drawable/et"
-        android:hint="Enter email"
+        android:hint="@string/Enter_email"
         android:inputType="textPersonName"
         android:padding="15dp"
         android:textSize="15sp" />
@@ -54,7 +54,7 @@
         android:layout_marginTop="@dimen/dp_20"
         android:layout_marginEnd="@dimen/dp_30"
         android:background="@drawable/et"
-        android:hint="Enter Password"
+        android:hint="@string/Enter_Password"
         android:inputType="textWebPassword"
         android:padding="15dp"
         android:textSize="15sp" />
@@ -70,7 +70,7 @@
         android:background="#313435"
         android:enabled="false"
         android:fontFamily="@font/copse"
-        android:text="Login"
+        android:text="@string/login"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -84,8 +84,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/lpass"
         android:layout_marginStart="@dimen/dp_30"
-        android:text="Save Login"
+        android:text="@string/savelogin"
         android:textColor="@color/black" />
+
     <TextView
         android:id="@+id/link_register"
         android:layout_width="wrap_content"
@@ -93,7 +94,7 @@
         android:layout_below="@id/lpass"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="@dimen/dp_30"
-        android:text="Click here for Sign Up"
+        android:text="@string/Click_here_for_Sign_Up"
         android:textColor="@color/black" />
 
     <ImageView
@@ -114,8 +115,6 @@
         android:layout_marginTop="@dimen/dp_30"
         android:layout_marginEnd="@dimen/dp_100"
         android:src="@drawable/facebook_icon" />
-
-
 
 
     <TextView

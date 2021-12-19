@@ -60,16 +60,16 @@ public class Statistical extends AppCompatActivity {
             entries.add(new BarEntry(vitri, tk.getTongsosao()));
             BarDataSet dataSet = new BarDataSet(entries, "Data");
             data = new BarData(dataSet);
-            int [] mau = StaticConfig.arrayListColer;
+            int[] mau = StaticConfig.arrayListColer;
             dataSet.setColors(mau);
             dataSet.setValueTextSize(10f);
             dataSet.setValueTextColor(Color.BLACK);
-            vitri= vitri+2;
+            vitri = vitri + 1;
         }
         bar.setData(data);
 
         bar.getLegend().setEnabled(false);
-        bar.animateY(4500);
+        bar.animateY(2000);
         bar.setTouchEnabled(true);
         bar.setDragEnabled(true);
         bar.setScaleEnabled(true);
@@ -80,7 +80,8 @@ public class Statistical extends AppCompatActivity {
     private void setControl() {
         tieude = findViewById(R.id.title);
         goback = findViewById(R.id.goback);
-        tieude.setText("Statistical");
+        tieude.setText(R.string.Statistical);
+        tieude.setTextSize(25f);
         bar = findViewById(R.id.bar);
         gridView_thongke = findViewById(R.id.gridView_thongke);
         adapter = new statistical_Adapter(getApplicationContext(), R.layout.item_statistical, StaticConfig.ArrayThongke);

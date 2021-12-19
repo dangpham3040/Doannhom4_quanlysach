@@ -2,22 +2,29 @@ package com.example.doannhom4_quanlythuvien;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.preference.PreferenceManager;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.doannhom4_quanlythuvien.Notification.NotificationApi;
 import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
 import com.example.doannhom4_quanlythuvien.model.Notification;
 import com.example.doannhom4_quanlythuvien.ui.*;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -41,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String language = settings.getString("ngonngu", "");
         setLocale(MainActivity.this, language);
+        //dang ky Topic
+        FirebaseMessaging.getInstance().subscribeToTopic("Topic");
 
         //get tonken
 //        FirebaseMessaging.getInstance().getToken()
@@ -72,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }, 2500);
-        //startActivity(new Intent(getApplicationContext(), Statistical.class));
     }
 
     public static void setLocale(Activity activity, String languageCode) {

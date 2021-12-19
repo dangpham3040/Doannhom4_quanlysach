@@ -17,7 +17,7 @@
         android:background="@color/white"
         android:fontFamily="@font/coiny"
 
-        android:text="@string/register"
+        android:text="Register"
         android:textColor="@color/black"
         android:textSize="50sp" />
 
@@ -41,7 +41,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/et"
-        android:hint="Enter Username"
+        android:hint="@string/Enter_Username"
         android:inputType="textPersonName"
         android:padding="15dp"
         android:textSize="15sp" />
@@ -56,7 +56,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/et"
-        android:hint="Enter Phone"
+        android:hint="@string/Enter_Phone"
         android:inputType="number"
         android:padding="15dp"
         android:textSize="15sp" />
@@ -70,7 +70,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/et"
-        android:hint="Enter Email"
+        android:hint="@string/Enter_email"
         android:inputType="textEmailAddress"
         android:padding="15dp"
         android:textSize="15sp" />
@@ -84,7 +84,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/et"
-        android:hint="Enter Password"
+        android:hint="@string/Enter_Password"
         android:inputType="textPassword"
         android:padding="15dp"
         android:textSize="15sp" />
@@ -98,7 +98,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/et"
-        android:hint="Enter ConfirmPassword"
+        android:hint="@string/Enter_ConfirmPassword"
         android:inputType="textPassword"
         android:padding="15dp"
         android:textSize="15sp" />
@@ -114,7 +114,7 @@
 
         <TextView
             style="@style/tieude_style"
-            android:text="Sex" />
+            android:text="@string/gioitinh" />
 
         <RadioGroup
             android:layout_width="match_parent"

@@ -4,25 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:background="@drawable/ui_menu_admin"
+
     android:orientation="vertical"
     tools:context=".ui.Menu_admin">
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="60dp"
+        android:layout_margin="20dp"
+
         android:orientation="vertical"
         android:weightSum="5">
 
         <TextView
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_50"
+            android:layout_marginTop="250dp"
             android:layout_weight="2"
-            android:background="@color/white"
             android:fontFamily="@font/coiny"
             android:gravity="center"
+
             android:text="Admin"
             android:textColor="@color/black"
             android:textSize="50sp" />
@@ -31,11 +35,13 @@
             android:id="@+id/quanly"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="55dp"
             android:layout_weight="1"
-            android:background="#2196F3"
-            android:text="Quản Lý "
-            android:textColor="@color/white" />
+            android:background="@drawable/comment_edittext_shape"
+            android:backgroundTint="#2196F3"
+            android:text="@string/management"
+            android:textColor="@color/white"
+            android:textSize="25dp" />
 
         <Button
             android:id="@+id/thongke"
@@ -43,9 +49,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:layout_weight="1"
-            android:background="#2196F3"
-            android:text="Thống kê"
-            android:textColor="@color/white" />
+            android:background="@drawable/comment_edittext_shape"
+            android:backgroundTint="#2196F3"
+            android:text="@string/Statistical"
+            android:textColor="@color/white"
+            android:textSize="25dp" />
 
         <Button
             android:id="@+id/thoat"
@@ -53,9 +61,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:layout_weight="1"
-            android:background="#2196F3"
-            android:text="Thoát"
-            android:textColor="@color/white" />
+            android:background="@drawable/comment_edittext_shape"
+            android:backgroundTint="#2196F3"
+            android:text="@string/exit"
+            android:textColor="@color/white"
+            android:textSize="25dp" />
     </LinearLayout>
 
 

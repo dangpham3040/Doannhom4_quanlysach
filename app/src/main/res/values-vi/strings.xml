@@ -108,4 +108,17 @@ Cuốn sách này mang lại cho tôi rất nhiều nhiều kiến thức hay tr
     <string name="Changepass">Đổi Mật Khẩu</string>
     <string name="Search">Tìm Kiếm</string>
     <string name="language">Viet Nam</string>
+    <string name="management">Quản lý</string>
+    <string name="Statistical">Thống kê</string>
+    <string name="exit">Thoát</string>
+    <string name="Enter_email">Nhập Email...</string>
+    <string name="Enter_Password">Nhập Mật Khẩu...</string>
+    <string name="savelogin">Lưu Đăng Nhập</string>
+    <string name="Click_here_for_Sign_Up">Bấm vào đây để đăng ký</string>
+    <string name="Enter_Username">Nhập Username...</string>
+    <string name="Enter_Phone">Nhập Số điện Thoại...</string>
+    <string name="Enter_ConfirmPassword">Xác Nhập Mật Khẩu...</string>
+    <string name="gioitinh">Giới Tính</string>
+    <string name="addbook">Thêm sách</string>
+    <string name="Management">Quản lý</string>
 </resources>

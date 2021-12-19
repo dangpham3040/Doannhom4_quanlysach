@@ -84,7 +84,8 @@ public class Management extends AppCompatActivity {
         gridView.setAdapter(adapter);
 
         //gán tựa đề
-        title.setText("Management");
+        title.setText(R.string.Management);
+        title.setTextSize(25f);
         ArrayList<String> arrayList = new ArrayList<>();
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, arrayList);
         StaticConfig.mCategory.addValueEventListener(new ValueEventListener() {

@@ -341,7 +341,8 @@ public class Add_book extends AppCompatActivity {
 
 
         //gan tieu de
-        title.setText("Thêm sách");
+        title.setText(R.string.addbook);
+        title.setTextSize(25f);
         ArrayList<String> arrayList = new ArrayList<>();
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, arrayList);
         StaticConfig.mCategory.addValueEventListener(new ValueEventListener() {

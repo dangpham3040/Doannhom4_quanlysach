@@ -108,4 +108,17 @@ Cuốn sách này mang lại cho tôi rất nhiều nhiều kiến thức hay tr
     <string name="Changepass">Change PassWord</string>
     <string name="Search">Seach</string>
     <string name="language">English</string>
+    <string name="management">Management</string>
+    <string name="Statistical">Statistical</string>
+    <string name="exit">Exit</string>
+    <string name="Enter_email">Enter Email...</string>
+    <string name="Enter_Password">Enter Password...</string>
+    <string name="savelogin">Save Login</string>
+    <string name="Click_here_for_Sign_Up">Click here for Sign Up</string>
+    <string name="Enter_Username">Enter Username...</string>
+    <string name="Enter_Phone">Enter Phone...</string>
+    <string name="Enter_ConfirmPassword">Enter ConfirmPassword...</string>
+    <string name="gioitinh">Sex</string>
+    <string name="addbook">Add Book</string>
+    <string name="Management">Management</string>
 </resources>

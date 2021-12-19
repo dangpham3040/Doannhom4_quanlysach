@@ -162,6 +162,9 @@ public class Book_detail extends AppCompatActivity {
         chitiet = (Book) getIntent().getSerializableExtra("chitiet");
         title = findViewById(R.id.title);
         title.setText(chitiet.getTitle());
+        if(chitiet.getTitle().length()<30){
+            title.setTextSize(25f);
+        }
         goback = findViewById(R.id.goback);
         book_title = findViewById(R.id.book_title);
         author = findViewById(R.id.author);
@@ -178,13 +181,12 @@ public class Book_detail extends AppCompatActivity {
         adapter = new comment_Adapter(getApplicationContext(), R.layout.item_comment, data);
         gridView.setAdapter(adapter);
         khoitao();
-
         //see more
         book_describe.setText(chitiet.getDescription());
         ReadMoreTextView readMoreTextView = new ReadMoreTextView();
         readMoreTextView.setTextView(book_describe);
         readMoreTextView.setMaximumLine(10);
-        if (book_describe.getLineCount() > 10) {
+        if (book_describe.getText().length() >100 ) {
             readMoreTextView.setCollapseText("See Less");
             readMoreTextView.setExpandText("See More");
             readMoreTextView.setColorCode("#e74c3c");

@@ -26,7 +26,7 @@
             app:title="@string/Contact"></Preference>
         <Preference
             android:key="about"
-            app:title="version 3.3"></Preference>
+            app:title="version 3.4"></Preference>
     </PreferenceCategory>
 </PreferenceScreen>
 
