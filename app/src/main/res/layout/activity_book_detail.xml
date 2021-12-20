@@ -18,17 +18,20 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:weightSum="3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <ImageView
+                android:layout_weight="1"
                 android:id="@+id/cover"
                 android:layout_width="170dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/no_image" />
 
             <LinearLayout
+                android:layout_weight="2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"

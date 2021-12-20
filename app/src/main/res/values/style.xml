@@ -23,6 +23,7 @@
         <item name="android:layout_marginRight">25dp</item>
     </style>
     <style name="LinearLayout_profile">
+        <item name="android:weightSum">3</item>
         <item name="android:layout_margin">@dimen/dp_20</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
@@ -30,10 +31,9 @@
     </style>
 
     <style name="textview_editprofile">
-
         <item name="android:gravity">center</item>
-        <item name="android:layout_width">50dp</item>
-        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
     <style name="edittext_editProfile">
 

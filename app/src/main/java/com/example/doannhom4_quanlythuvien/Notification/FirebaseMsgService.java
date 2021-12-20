@@ -39,7 +39,7 @@ public class FirebaseMsgService extends FirebaseMessagingService {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(R.drawable.ic_logo)
-                .setLargeIcon(bitmap)
+//                .setLargeIcon(bitmap)
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis())
                 .setPriority(NotificationCompat.PRIORITY_MAX)

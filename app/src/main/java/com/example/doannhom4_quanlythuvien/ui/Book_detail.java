@@ -162,7 +162,7 @@ public class Book_detail extends AppCompatActivity {
         chitiet = (Book) getIntent().getSerializableExtra("chitiet");
         title = findViewById(R.id.title);
         title.setText(chitiet.getTitle());
-        if(chitiet.getTitle().length()<30){
+        if(chitiet.getTitle().length()<20){
             title.setTextSize(25f);
         }
         goback = findViewById(R.id.goback);

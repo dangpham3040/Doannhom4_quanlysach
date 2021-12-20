@@ -24,13 +24,13 @@
 
         <TextView
             style="@style/textview_editprofile"
-            android:gravity="center"
+            android:layout_weight="2"
             android:text="@string/name" />
 
         <EditText
             android:id="@+id/etname"
             style="@style/edittext_editProfile"
-           />
+            android:layout_weight="1" />
 
 
     </LinearLayout>
@@ -39,12 +39,14 @@
 
         <TextView
             style="@style/textview_editprofile"
-            android:gravity="center"
+            android:layout_weight="2"
+
             android:text="@string/phone" />
 
         <EditText
             android:id="@+id/etphone"
             style="@style/edittext_editProfile"
+            android:layout_weight="1"
             android:inputType="number" />
 
 
@@ -57,6 +59,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="25dp"
@@ -90,14 +93,16 @@
     <LinearLayout style="@style/LinearLayout_profile">
 
         <TextView
+            android:layout_weight="2"
             style="@style/textview_editprofile"
             android:gravity="center"
             android:text="@string/email" />
 
         <EditText
+            android:layout_weight="1"
             android:id="@+id/etemail"
             style="@style/edittext_editProfile"
-            android:layout_marginRight="50dp"
+
             android:enabled="false"
             android:inputType="textEmailAddress" />
     </LinearLayout>
