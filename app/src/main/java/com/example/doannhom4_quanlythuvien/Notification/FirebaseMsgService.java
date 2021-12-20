@@ -44,7 +44,8 @@ public class FirebaseMsgService extends FirebaseMessagingService {
                 .setWhen(System.currentTimeMillis())
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setContentTitle(rm.getNotification().getTitle())
-                .setContentText(rm.getNotification().getBody()).setAutoCancel(true).setContentIntent(pendingIntent);
+                .setContentText(rm.getNotification().getBody())
+                .setContentIntent(pendingIntent);
         ;
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

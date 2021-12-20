@@ -162,7 +162,8 @@ public class Book_detail extends AppCompatActivity {
         chitiet = (Book) getIntent().getSerializableExtra("chitiet");
         title = findViewById(R.id.title);
         title.setText(chitiet.getTitle());
-        if(chitiet.getTitle().length()<20){
+
+        if(chitiet.getTitle().length()<25){
             title.setTextSize(25f);
         }
         goback = findViewById(R.id.goback);
@@ -186,11 +187,12 @@ public class Book_detail extends AppCompatActivity {
         ReadMoreTextView readMoreTextView = new ReadMoreTextView();
         readMoreTextView.setTextView(book_describe);
         readMoreTextView.setMaximumLine(10);
-        if (book_describe.getText().length() >100 ) {
+        if (book_describe.getText().length() >350) {
             readMoreTextView.setCollapseText("See Less");
             readMoreTextView.setExpandText("See More");
             readMoreTextView.setColorCode("#e74c3c");
             readMoreTextView.setReadMore();
+
         }
 
         //gan du lieu

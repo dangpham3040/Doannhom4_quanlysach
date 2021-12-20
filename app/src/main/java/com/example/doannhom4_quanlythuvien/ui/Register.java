@@ -2,8 +2,13 @@ package com.example.doannhom4_quanlythuvien.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -43,7 +48,6 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         setControl();
         setEvent();
-
     }
 
     private void validcheck() {
@@ -241,6 +245,7 @@ public class Register extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isComplete()) {
                                         UpdateUI();
+                                        themThongbao();
                                         Toast.makeText(getApplicationContext(), "dang nhap thanh cong", Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(getApplicationContext(), "Error:" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -254,6 +259,25 @@ public class Register extends AppCompatActivity {
 
                     }
                 });
+    }
+
+    private void themThongbao() {
+        String channelId = "Default";
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.drawable.ic_logo)
+
+                .setWhen(System.currentTimeMillis())
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentTitle("Register")
+                .setContentText("Sign Up Success");
+
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(channelId, "Default channel", NotificationManager.IMPORTANCE_HIGH);
+            manager.createNotificationChannel(channel);
+        }
+        manager.notify(0, builder.build());
     }
 
 

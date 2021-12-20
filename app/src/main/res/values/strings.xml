@@ -104,7 +104,7 @@ Cuốn sách này mang lại cho tôi rất nhiều nhiều kiến thức hay tr
     <!-- preference -->
     <string name="sp_key_on_off_random_color">key_on_off_random_color</string>
     <string name="sp_title_on_off_random_color">Enable/Disable Random Color</string>
-<string name="EditProfile">Edit Profile</string>
+    <string name="EditProfile">Edit Profile</string>
     <string name="Changepass">Change PassWord</string>
     <string name="Search">Seach</string>
     <string name="language">English</string>
@@ -121,4 +121,5 @@ Cuốn sách này mang lại cho tôi rất nhiều nhiều kiến thức hay tr
     <string name="gioitinh">Sex</string>
     <string name="addbook">Add Book</string>
     <string name="Management">Management</string>
+    <string name="thongbaodamhky">Sign Up Success</string>
 </resources>
