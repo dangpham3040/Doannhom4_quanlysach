@@ -1,11 +1,16 @@
 package com.example.doannhom4_quanlythuvien.ui;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +19,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -88,6 +94,7 @@ public class Edit_profile extends AppCompatActivity {
     }
 
     private void setEvnet() {
+        khoitao();
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -243,6 +250,65 @@ public class Edit_profile extends AppCompatActivity {
         });
     }
 
+    private void khoitao() {
+        //load dữ liệu cảu user hiện tại
+        Query profile = StaticConfig.mUser.orderByChild("id").equalTo(StaticConfig.currentuser);
+        profile.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    if (ds.exists()) {
+                        url_avatar = ds.child("pic").getValue(String.class);
+                        linkanh=url_avatar;
+                        Picasso.get()
+                                .load(url_avatar)
+                                .fit()
+//                                .transform(transformation)
+                                .into(avatar);
+                        kname = ds.child("name").getValue(String.class);
+                        kphone = ds.child("phone").getValue(String.class);
+                        kgioitinh = ds.child("sex").getValue(String.class);
+                        etemail.setText(ds.child("email").getValue(String.class));
+                        klink = url_avatar;
+                        etname.setText(kname);
+                        etphone.setText(kphone);
+                        gioitinh = kgioitinh;
+                        if (gioitinh.equals("Nam")) {
+                            rbmale.setChecked(true);
+                        }
+                        if (gioitinh.equals("Nữ")) {
+                            rbfemale.setChecked(true);
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(), "fail to load", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void themThongbao() {
+        String channelId = "Default";
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.drawable.ic_logo)
+
+                .setWhen(System.currentTimeMillis())
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentTitle("Edit Profile")
+                .setContentText("Change Password Success");
+
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(channelId, "Default channel", NotificationManager.IMPORTANCE_HIGH);
+            manager.createNotificationChannel(channel);
+        }
+        manager.notify(0, builder.build());
+    }
     private void updatePassDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -275,7 +341,12 @@ public class Edit_profile extends AppCompatActivity {
                 if (!oldpass.isEmpty() && !newpass.isEmpty()) {
                     if (newpass.length() < 6) {
                         Toast.makeText(getApplicationContext(), "mật khẩu phải có ít nhất 6 ký tự", Toast.LENGTH_SHORT).show();
-                    } else {
+                    }
+                    if(oldpass.equals(newpass)){
+                        Toast.makeText(getApplicationContext(), "Trùng mật khẩu ", Toast.LENGTH_SHORT).show();
+                    }
+
+                    else {
                         Updatepass(oldpass, newpass);
                     }
                 }
@@ -298,7 +369,7 @@ public class Edit_profile extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        Toast.makeText(getApplicationContext(), "Thay đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+                                        themThongbao();
                                         StaticConfig.fAuth.signOut();
                                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                     }
@@ -409,44 +480,8 @@ public class Edit_profile extends AppCompatActivity {
         save = findViewById(R.id.save);
         radioGroup = findViewById(R.id.radioGroup);
         title = findViewById(R.id.title);
-        title.setText("Chỉnh sửa thông tin");
-        //load dữ liệu cảu user hiện tại
-        Query profile = StaticConfig.mUser.orderByChild("id").equalTo(StaticConfig.currentuser);
-        profile.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    if (ds.exists()) {
-                        url_avatar = ds.child("pic").getValue(String.class);
-                        linkanh=url_avatar;
-                        Picasso.get()
-                                .load(url_avatar)
-                                .fit()
-//                                .transform(transformation)
-                                .into(avatar);
-                        kname = ds.child("name").getValue(String.class);
-                        kphone = ds.child("phone").getValue(String.class);
-                        kgioitinh = ds.child("sex").getValue(String.class);
-                        etemail.setText(ds.child("email").getValue(String.class));
-                        klink = url_avatar;
-                        etname.setText(kname);
-                        etphone.setText(kphone);
-                        gioitinh = kgioitinh;
-                        if (gioitinh.equals("Nam")) {
-                            rbmale.setChecked(true);
-                        }
-                        if (gioitinh.equals("Nữ")) {
-                            rbfemale.setChecked(true);
-                        }
-
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getApplicationContext(), "fail to load", Toast.LENGTH_SHORT).show();
-            }
-        });
+        title.setText(R.string.editprofile);
+        title.setTextSize(25f);
     }
+
 }

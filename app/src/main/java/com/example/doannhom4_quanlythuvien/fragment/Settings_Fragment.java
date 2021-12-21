@@ -142,7 +142,12 @@ public class Settings_Fragment extends PreferenceFragmentCompat {
                 if (!oldpass.isEmpty() && !newpass.isEmpty()) {
                     if (newpass.length() < 6) {
                         Toast.makeText(getContext(), "mật khẩu phải có ít nhất 6 ký tự", Toast.LENGTH_SHORT).show();
-                    } else {
+                    }
+                    if(oldpass.equals(newpass)){
+                        Toast.makeText(getContext(), "Trùng mật khẩu ", Toast.LENGTH_SHORT).show();
+                    }
+
+                    else {
                         Updatepass(oldpass, newpass);
                     }
                 }

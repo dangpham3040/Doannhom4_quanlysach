@@ -34,5 +34,6 @@ public class Contact extends AppCompatActivity {
         title = findViewById(R.id.title);
         goback = findViewById(R.id.goback);
         title.setText("Contact");
+        title.setTextSize(25f);
     }
 }

@@ -122,4 +122,5 @@ Cuốn sách này mang lại cho tôi rất nhiều nhiều kiến thức hay tr
     <string name="addbook">Add Book</string>
     <string name="Management">Management</string>
     <string name="thongbaodamhky">Sign Up Success</string>
+    <string name="editprofile">Edit Profile</string>
 </resources>

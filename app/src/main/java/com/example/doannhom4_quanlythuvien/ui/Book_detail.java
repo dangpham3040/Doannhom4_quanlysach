@@ -77,6 +77,9 @@ public class Book_detail extends AppCompatActivity {
     }
 
     private void setEvnet() {
+        adapter = new comment_Adapter(getApplicationContext(), R.layout.item_comment, data);
+        gridView.setAdapter(adapter);
+        khoitao();
         add_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,39 +181,25 @@ public class Book_detail extends AppCompatActivity {
         readnow = findViewById(R.id.readnow);
         add_comment = findViewById(R.id.add_comment);
         gridView = findViewById(R.id.list_comment);
+    }
 
-        adapter = new comment_Adapter(getApplicationContext(), R.layout.item_comment, data);
-        gridView.setAdapter(adapter);
-        khoitao();
-        //see more
-        book_describe.setText(chitiet.getDescription());
-        ReadMoreTextView readMoreTextView = new ReadMoreTextView();
-        readMoreTextView.setTextView(book_describe);
-        readMoreTextView.setMaximumLine(10);
-        if (book_describe.getText().length() >350) {
-            readMoreTextView.setCollapseText("See Less");
-            readMoreTextView.setExpandText("See More");
-            readMoreTextView.setColorCode("#e74c3c");
-            readMoreTextView.setReadMore();
-
-        }
-
+    private void khoitao() {
         //gan du lieu
         book_id = chitiet.getId();
         book_title.setText("Title: " + chitiet.getTitle());
         author.setText("Author: " + chitiet.getAuthor());
-
+        book_describe.setText(chitiet.getDescription());
         Picasso.get()
                 .load(chitiet.getCoverPhotoURL())
                 .fit()
                 .placeholder(R.drawable.no_image)
-//                .transform()
                 .into(cover);
         type.setText("Category: " + chitiet.getType());
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         String dateStr = sdf.format(chitiet.getTimestamp());
         date.setText("Date: " + dateStr);
+        //ktra co them vao thu vien chua
         StaticConfig.mLibrary.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -235,11 +224,19 @@ public class Book_detail extends AppCompatActivity {
                 throw error.toException();
             }
         });
+        //see more
+        ReadMoreTextView readMoreTextView = new ReadMoreTextView();
+        readMoreTextView.setTextView(book_describe);
+        readMoreTextView.setMaximumLine(10);
+        if (book_describe.getText().length() >350) {
+            readMoreTextView.setCollapseText("See Less");
+            readMoreTextView.setExpandText("See More");
+            readMoreTextView.setColorCode("#e74c3c");
+            readMoreTextView.setReadMore();
 
-    }
-
-    private void khoitao() {
+        }
         mathuvien = StaticConfig.currentuser + chitiet.getId();
+        //binh luan
         Query xapsepbinhluan = StaticConfig.mComment.child(chitiet.getId()).orderByChild("timestamp");
         xapsepbinhluan.addValueEventListener(new ValueEventListener() {
             @Override

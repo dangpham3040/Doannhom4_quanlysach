@@ -243,7 +243,7 @@ public class Add_book extends AppCompatActivity {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
-            StorageReference ref = StaticConfig.storageReference.child("PDF/" + filePath.getLastPathSegment());
+            StorageReference ref = StaticConfig.storageReference.child("PDF/" + UUID.randomUUID().toString());
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
