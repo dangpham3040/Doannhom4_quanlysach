@@ -126,7 +126,6 @@ public class book_Adapter extends ArrayAdapter implements Filterable {
         long diff = (now.getTime() - before.getTime());
         long differenceDates = diff / (24 * 60 * 60 * 1000);
         //kiểm tra sách đã ra 3 ngày chưa
-
         if (differenceDates < 3) {
             newbook.setVisibility(View.VISIBLE);
         }
