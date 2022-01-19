@@ -170,7 +170,7 @@ public class Library_Fragment extends Fragment {
                         for (int i = 0; i < StaticConfig.ArrayBook.size(); i++) {
                             Book sach = StaticConfig.ArrayBook.get(i);
                             if (library.getBook_id().equals(sach.getId())) {
-                                data.add(sach);
+                                data.add(0,sach);
                             }
                         }
                     }

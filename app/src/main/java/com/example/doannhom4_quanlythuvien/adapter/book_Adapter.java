@@ -1,6 +1,7 @@
 package com.example.doannhom4_quanlythuvien.adapter;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.example.doannhom4_quanlythuvien.R;
 import com.example.doannhom4_quanlythuvien.helpers.StaticConfig;
@@ -25,10 +26,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.nio.file.DirectoryStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class book_Adapter extends ArrayAdapter implements Filterable {
     Context context;
@@ -57,6 +60,7 @@ public class book_Adapter extends ArrayAdapter implements Filterable {
         return this.data.get(data.size() - 1 - position);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -66,6 +70,7 @@ public class book_Adapter extends ArrayAdapter implements Filterable {
         TextView author = convertView.findViewById(R.id.author);
         RatingBar ratingBar = convertView.findViewById(R.id.rating);
         CheckBox checkBox = convertView.findViewById(R.id.checkbox);
+        ImageView newbook = convertView.findViewById(R.id.new_book);
 
         Book sach = data.get(position);
         Picasso.get()
@@ -76,7 +81,7 @@ public class book_Adapter extends ArrayAdapter implements Filterable {
         name.setText(sach.getTitle());
         author.setText(sach.getAuthor());
         ratingBar.setRating(0);
-        if(checkBox!=null){
+        if (checkBox != null) {
             if (StaticConfig.is_del == true) {
                 checkBox.setVisibility(View.VISIBLE);
             }
@@ -91,20 +96,6 @@ public class book_Adapter extends ArrayAdapter implements Filterable {
                 }
             });
         }
-
-
-
-//        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (checkBox.isChecked()) {
-//                    StaticConfig.ArrayCheck.add(sach);
-//                } else {
-//                    StaticConfig.ArrayCheck.remove(sach);
-//                }
-//            }
-//        });
-
         //rating
         StaticConfig.mComment.child(sach.getId()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -127,6 +118,17 @@ public class book_Adapter extends ArrayAdapter implements Filterable {
                 throw error.toException();
             }
         });
+        //ngày đăng sách
+        Date before = new Date(sach.getTimestamp());
+        //ngày hiện tại
+        Date now = new Date();
+        //khoảng cách giữ ngày
+        long diff = (now.getTime() - before.getTime());
+        long differenceDates = diff / (24 * 60 * 60 * 1000);
+        //kiểm tra sách đã ra 3 ngày chưa
+        if (differenceDates < 3) {
+            newbook.setVisibility(View.VISIBLE);
+        }
         return convertView;
     }
 

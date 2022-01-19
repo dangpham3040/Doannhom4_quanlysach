@@ -9,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -30,6 +31,7 @@ public class StaticConfig {
     //timestamp
     public static Date now = new Date();
     public static long timestamp = now.getTime();
+
 
     //array thong ke
     public static ArrayList<Statisticals> ArrayThongke = new ArrayList<>();
